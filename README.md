@@ -1,2 +1,2 @@
 # purvi-portfolio
-Portfolio Developed in React / NextJS
+My Portfolio Developed in React / NextJS
