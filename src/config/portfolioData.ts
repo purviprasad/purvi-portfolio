@@ -5,7 +5,7 @@ export const PORTFOLIO_INFO: Portfolio = {
     createdAt: new Date().toISOString(),
     locale: "en-US",
     url: "https://purvi.sehgaltech.com/",
-    pdf: "/resume.pdf",
+    pdf: "/PURVI_SEHGAL_RESUME.pdf",
   },
   personal: {
     name: "Purvi Sehgal",

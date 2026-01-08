@@ -106,8 +106,9 @@ const PortfolioPage: React.FC = () => {
               <div className="mt-auto">
                 <div className="text-sm font-medium">Resume</div>
                 <a
-                  href="/"
+                  href="/PURVI_SEHGAL_RESUME.pdf"
                   className="block mt-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700"
+                  download
                 >
                   Download PDF
                 </a>
