@@ -1,0 +1,625 @@
+import type { Portfolio, TagColors } from "../types/portfolio";
+
+export const PORTFOLIO_INFO: Portfolio = {
+  meta: {
+    createdAt: new Date().toISOString(),
+    locale: "en-US",
+    url: "link",
+    pdf: "/resume.pdf",
+  },
+  personal: {
+    name: "Purvi Sehgal",
+    title: "Senior Engineer — Full Stack (React & Node)",
+    headline: "React · Redux · Node · Express · JS · SQL",
+    avatar: "./profile.jpg",
+    summary:
+      "Senior Engineer with 5+ years of experience delivering enterprise-grade applications. Over the last 5 years I have focused on building production systems using React and Node JS — building responsive frontends and designing APIs.",
+    contact: {
+      email: "purvisehgal5@gmail.com",
+      phone: "+91 8910 999 195",
+      location: "Dabra, India",
+      website: "link",
+      socials: [
+        {
+          label: "LinkedIn",
+          url: "https://www.linkedin.com/in/purvisehgal/",
+          icon: "SiLinkedin",
+        },
+        {
+          label: "GitHub",
+          url: "https://github.com/purviprasad",
+          icon: "SiGithub",
+        },
+        // {
+        //   label: "Hugging Face",
+        //   url: "link",
+        //   icon: "SiHuggingface",
+        // },
+        // {
+        //   label: "Kaggle",
+        //   url: "link",
+        //   icon: "SiKaggle",
+        //   size: 32,
+        // },
+      ],
+    },
+  },
+  highlights: [
+    "Specialist Programmer L2 at Infosys (Apr 2023 – Present)",
+    "Specialist Programmer at Infosys (Dec 2021 – Apr 2023)",
+    "Digital Specialist Engineer at Infosys (Sep 2020 – Dec 2021)",
+  ],
+  skills: [
+    {
+      title: "Frontend",
+      skills: [
+        {
+          name: "React",
+          level: 95,
+          icon: "SiReact",
+          category: "frontend",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "JavaScript",
+          level: 90,
+          icon: "SiJavascript",
+          category: "frontend",
+          years: 6,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "HTML5",
+          level: 90,
+          icon: "SiHtml5",
+          category: "frontend",
+          years: 6,
+        },
+        {
+          name: "CSS3",
+          level: 88,
+          icon: "SiCss3",
+          category: "frontend",
+          years: 6,
+        },
+        {
+          name: "TypeScript",
+          level: 60,
+          icon: "SiTypescript",
+          category: "frontend",
+          years: 3,
+          note: "Used in production since 2021",
+        },
+        {
+          name: "Ant Design",
+          level: 80,
+          icon: "SiAntdesign",
+          category: "frontend",
+          years: 4,
+          note: "Used in personal projects",
+        },
+        {
+          name: "Tailwind CSS",
+          level: 80,
+          icon: "SiTailwindcss",
+          category: "frontend",
+          years: 2,
+          note: "Used in personal projects",
+        },
+        {
+          name: "Material-UI",
+          level: 80,
+          icon: "SiMaterialui",
+          category: "frontend",
+          years: 2,
+          note: "Used in personal projects",
+        },
+      ],
+    },
+    {
+      title: "Backend",
+      skills: [
+        {
+          name: "Node.js",
+          level: 80,
+          icon: "SiNodedotjs",
+          category: "backend",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "Express.js",
+          level: 75,
+          icon: "SiExpress",
+          category: "backend",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "Python",
+          level: 88,
+          icon: "SiPython",
+          category: "backend",
+          years: 1,
+        },
+      ],
+    },
+    // {
+    //   title: "AI & ML",
+    //   skills: [
+    //     {
+    //       name: "NumPy",
+    //       level: 85,
+    //       icon: "SiNumpy",
+    //       category: "data",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "Pandas",
+    //       level: 85,
+    //       icon: "SiPandas",
+    //       category: "data",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "Scikit-learn",
+    //       level: 80,
+    //       icon: "SiScikitlearn",
+    //       category: "data",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "TensorFlow",
+    //       level: 75,
+    //       icon: "SiTensorflow",
+    //       category: "data",
+    //       years: 2,
+    //       note: "Used in production since 2022",
+    //     },
+    //     {
+    //       name: "PyTorch",
+    //       level: 75,
+    //       icon: "SiPytorch",
+    //       category: "data",
+    //       years: 2,
+    //       note: "Used in production since 2022",
+    //     },
+    //     {
+    //       name: "RAG",
+    //       level: 70,
+    //       category: "data",
+    //       years: 1,
+    //       note: "Built POCs using LangChain and LlamaIndex",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Infrastructure & DevOps",
+    //   skills: [
+    //     {
+    //       name: "Terraform",
+    //       level: 80,
+    //       icon: "SiTerraform",
+    //       category: "devops",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "Bicep",
+    //       level: 70,
+    //       category: "devops",
+    //       years: 2,
+    //       note: "Used in production since 2022",
+    //     },
+    //     {
+    //       name: "AWS",
+    //       level: 78,
+    //       icon: "SiAmazonaws",
+    //       category: "devops",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "Azure",
+    //       level: 78,
+    //       icon: "SiMicrosoftazure",
+    //       category: "devops",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "Docker",
+    //       level: 75,
+    //       icon: "SiDocker",
+    //       category: "devops",
+    //       years: 3,
+    //       note: "Used in production since 2021",
+    //     },
+    //     {
+    //       name: "GitHub Actions",
+    //       level: 75,
+    //       icon: "SiGithubactions",
+    //       category: "devops",
+    //       years: 2,
+    //       note: "Used in production since 2022",
+    //     },
+    //   ],
+    // },
+    {
+      title: "Databases",
+      skills: [
+        {
+          name: "PostgreSQL",
+          level: 80,
+          icon: "SiPostgresql",
+          category: "database",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "MySQL",
+          level: 78,
+          icon: "SiMysql",
+          category: "database",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "MongoDB",
+          level: 78,
+          icon: "SiMongodb",
+          category: "database",
+          years: 2,
+          note: "Used in personal projects",
+        },
+      ],
+    },
+    {
+      title: "Other Tools",
+      skills: [
+        {
+          name: "Git",
+          level: 90,
+          icon: "SiGit",
+          category: "tooling",
+          years: 6,
+          note: "Used in production since 2018",
+        },
+        {
+          name: "GitHub",
+          level: 88,
+          icon: "SiGithub",
+          category: "tooling",
+          years: 6,
+          note: "Used in production since 2018",
+        },
+        {
+          name: "Jira",
+          level: 90,
+          icon: "SiJira",
+          category: "tooling",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "Confluence",
+          level: 90,
+          icon: "SiConfluence",
+          category: "tooling",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
+          name: "VS Code",
+          level: 95,
+          icon: "SiVisualstudiocode",
+          category: "tooling",
+          years: 6,
+          note: "Used in production since 2019",
+        },
+      ],
+    },
+  ],
+  experience: [
+    {
+      id: "infy-SPL2-2023",
+      title: "Specialist Programmer L2 - Apple Inc.",
+      company: "Infosys Ltd.",
+      location: "Remote",
+      date: { start: "2023-04", present: true },
+      //TODO
+      summary:
+        "Leading full-stack efforts around Python-based backends and React frontends for enterprise customers. Driving architecture, mentoring teammates and implementing IaC and cloud deployment practices.",
+      bullets: [
+        "Lead development of microservices using FastAPI and Python for enterprise-scale workloads.",
+        "Design and implement responsive React frontends and component libraries with TypeScript and Tailwind.",
+        "Drive IaC adoption using Terraform and Bicep; implement CI/CD pipelines and deployment automation.",
+        "Mentor engineers, conduct design reviews, and improve code quality and observability.",
+      ],
+      tech: [
+        "React",
+        "Redux",
+        "Node",
+        "Express",
+        "Microservices",
+        "TypeScript",
+        "Postgresql",
+        "AWS",
+        "Ag-grid",
+        "Cron",
+        "Go Lang"
+      ],
+    },
+    {
+      id: "infy-SPL1-2021",
+      title: "Specialist Programmer L1 - Verizon Communications",
+      company: "Infosys Ltd.",
+      location: "Remote",
+      date: { start: "2021-12", end: "2023-04" },
+      summary:
+        "Worked on web and desktop applications, cloud deployment tooling, and multi-cloud automation for Unisys products.",
+      bullets: [
+        "Built desktop and web UI features using React, Electron.js, TypeScript and Node.js.",
+        "Implemented cloud deployment workflows for Azure (ARM) and AWS (CloudFormation).",
+        "Improved code quality and CI pipelines, addressing SonarQube findings and standardizing testing.",
+        "Delivered features around redeployment, resource deletions and automation across cloud providers.",
+      ],
+      tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
+    },
+    {
+      id: "infy-dse-2020",
+      title: "Digital Specialist Engineer - Verizon Communications",
+      company: "Infosys Ltd.",
+      location: "Remote",
+      date: { start: "2020-09", end: "2021-12" },
+      summary:
+        "Worked on UI and backend components for airline/travel solutions and internal tooling.",
+      bullets: [
+        "Developed front-end UIs using Angular and React and integrated with Unisys Design System.",
+        "Built REST APIs using Java (Vert.x) and integrated with NoSQL stores (MongoDB, Couchbase).",
+        "Implemented role-based access with Keycloak and developed data visualization tools.",
+        "Contributed to NDC stabilization, import/export features and product maintenance.",
+      ],
+      tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
+    },
+  ],
+  // projects: [
+  //   {
+  //     id: "learn-algo",
+  //     title: "Learn Algo",
+  //     description:
+  //       "Interactive visualizations that transform abstract concepts into intuitive understanding. Watch sorting, searching, and ML algorithms execute step-by-step.",
+  //     tags: ["Algorithms", "DSA", "ML", "AI", "Visualization", "Next.js"],
+  //     image: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXpqYWFhbnBraWt3ZXhvajZsdjg5andyMGZzY2VibGg3bXE0MWxwayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2PuPWxuLV1FGyh03Ja/giphy.gif",
+  //     href: "https://www.learn-algo.com",
+  //     links: [
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     isUnderDevelopment: false,
+  //   },
+  //   {
+  //     id: "landing-zone-orchestrator",
+  //     title: "Landing Zone Orchestrator",
+  //     description:
+  //       "A production-ready platform that transforms cloud infrastructure provisioning from manual IaC coding to an intuitive, form-driven workflow. Built with React, FastAPI, and MongoDB to generate validated Terraform templates for AWS, Azure, and GCP. Features include schema-driven form builder for VPC, Subnets, IAM, and networking resources, real-time Terraform code generation and validation, JWT-based authentication, MongoDB storage for projects and templates, and multi-cloud support.",
+  //     tags: [
+  //       "Terraform",
+  //       "IaC",
+  //       "React",
+  //       "FastAPI",
+  //       "MongoDB",
+  //       "AWS",
+  //       "Azure",
+  //       "Full Stack",
+  //     ],
+  //     image:
+  //       "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGtuYjY1emtsZmNjMXp1czdrdXR5bXE5ZDJheHVvZjY1azZxYnJieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qzImRjQVb2OUI84mTt/giphy.gif",
+  //     href: "https://orchestrator.next-zen.dev",
+  //     links: [
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     isUnderDevelopment: true,
+  //   },
+  //   {
+  //     id: "diagrammatic",
+  //     title: "Diagrammatic",
+  //     description:
+  //       "Diagrammatic (System Design Playground): A component library and living documentation for a design system.",
+  //     tags: ["System Design", "AI & ML", "React"],
+  //     image:
+  //       "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTFnOGF3d3BodjFvY3NhanY5cnl5bmd4Z243aXB5M3hrOHg3d2tmeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WvzQektcJxs0oDFkHq/giphy.gif",
+  //     href: "https://diagrammatic.next-zen.dev",
+  //     links: [
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "tic-tac-toe-ai",
+  //     title: "Tic Tac Toe AI",
+  //     description: "A minimal Tic-Tac-Toe AI game built with Next.js to understand the Minimax algorithm.",
+  //     tags: ["Next.js", "AI", "Game", "Minimax"],
+  //     image: "link",
+  //     href: "link",
+  //     links: [
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     isUnderDevelopment: false,
+  //   },
+  //   {
+  //     id: "mui-color-wheel",
+  //     title: "MUI Color Wheel",
+  //     description:
+  //       "A Material-UI based color wheel component with real-time color picking.",
+  //     tags: ["React", "Material-UI", "NPM Package", "Storybook"],
+  //     image:
+  //       "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTJxYjhmdTVjam41aWlzczZreGZ2eXc5eThjdDRpMXgxYzVuYTAzMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tWnCyw4rmoFY8CmhLV/giphy.gif",
+  //     href: "https://mui-color-wheel.vercel.app/",
+  //     links: [
+  //       {
+  //         label: "Storybook",
+  //         url: "https://mui-color-wheel.vercel.app/",
+  //         icon: "SiStorybook",
+  //       },
+  //       {
+  //         label: "NPM",
+  //         url: "https://www.npmjs.com/package/mui-color-wheel",
+  //         icon: "SiNpm",
+  //       },
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     isUnderDevelopment: true,
+  //   },
+  //   {
+  //     id: "alochona",
+  //     title: "Alochona",
+  //     description:
+  //       "Alochona is an experimental chatbot hosted on Hugging Face Spaces. It uses OpenAI under the hood for responses. This project was built as a way to explore chatbot UIs, Hugging Face deployment, and integrating OpenAI APIs.",
+  //     image:
+  //       "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmc5dDY1c2ZnOGs0ODF0eDkwbzBvMHZ2ZXJvYml2amRmdzN2dnZueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7AFQj6uviWpwudbOWg/giphy.gif",
+  //     href: "link",
+  //     links: [
+  //       {
+  //         label: "Huggingface",
+  //         url: "link",
+  //         icon: "SiHuggingface",
+  //       },
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     tags: ["Chatbot", "OpenAI", "Hugging Face", "Beginner Project"],
+  //   },
+  //   {
+  //     id: "night-sky",
+  //     title: "Night Skyline",
+  //     description:
+  //       "A breathtaking recreation of the city skyline under a starlit night sky, capturing the serene beauty and glowing atmosphere of the evening.",
+  //     tags: ["React", "CSS"],
+  //     image:
+  //       "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2RjaHAxY3N3enY0d3RldWVpczg2ZTNzMHhsY2dpam0yYnp6bWh2byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P2jddT5c9g9OeHI17p/giphy.gif",
+  //     href: "link",
+  //     links: [
+  //       {
+  //         label: "Watch",
+  //         url: "https://www.loom.com/share/1516014366e34135a67f5dd4e551fec5",
+  //         icon: "FaPlay",
+  //       },
+  //       {
+  //         label: "GitHub",
+  //         url: "link",
+  //         icon: "SiGithub",
+  //       },
+  //     ],
+  //     isUnderDevelopment: true,
+  //   },
+  // ],
+  education: [
+    {
+      degree: "B.Tech in Computer Science Engineering",
+      school: "Haldia Institute of Technology",
+      date: "2016-2020",
+    },
+    {
+      degree: "Higher Secondary",
+      school: "Sri Chaitanya Engineering College",
+      date: "2014-2016",
+    },
+    {
+      degree: "High School",
+      school: "Calcutta Public School",
+      date: "2014",
+    },
+  ],
+  certifications: [
+    {
+      name: "Frontend Developer (React) Certificate",
+      issuer: "HackerRank",
+      date: "2023",
+      url: "https://www.hackerrank.com/certificates/5fd9534d0c13",
+    },
+    {
+      name: "FReact (Basic) Certificate",
+      issuer: "HackerRank",
+      date: "2023",
+      url: "https://www.hackerrank.com/certificates/b5083a2e8c38",
+    },
+    {
+      name: "Introduction to Generative AI",
+      issuer: "Google",
+      date: "2023",
+      url: "https://partner.cloudskillsboost.google/public_profiles/1f34fff7-e0ee-455a-8860-d0e6fb26301d/badges/5342557?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share",
+    },
+    {
+      name: "Introduction to Front-End Development",
+      issuer: "Coursera",
+      date: "2023",
+      url: "https://www.coursera.org/account/accomplishments/verify/33VZVH3XB5WS",
+    },
+  ],
+  extras: {
+    languages: [{ name: "English", level: "Native" }],
+    interests: ["dance", "music"],
+  },
+};
+
+// ---------- SMALL HELPERS ----------
+export const tagColors: TagColors = {
+  React: "bg-blue-100 text-blue-800",
+  CSS: "bg-teal-100 text-teal-800",
+  CSS3: "bg-teal-100 text-teal-800",
+  Tailwind: "bg-teal-100 text-teal-800",
+  Stripe: "bg-purple-100 text-purple-800",
+  "Design System": "bg-yellow-100 text-yellow-800",
+  D3: "bg-amber-100 text-amber-800",
+  Realtime: "bg-green-100 text-green-800",
+  Storybook: "bg-pink-100 text-pink-800",
+  "NPM Package": "bg-red-100 text-red-800",
+  "Material-UI": "bg-indigo-100 text-indigo-800",
+  Chatbot: "bg-violet-100 text-violet-800",
+  OpenAI: "bg-gray-100 text-gray-800",
+  "Hugging Face": "bg-orange-100 text-orange-800",
+  Beginner: "bg-cyan-100 text-cyan-800",
+  "Beginner Project": "bg-cyan-100 text-cyan-800",
+  // Landing Zone Orchestrator tags
+  FastAPI: "bg-teal-500 text-white",
+  MongoDB: "bg-green-600 text-white",
+  Terraform: "bg-purple-600 text-white",
+  IaC: "bg-indigo-500 text-white",
+  AWS: "bg-orange-500 text-white",
+  Azure: "bg-blue-600 text-white",
+  GCP: "bg-red-600 text-white",
+  Algorithms: "bg-blue-500 text-blue-100",
+  DSA: "bg-purple-300 text-purple-900",
+  ML: "bg-blue-200 text-blue-800",
+  AI: "bg-gray-200 text-gray-800",
+  "AI & ML": "bg-amber-100 text-amber-900",
+  Visualization: "bg-orange-100 text-purple-900",
+  "Next.js": "bg-black text-white",
+  "Full Stack": "bg-gradient-to-r from-blue-500 to-purple-600 text-white",
+};

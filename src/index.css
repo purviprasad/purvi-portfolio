@@ -1,0 +1,205 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* --- Theme variables --- */
+:root {
+  /* light theme tokens */
+  --bg: #f8fafc;
+  /* page background */
+  --surface: #ffffff;
+  /* cards, panels */
+  --text: #0f172a;
+  /* main text */
+  --muted: #6b7280;
+  /* secondary text */
+  --border: #e6e9ee;
+  /* subtle borders */
+  --brand: #6366f1;
+  /* primary accent (indigo-500) */
+  --accent: #ec4899;
+  /* secondary accent */
+}
+
+/* dark theme tokens */
+.dark {
+  --bg: #0b1220;
+  --surface: #0f1724;
+  --text: #e6edf3;
+  --muted: #9ca3af;
+  --border: #19232e;
+  --brand: #403aed;
+  --accent: #f472b6;
+}
+
+/* apply defaults so non-Tailwind elements inherit colors */
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* small utilities you can reuse (optional) */
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.border-theme {
+  border-color: var(--border);
+}
+
+/* Global scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  /* light in dark mode */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+
+/* print overrides */
+@media print {
+
+  /* hide elements that should not be printed */
+  header,
+  nav,
+  .no-print,
+  .not-for-print,
+  .ScrollProgressBar,
+  .no-print * {
+    display: none !important;
+  }
+
+  /* ensure the resume fills the page width nicely */
+  #resume-print-area {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* default page margins (use 1cm margins or adjust) */
+  @page {
+    margin: 1cm;
+    size: A4;
+    /* optionally set to portrait A4 */
+  }
+
+  /* avoid page breaks inside sections that should be kept together */
+  #resume-print-area section {
+    page-break-inside: avoid;
+  }
+
+  /* small typography improvements for print */
+  body {
+    -webkit-print-color-adjust: exact;
+    /* preserve colors */
+  }
+
+  /* if you use prose plugin you can force color scheme */
+  .markdown-body {
+    color: #111 !important;
+    background: #fff !important;
+  }
+}
+
+/* hide the on-screen print button in print */
+@media screen {
+  .print-only {
+    display: none;
+  }
+}
+
+@media print {
+  .screen-only {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+}
+
+
+
+/* subtle moving light + brand glow for CTA buttons */
+.btn-light-flare {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* keep effect contained */
+}
+
+/* sweep / sheen */
+.btn-light-flare::before {
+  content: "";
+  position: absolute;
+  left: -120%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 45%, rgba(255, 255, 255, 0.12) 55%, transparent 100%);
+  transform: skewX(-20deg) translateX(0);
+  transition: transform 0.9s cubic-bezier(.2, .9, .2, 1);
+  mix-blend-mode: screen;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* soft brand glow */
+.btn-light-flare::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 220ms ease, opacity 220ms ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* active hover state: sweep + glow */
+.btn-light-flare:hover::before {
+  transform: skewX(-20deg) translateX(260%);
+}
+
+.btn-light-flare:hover::after {
+  /* uses your --brand token; adjust alpha if you want a softer glow */
+  box-shadow: 0 10px 30px -12px var(--brand);
+  opacity: 0.9;
+}
+
+/* focus for keyboard users */
+.btn-light-flare:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--brand) 40%, transparent);
+  outline-offset: 2px;
+}
+
+/* reduce motion respectful */
+@media (prefers-reduced-motion: reduce) {
+
+  .btn-light-flare::before,
+  .btn-light-flare::after {
+    transition: none !important;
+    transform: none !important;
+  }
+}
