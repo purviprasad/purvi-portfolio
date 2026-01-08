@@ -4,7 +4,7 @@ export const PORTFOLIO_INFO: Portfolio = {
   meta: {
     createdAt: new Date().toISOString(),
     locale: "en-US",
-    url: "link",
+    url: "https://purvi.sehgaltech.com/",
     pdf: "/resume.pdf",
   },
   personal: {
@@ -18,7 +18,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       email: "purvisehgal5@gmail.com",
       phone: "+91 8910 999 195",
       location: "Dabra, India",
-      website: "link",
+      website: "https://purvi.sehgaltech.com/",
       socials: [
         {
           label: "LinkedIn",
