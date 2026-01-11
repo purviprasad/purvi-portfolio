@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { FaArrowUp } from "react-icons/fa6";
 import type { Variants } from "framer-motion";
 
 const SHOW_AFTER = 300;
@@ -79,33 +80,22 @@ export const ScrollToTop: React.FC = () => {
     <motion.button
       aria-label="Scroll to top"
       type="button"
-      className="fixed bottom-6 right-6 z-50 focus:outline-none cursor-pointer"
+      className="fixed bottom-6 right-6 z-50 focus:outline-none cursor-pointer group"
       style={{ display: "grid", placeItems: "center" }}
       onClick={onActivate}
       initial="hidden"
       animate={animationState}
       variants={containerVariants}
       custom={distance}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <motion.img
-        src="./hero-up.png"
-        alt=""
-        width={42}
-        height={42}
-        style={{ pointerEvents: "none", display: "block" }}
-        initial={{ y: 0, rotate: 0 }}
-        animate={
-          visible && !flying && !prefersReducedMotion.current
-            ? { y: [0, -3, 0], rotate: [0, -2, 0] }
-            : undefined
-        }
-        transition={
-          visible && !flying && !prefersReducedMotion.current
-            ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
-            : undefined
-        }
-        whileTap={{ scale: 0.95 }}
-      />
+      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 border border-white/20 overflow-hidden">
+        {/* Shiny overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-white/20 pointer-events-none" />
+
+        <FaArrowUp className="w-5 h-5 text-white drop-shadow-md group-hover:-translate-y-0.5 transition-transform duration-300" />
+      </div>
     </motion.button>
   );
 };
