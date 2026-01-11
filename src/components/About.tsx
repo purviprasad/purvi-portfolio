@@ -64,20 +64,20 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         <div className="mt-6 flex gap-3">
           <a
             href="#skills"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--brand)] text-white font-medium"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/50"
             onClick={(e) => onNavClick(e, "#skills")}
           >
             Checkout Skills
           </a>
           <Link
             to="/resume"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-800"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 font-medium transition-all duration-300 hover:bg-gray-50 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/20 hover:-translate-y-0.5"
           >
             See Resume
           </Link>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-800"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 font-medium transition-all duration-300 hover:bg-gray-50 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/20 hover:-translate-y-0.5"
             onClick={(e) => onNavClick(e, "#contact")}
           >
             Get in touch
