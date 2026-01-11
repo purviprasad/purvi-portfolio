@@ -36,7 +36,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="md:col-span-2"
+        className="md:col-span-2 order-2 md:order-1"
       >
         <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--brand)]">
           {text.map((char, i) => (
@@ -89,7 +89,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15 }}
-        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)]"
+        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] order-1 md:order-2"
       >
         <div className="flex flex-col items-center text-center gap-4">
           <motion.div
