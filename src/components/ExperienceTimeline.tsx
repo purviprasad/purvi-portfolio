@@ -20,12 +20,12 @@ export const ExperienceTimeline: React.FC<Props> = ({ items }) => {
                             className={`relative grid grid-cols-1 md:grid-cols-2 gap-8`}
                         >
                             {/* Timeline dot with glowing effect */}
-                            <span className="absolute left-4 top-6 h-4 w-4 rounded-full bg-[var(--brand)] shadow-[0_0_15px_var(--brand)] md:left-1/2 md:-translate-x-1/2 z-10" />
+                            <span className="absolute left-4 top-6 h-4 w-4 rounded-full bg-[var(--brand)] shadow-[0_0_15px_var(--brand)] -translate-x-1/2 md:left-1/2 z-10" />
 
                             {/* Card - Adaptive Glass/Solid */}
                             <div
-                                className={`p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 group
-                  ${isLeft ? "md:col-start-1 md:text-right md:ml-auto" : "md:col-start-2"}
+                                className={`ml-12 p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 group
+                  ${isLeft ? "md:col-start-1 md:text-right md:ml-auto" : "md:col-start-2 md:ml-0"}
                 `}
                             >
                                 <div className="text-sm font-medium text-[var(--brand)] uppercase tracking-wide mb-2 opacity-80">
