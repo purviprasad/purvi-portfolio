@@ -49,7 +49,7 @@ export const SkillsList: React.FC<{
 
   // collapse sizing
   const rowHeight = 140;
-  const maxRowsCollapsed = 3;
+  const maxRowsCollapsed = 2.5;
   const collapsedPx = rowHeight * maxRowsCollapsed;
   const maxHeight = `${collapsedPx}px`;
   const totalSkillCount = skills.flatMap((g) => g.skills ?? []).length;
@@ -94,8 +94,8 @@ export const SkillsList: React.FC<{
           }}
           aria-pressed={selectedTitles.includes("all")}
           className={`px-3 py-1 rounded-full text-sm border transition select-none ${selectedTitles.includes("all")
-              ? "bg-[var(--brand)] text-white border-[var(--brand)]"
-              : "bg-[var(--surface)] text-[var(--text)] border-[var(--border)] hover:bg-[var(--border)]/30"
+            ? "bg-[var(--brand)] text-white border-[var(--brand)]"
+            : "bg-[var(--surface)] text-[var(--text)] border-[var(--border)] hover:bg-[var(--border)]/30"
             }`}
         >
           All ({getCount("all")})
@@ -115,8 +115,8 @@ export const SkillsList: React.FC<{
               }}
               aria-pressed={active}
               className={`px-3 py-1 rounded-full text-sm border transition select-none ${active
-                  ? "bg-[var(--brand)] text-white border-[var(--brand)]"
-                  : "bg-[var(--surface)] text-[var(--text)] border-[var(--border)] hover:bg-[var(--border)]/30"
+                ? "bg-[var(--brand)] text-white border-[var(--brand)]"
+                : "bg-[var(--surface)] text-[var(--text)] border-[var(--border)] hover:bg-[var(--border)]/30"
                 }`}
             >
               {t} ({getCount(t)})
@@ -156,7 +156,7 @@ export const SkillsList: React.FC<{
                   {groupTitle}
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
                   {groupSkills.map((s) => {
                     const Icon = SiIcons[s.icon as keyof typeof SiIcons];
                     return (
@@ -169,7 +169,7 @@ export const SkillsList: React.FC<{
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                         <div className="relative z-10 flex flex-col h-full justify-between gap-4">
-                          <div className="flex items-start justify-between">
+                          <div className="flex items-start justify-between gap-4">
                             <div className="flex flex-col">
                               <div className="font-semibold text-[var(--text)] text-base group-hover:text-[var(--brand)] transition-colors">
                                 {s.name}
@@ -182,7 +182,7 @@ export const SkillsList: React.FC<{
                             </div>
 
                             {Icon && (
-                              <div className="p-2 rounded-lg bg-[var(--surface)] text-[var(--muted)] group-hover:text-[var(--brand)] group-hover:bg-white transition-colors shadow-sm">
+                              <div className="p-2 rounded-lg bg-[var(--surface)] text-[var(--muted)] group-hover:text-[var(--brand)] group-hover:bg-white transition-colors shadow-sm flex-shrink-0">
                                 <Icon className="w-6 h-6" />
                               </div>
                             )}
