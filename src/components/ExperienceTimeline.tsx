@@ -19,42 +19,42 @@ export const ExperienceTimeline: React.FC<Props> = ({ items }) => {
                             key={index}
                             className={`relative grid grid-cols-1 md:grid-cols-2 gap-8`}
                         >
-                            {/* Timeline dot */}
-                            <span className="absolute left-4 top-6 h-3 w-3 rounded-full bg-[var(--brand)] md:left-1/2 md:-translate-x-1/2" />
+                            {/* Timeline dot with glowing effect */}
+                            <span className="absolute left-4 top-6 h-4 w-4 rounded-full bg-[var(--brand)] shadow-[0_0_15px_var(--brand)] md:left-1/2 md:-translate-x-1/2 z-10" />
 
-                            {/* Card */}
+                            {/* Card - Adaptive Glass/Solid */}
                             <div
-                                className={`p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)]
+                                className={`p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 group
                   ${isLeft ? "md:col-start-1 md:text-right md:ml-auto" : "md:col-start-2"}
                 `}
                             >
-                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                                <div className="text-sm font-medium text-[var(--brand)] uppercase tracking-wide mb-2 opacity-80">
                                     {item.period}
                                 </div>
 
-                                <h3 className="mt-1 text-lg font-semibold">
+                                <h3 className="text-xl font-bold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
                                     {item.role}
                                 </h3>
 
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
+                                <div className="text-sm font-medium text-[var(--muted)] mt-1">
                                     {item.company}
-                                    {item.location && ` • ${item.location}`}
+                                    {item.location && <span className="opacity-75"> • {item.location}</span>}
                                 </div>
 
-                                <ul className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <ul className={`mt-4 space-y-2 text-sm text-[var(--text)]/80 leading-relaxed ${isLeft ? "md:ml-auto" : ""}`}>
                                     {item.description.map((point, i) => (
-                                        <li key={i} className="leading-relaxed">
-                                            • {point}
+                                        <li key={i} className="flex gap-2">
+                                            <span className="opacity-50">•</span> {point}
                                         </li>
                                     ))}
                                 </ul>
 
                                 {item.tech && (
-                                    <div className="mt-4 flex flex-wrap gap-2">
+                                    <div className={`mt-5 flex flex-wrap gap-2 ${isLeft ? "md:justify-end" : ""}`}>
                                         {item.tech.map(t => (
                                             <span
                                                 key={t}
-                                                className="text-xs px-2 py-1 rounded-md border border-[var(--border)]"
+                                                className="text-xs font-medium px-2.5 py-1 rounded-md bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20"
                                             >
                                                 {t}
                                             </span>
