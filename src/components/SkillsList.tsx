@@ -49,7 +49,7 @@ export const SkillsList: React.FC<{
 
   // collapse sizing
   const rowHeight = 140;
-  const maxRowsCollapsed = 2.5;
+  const maxRowsCollapsed = 2.6;
   const collapsedPx = rowHeight * maxRowsCollapsed;
   const maxHeight = `${collapsedPx}px`;
   const totalSkillCount = skills.flatMap((g) => g.skills ?? []).length;
@@ -163,7 +163,7 @@ export const SkillsList: React.FC<{
                       <motion.div
                         key={s.name}
                         whileHover={{ y: -8, scale: 1.02 }}
-                        className="group relative p-5 rounded-2xl bg-white/5 dark:bg-white/5 backdrop-blur-md border border-white/10 dark:border-white/5 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
+                        className="group relative p-5 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
                       >
                         {/* Hover Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
