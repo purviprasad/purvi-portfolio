@@ -72,6 +72,13 @@ body {
 
 
 
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* print overrides */
 @media print {
 
