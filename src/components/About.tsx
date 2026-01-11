@@ -92,17 +92,31 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)]"
       >
         <div className="flex flex-col items-center text-center gap-4">
-          <div className="w-32 h-32 rounded-full bg-gradient-to-br from-indigo-400 to-pink-400 flex items-center justify-center text-4xl font-bold text-white">
-            {personal.avatar ? (
-              <img
-                className="rounded-full"
-                src={personal.avatar}
-                alt="profile"
-              />
-            ) : (
-              personal.name?.split(" ")[0]?.[0]
-            )}
-          </div>
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="relative"
+          >
+            <div className="w-72 h-72 rounded-full p-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl shadow-indigo-500/20">
+              <div className="w-full h-full rounded-full bg-[var(--surface)] p-1 overflow-hidden flex items-center justify-center">
+                {personal.avatar ? (
+                  <img
+                    className="w-full h-full object-cover rounded-full"
+                    src={personal.avatar}
+                    alt="profile"
+                  />
+                ) : (
+                  <span className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-pink-500">
+                    {personal.name?.split(" ")[0]?.[0]}
+                  </span>
+                )}
+              </div>
+            </div>
+          </motion.div>
           <div className="font-semibold">{personal.name}</div>
           <div className="text-sm text-gray-500 dark:text-gray-400">
             {personal.title}
