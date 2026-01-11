@@ -1,4 +1,3 @@
-// Header.tsx
 import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -8,16 +7,18 @@ import {
   animate,
   useMotionTemplate,
 } from "framer-motion";
-import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
+import { PiSunDuotone, PiMoonDuotone, PiSnowflakeDuotone, PiCloudDuotone } from "react-icons/pi";
 import { useTheme } from "../../context/ThemeContext";
 import { PORTFOLIO_INFO } from "../../config/portfolioData";
 
 type NavLink = { href: string; label: string };
 
-export const Header: React.FC<{ links?: NavLink[]; onTryCLI?: () => void }> = ({
-  links = [],
-  onTryCLI,
-}) => {
+export const Header: React.FC<{
+  links?: NavLink[];
+  onTryCLI?: () => void;
+  isSnowEnabled?: boolean;
+  onToggleSnow?: () => void;
+}> = ({ links = [], onTryCLI, isSnowEnabled, onToggleSnow }) => {
   const { dark, toggle } = useTheme();
   const headerRef = useRef<HTMLElement | null>(null);
 
@@ -153,6 +154,21 @@ export const Header: React.FC<{ links?: NavLink[]; onTryCLI?: () => void }> = ({
           >
             Try CLI
           </button>
+
+          {onToggleSnow && (
+            <button
+              onClick={onToggleSnow}
+              className="p-2 rounded-full border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 transition cursor-pointer text-[var(--brand)]"
+              aria-label="Toggle snow effect"
+              title={isSnowEnabled ? "Turn off snow" : "Turn on snow"}
+            >
+              {isSnowEnabled ? (
+                <PiSnowflakeDuotone size={22} />
+              ) : (
+                <PiCloudDuotone size={22} className="opacity-50" />
+              )}
+            </button>
+          )}
 
           <button
             onClick={toggle}

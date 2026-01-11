@@ -1,6 +1,6 @@
 // PortfolioPage.tsx
 import React, { useState } from "react";
-import { ThemeProvider } from "../components/ThemeProvider";
+// import { ThemeProvider } from "../components/ThemeProvider"; // Removed (lifted to App)
 import { Header } from "../components/shared/Header";
 import { ProjectsGrid } from "../components/ProjectsGrid";
 import { SkillsList } from "../components/SkillsList";
@@ -17,12 +17,17 @@ import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
 
 
-const PortfolioPage: React.FC = () => {
+interface PortfolioPageProps {
+  isSnowEnabled?: boolean;
+  onToggleSnow?: () => void;
+}
+
+const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSnow }) => {
   const [selected, setSelected] = useState<Project | null>(null);
   const [showCLI, setShowCLI] = useState(false);
 
   return (
-    <ThemeProvider>
+    <>
       <ScrollProgressBar />
       <Header
         links={[
@@ -33,6 +38,8 @@ const PortfolioPage: React.FC = () => {
           { href: "#contact", label: "Contact" },
         ]}
         onTryCLI={() => setShowCLI(true)}
+        isSnowEnabled={isSnowEnabled}
+        onToggleSnow={onToggleSnow}
       />
       {/* CLI panel (docked / overlay) */}
       <CLIResume open={showCLI} onClose={() => setShowCLI(false)} />
@@ -125,7 +132,7 @@ const PortfolioPage: React.FC = () => {
         open={!!selected}
         onClose={() => setSelected(null)}
       />
-    </ThemeProvider>
+    </>
   );
 };
 
