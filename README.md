@@ -1,4 +1,4 @@
-🔗 **Live Demo**: [LINK](LINK)
+🔗 **Live Demo**: [https://purvi.sehgaltech.com/](https://purvi.sehgaltech.com/)
 
 ## 📸 Preview
 
