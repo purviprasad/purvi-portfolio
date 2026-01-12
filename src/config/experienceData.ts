@@ -14,9 +14,9 @@ export const EXPERIENCE: ExperienceItem[] = [
         period: "Apr 2023 — Present",
         location: "Remote",
         description: [
-            "Led frontend architecture for large React applications",
-            "Built reusable component systems with Tailwind and TypeScript",
-            "Worked closely with backend teams on API design and performance",
+            "Led end-to-end delivery of a project from inception to production within a 4-member team.",
+            "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, reducing memory usage by 80%+ (12 GB → 6 GB).",
+            "Owned backend & frontend architecture, database design, and client collaboration; consistently recognized for efficient planning, optimized code, and strong stakeholder feedback.",
         ],
         tech: [
             "React",
@@ -45,9 +45,9 @@ export const EXPERIENCE: ExperienceItem[] = [
         period: "Dec 2021 — Apr 2023",
         location: "Remote",
         description: [
-            "Developed dashboards and admin tools",
-            "Integrated backend APIs and handled auth flows",
-            "Improved performance and accessibility",
+            "Independently built and delivered 2 POCs for Verizon Communications.",
+            "Migrated a legacy codebase to Micro Frontend architecture using Module Federation, improving modularity and scalability.",
+            "Developed and maintained high-quality MERN stack applications for Verizon, resulting in a 20% increase in user engagement.",
         ],
         tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "Cron", "MySQL", "PostgreSQL", "Jenkins", "Splunk", "Postman", "GitHub", "VS Code"],
     },
@@ -57,10 +57,8 @@ export const EXPERIENCE: ExperienceItem[] = [
         period: "Sep 2020 — Dec 2021",
         location: "Remote",
         description: [
-            "Developed front-end UIs using Angular and React and integrated with Unisys Design System.",
-            "Built REST APIs using Java (Vert.x) and integrated with NoSQL stores (MongoDB, Couchbase).",
-            "Implemented role-based access with Keycloak and developed data visualization tools.",
-            "Contributed to NDC stabilization, import/export features and product maintenance.",
+            "Collaborated with cross-functional teams to gather requirements, provide technical expertise, and implement robust solutions.",
+            "Played a key role in the successful and seamless delivery of the project in the Telecommunication domain.",
         ],
         tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "Cron", "MySQL", "PostgreSQL", "Jenkins", "Splunk", "Postman", "GitHub", "VS Code", "REST APIs",],
     },

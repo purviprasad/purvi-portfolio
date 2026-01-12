@@ -620,7 +620,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       url: "https://www.hackerrank.com/certificates/5fd9534d0c13",
     },
     {
-      name: "FReact (Basic) Certificate",
+      name: "React (Basic) Certificate",
       issuer: "HackerRank",
       date: "2023",
       url: "https://www.hackerrank.com/certificates/b5083a2e8c38",
