@@ -9,8 +9,8 @@ export type ExperienceItem = {
 
 export const EXPERIENCE: ExperienceItem[] = [
     {
-        role: "Specialist Programmer L2",
-        company: "Infosys Ltd. - Apple Inc.",
+        role: "Specialist Programmer L2 - Apple Inc.",
+        company: "Infosys Ltd.",
         period: "Apr 2023 — Present",
         location: "Remote",
         description: [

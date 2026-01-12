@@ -1,6 +1,7 @@
 import { animate, motion } from "framer-motion";
 import type { Personal } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
+import * as VscIcons from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
@@ -123,7 +124,9 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
           </div>
           <div className="mt-3 flex gap-5 text-[var(--muted)]">
             {personal?.contact?.socials?.map((social, index) => {
-              const Icon = SiIcons[social.icon as keyof typeof SiIcons];
+              const Icon =
+                (SiIcons[social.icon as keyof typeof SiIcons] as React.ElementType) ||
+                (VscIcons[social.icon as keyof typeof VscIcons] as React.ElementType);
               return (
                 <a
                   key={social.label + index}

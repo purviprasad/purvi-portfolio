@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { SkillGroup } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
+import * as VscIcons from "react-icons/vsc";
 import { SkillCircle } from "./SkillCircle";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa6";
 
@@ -49,7 +50,7 @@ export const SkillsList: React.FC<{
 
   // collapse sizing
   const rowHeight = 140;
-  const maxRowsCollapsed = 2.6;
+  const maxRowsCollapsed = 2.7;
   const collapsedPx = rowHeight * maxRowsCollapsed;
   const maxHeight = `${collapsedPx}px`;
   const totalSkillCount = skills.flatMap((g) => g.skills ?? []).length;
@@ -158,7 +159,9 @@ export const SkillsList: React.FC<{
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
                   {groupSkills.map((s) => {
-                    const Icon = SiIcons[s.icon as keyof typeof SiIcons];
+                    const Icon =
+                      (SiIcons[s.icon as keyof typeof SiIcons] as React.ElementType) ||
+                      (VscIcons[s.icon as keyof typeof VscIcons] as React.ElementType);
                     return (
                       <motion.div
                         key={s.name}

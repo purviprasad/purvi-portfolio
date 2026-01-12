@@ -5,6 +5,7 @@ import { tagColors } from "../config/portfolioData";
 import type { Project } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
 import * as FaIcons from "react-icons/fa";
+import * as VscIcons from "react-icons/vsc";
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
 
 export const ProjectCard: React.FC<{
@@ -85,8 +86,9 @@ export const ProjectCard: React.FC<{
               project.links.length > 0 &&
               project.links.map((link) => {
                 const Icon =
-                  SiIcons[link.icon as keyof typeof SiIcons] ??
-                  FaIcons[link.icon as keyof typeof FaIcons];
+                  (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
+                  (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
+                  (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType);
                 return (
                   <a
                     key={link.label}
@@ -108,9 +110,8 @@ export const ProjectCard: React.FC<{
             {visibleTags?.map((t) => (
               <span
                 key={t}
-                className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                  tagColors[t] || "bg-gray-100 text-gray-800"
-                }`}
+                className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-gray-100 text-gray-800"
+                  }`}
               >
                 {t}
               </span>

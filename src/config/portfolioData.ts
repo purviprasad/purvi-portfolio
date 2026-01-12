@@ -62,6 +62,14 @@ export const PORTFOLIO_INFO: Portfolio = {
           note: "Used in production since 2020",
         },
         {
+          name: "Redux",
+          level: 95,
+          icon: "SiRedux",
+          category: "frontend",
+          years: 5,
+          note: "Used in production since 2020",
+        },
+        {
           name: "JavaScript",
           level: 90,
           icon: "SiJavascript",
@@ -92,6 +100,14 @@ export const PORTFOLIO_INFO: Portfolio = {
           note: "Used in production since 2021",
         },
         {
+          name: "Redux Toolkit",
+          level: 70,
+          icon: "SiRedux",
+          category: "frontend",
+          years: 3,
+          note: "Used in production since 2020",
+        },
+        {
           name: "Ant Design",
           level: 80,
           icon: "SiAntdesign",
@@ -110,7 +126,7 @@ export const PORTFOLIO_INFO: Portfolio = {
         {
           name: "Material-UI",
           level: 80,
-          icon: "SiMaterialui",
+          icon: "SiMui",
           category: "frontend",
           years: 2,
           note: "Used in personal projects",
@@ -254,7 +270,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       skills: [
         {
           name: "PostgreSQL",
-          level: 80,
+          level: 90,
           icon: "SiPostgresql",
           category: "database",
           years: 5,
@@ -316,7 +332,7 @@ export const PORTFOLIO_INFO: Portfolio = {
         {
           name: "VS Code",
           level: 95,
-          icon: "SiVisualstudiocode",
+          icon: "VscVscode",
           category: "tooling",
           years: 6,
           note: "Used in production since 2019",

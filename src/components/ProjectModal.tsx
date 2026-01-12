@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as SiIcons from "react-icons/si";
 import * as FaIcons from "react-icons/fa";
+import * as VscIcons from "react-icons/vsc";
 import remarkGfm from "remark-gfm";
 import type { Project } from "../types/portfolio";
 import { tagColors } from "../config/portfolioData";
@@ -144,11 +145,10 @@ export const ProjectModal: React.FC<{
                 <div className="flex border-b border-[var(--border)] mb-2">
                   <button
                     onClick={() => setActiveTab("details")}
-                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${
-                      activeTab === "details"
+                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "details"
                         ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
                         : "text-[var(--muted)] hover:text-[var(--text)]"
-                    }`}
+                      }`}
                   >
                     Details
                   </button>
@@ -158,11 +158,10 @@ export const ProjectModal: React.FC<{
                       setIframeLoaded(true);
                       setIframeReady(false);
                     }}
-                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${
-                      activeTab === "playground"
+                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "playground"
                         ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
                         : "text-[var(--muted)] hover:text-[var(--text)]"
-                    }`}
+                      }`}
                   >
                     Playground
                   </button>
@@ -208,8 +207,9 @@ export const ProjectModal: React.FC<{
                           )}
                           {project.links.map((link) => {
                             const Icon =
-                              SiIcons[link.icon as keyof typeof SiIcons] ??
-                              FaIcons[link.icon as keyof typeof FaIcons];
+                              (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
+                              (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
+                              (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType);
                             return (
                               <a
                                 key={link.label}
@@ -231,9 +231,8 @@ export const ProjectModal: React.FC<{
                         {project.tags?.map((t) => (
                           <span
                             key={t}
-                            className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                              tagColors[t] || "bg-gray-100 text-gray-800"
-                            }`}
+                            className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-gray-100 text-gray-800"
+                              }`}
                           >
                             {t}
                           </span>
