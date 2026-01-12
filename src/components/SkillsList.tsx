@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import type { SkillGroup } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
 import * as VscIcons from "react-icons/vsc";
+import * as Fa6Icons from "react-icons/fa6";
 import { SkillCircle } from "./SkillCircle";
-import { FaChevronUp, FaChevronDown } from "react-icons/fa6";
 
 export const SkillsList: React.FC<{
   skills?: SkillGroup[];
@@ -161,7 +161,8 @@ export const SkillsList: React.FC<{
                   {groupSkills.map((s) => {
                     const Icon =
                       (SiIcons[s.icon as keyof typeof SiIcons] as React.ElementType) ||
-                      (VscIcons[s.icon as keyof typeof VscIcons] as React.ElementType);
+                      (VscIcons[s.icon as keyof typeof VscIcons] as React.ElementType) ||
+                      (Fa6Icons[s.icon as keyof typeof Fa6Icons] as React.ElementType);
                     return (
                       <motion.div
                         key={s.name}
@@ -240,7 +241,7 @@ export const SkillsList: React.FC<{
             className="flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 text-[var(--text)] transition"
             aria-expanded={expanded}
           >
-            {expanded ? <FaChevronUp size={16} /> : <FaChevronDown size={16} />}
+            {expanded ? <Fa6Icons.FaChevronUp size={16} /> : <Fa6Icons.FaChevronDown size={16} />}
             <span className="text-sm">
               {expanded ? "Show less" : "Show more"}
             </span>

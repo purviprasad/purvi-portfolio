@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as SiIcons from "react-icons/si";
 import * as FaIcons from "react-icons/fa";
 import * as VscIcons from "react-icons/vsc";
+import * as Fa6Icons from "react-icons/fa6";
 import remarkGfm from "remark-gfm";
 import type { Project } from "../types/portfolio";
 import { tagColors } from "../config/portfolioData";
@@ -146,8 +147,8 @@ export const ProjectModal: React.FC<{
                   <button
                     onClick={() => setActiveTab("details")}
                     className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "details"
-                        ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
-                        : "text-[var(--muted)] hover:text-[var(--text)]"
+                      ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
+                      : "text-[var(--muted)] hover:text-[var(--text)]"
                       }`}
                   >
                     Details
@@ -159,8 +160,8 @@ export const ProjectModal: React.FC<{
                       setIframeReady(false);
                     }}
                     className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "playground"
-                        ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
-                        : "text-[var(--muted)] hover:text-[var(--text)]"
+                      ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
+                      : "text-[var(--muted)] hover:text-[var(--text)]"
                       }`}
                   >
                     Playground
@@ -209,7 +210,8 @@ export const ProjectModal: React.FC<{
                             const Icon =
                               (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
                               (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
-                              (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType);
+                              (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
+                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
                             return (
                               <a
                                 key={link.label}

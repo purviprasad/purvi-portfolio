@@ -26,11 +26,17 @@ export const EXPERIENCE: ExperienceItem[] = [
             "Express",
             "Microservices",
             "TypeScript",
-            "Postgresql",
+            "PostgreSQL",
             "AWS",
             "Ag-grid",
             "Cron",
-            "Go Lang"
+            "Go Lang",
+            "Jenkins",
+            "Splunk",
+            "Miro",
+            "Postman",
+            "GitHub",
+            "VS Code",
         ],
     },
     {
@@ -43,7 +49,7 @@ export const EXPERIENCE: ExperienceItem[] = [
             "Integrated backend APIs and handled auth flows",
             "Improved performance and accessibility",
         ],
-        tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
+        tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "Cron", "MySQL", "PostgreSQL", "Jenkins", "Splunk", "Postman", "GitHub", "VS Code"],
     },
     {
         role: "Digital Specialist Engineer - Verizon Communications",
@@ -56,6 +62,6 @@ export const EXPERIENCE: ExperienceItem[] = [
             "Implemented role-based access with Keycloak and developed data visualization tools.",
             "Contributed to NDC stabilization, import/export features and product maintenance.",
         ],
-        tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
+        tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "Cron", "MySQL", "PostgreSQL", "Jenkins", "Splunk", "Postman", "GitHub", "VS Code", "REST APIs",],
     },
 ];

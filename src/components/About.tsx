@@ -2,6 +2,7 @@ import { animate, motion } from "framer-motion";
 import type { Personal } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
 import * as VscIcons from "react-icons/vsc";
+import * as Fa6Icons from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
@@ -126,7 +127,8 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
             {personal?.contact?.socials?.map((social, index) => {
               const Icon =
                 (SiIcons[social.icon as keyof typeof SiIcons] as React.ElementType) ||
-                (VscIcons[social.icon as keyof typeof VscIcons] as React.ElementType);
+                (VscIcons[social.icon as keyof typeof VscIcons] as React.ElementType) ||
+                (Fa6Icons[social.icon as keyof typeof Fa6Icons] as React.ElementType);
               return (
                 <a
                   key={social.label + index}

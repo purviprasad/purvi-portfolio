@@ -6,6 +6,7 @@ import type { Project } from "../types/portfolio";
 import * as SiIcons from "react-icons/si";
 import * as FaIcons from "react-icons/fa";
 import * as VscIcons from "react-icons/vsc";
+import * as Fa6Icons from "react-icons/fa6";
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
 
 export const ProjectCard: React.FC<{
@@ -88,7 +89,8 @@ export const ProjectCard: React.FC<{
                 const Icon =
                   (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
                   (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
-                  (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType);
+                  (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
+                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
                 return (
                   <a
                     key={link.label}
