@@ -88,6 +88,12 @@ export type Project = {
   date?: DateRange | string;
   featured?: boolean;
   isUnderDevelopment?: boolean;
+  domain?: string;
+  createdFor?: string;
+  credentials?: {
+    username?: string;
+    password?: string;
+  };
 };
 
 export type Role = {

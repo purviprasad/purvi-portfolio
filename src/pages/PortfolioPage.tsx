@@ -33,8 +33,8 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
       <Header
         links={[
           { href: "#about", label: "About" },
-          // { href: "#projects", label: "Projects" },
           { href: "#experience", label: "Experience" },
+          { href: "#projects", label: "Projects" },
           { href: "#skills", label: "Skills" },
           { href: "#awards", label: "Awards" },
           { href: "#contact", label: "Contact" },
@@ -54,15 +54,6 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           <About personal={PORTFOLIO_INFO.personal} />
         </section>
 
-        {/* <section id="projects" className="py-8">
-          <h2 className="text-2xl font-semibold text-[var(--brand)]">
-            Projects
-          </h2>
-          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Selected work — click a card for details.
-          </p>
-          <ProjectsGrid projects={PORTFOLIO_INFO.projects} onOpen={setSelected} />
-        </section> */}
         <section id="experience" className="py-8">
           <h2 className="text-2xl font-semibold text-[var(--brand)]">
             Experience
@@ -72,6 +63,16 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </p>
 
           <ExperienceTimeline items={EXPERIENCE} />
+        </section>
+
+        <section id="projects" className="py-8">
+          <h2 className="text-2xl font-semibold text-[var(--brand)]">
+            Projects
+          </h2>
+          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Selected work — click a card for details.
+          </p>
+          <ProjectsGrid projects={PORTFOLIO_INFO.projects} onOpen={setSelected} />
         </section>
 
         <section id="skills" className="py-8">
