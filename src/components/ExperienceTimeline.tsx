@@ -75,7 +75,7 @@ const ExperienceCard: React.FC<{ item: ExperienceItem; isLeft: boolean }> = ({ i
                 </AnimatePresence>
 
                 {!isExpanded && (
-                    <div className={`mt-2 text-xs font-semibold text-[var(--brand)] opacity-60 flex items-center gap-1 ${isLeft ? "justify-end" : "justify-start"}`}>
+                    <div className={`mt-2 text-xs font-semibold text-[var(--brand)] opacity-60 w-full ${isLeft ? "text-right md:text-left" : "text-right"}`}>
                         Click to see more
                     </div>
                 )}
