@@ -643,19 +643,19 @@ export const PORTFOLIO_INFO: Portfolio = {
       name: "RISE Insta Award",
       issuer: "Apple Inc.",
       date: "Dec 2025",
-      associatedWith: "Infosys",
+      associatedWith: "Infosys Ltd.",
     },
     {
       name: "RISE Glory Award",
       issuer: "Verizon Communications",
       date: "Feb 2022",
-      associatedWith: "Infosys",
+      associatedWith: "Infosys Ltd.",
     },
     {
       name: "RISE Insta Award",
-      issuer: "Infosys Limited",
+      issuer: "Verizon Communications",
       date: "Jun 2021",
-      associatedWith: "Infosys",
+      associatedWith: "Infosys Ltd.",
     },
   ],
   extras: {
