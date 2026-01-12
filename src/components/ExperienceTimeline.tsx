@@ -23,7 +23,7 @@ const ExperienceCard: React.FC<{ item: ExperienceItem; isLeft: boolean }> = ({ i
         `}
             >
                 {/* Expand Indicator */}
-                <div className={`absolute top-4 ${isLeft ? "left-4" : "right-4"} text-[var(--muted)] opacity-40 group-hover:opacity-100 transition-opacity`}>
+                <div className={`absolute top-4 ${isLeft ? "right-4 md:left-4 md:right-auto" : "right-4"} text-[var(--muted)] opacity-40 group-hover:opacity-100 transition-opacity`}>
                     {isExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
                 </div>
 
