@@ -449,7 +449,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       title: "FinMate – Your One Stop Finance Buddy",
       description:
         "FinMate empowers users to track expenses, manage bills, plan and track savings, and gain insights into their finances. Built to address modern financial challenges with powerful tracking and visualization tools.",
-      tags: ["React", "Node.js", "Express", "MongoDB", "Chart.js", "Finance"],
+      tags: ["React", "Node.js", "Express", "MySQL", "Chart.js", "Finance"],
       image: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGtuYjY1emtsZmNjMXp1czdrdXR5bXE5ZDJheHVvZjY1azZxYnJieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qzImRjQVb2OUI84mTt/giphy.gif",
       href: "https://finmate.sehgaltech.com/",
       domain: "Finance",
@@ -471,12 +471,18 @@ export const PORTFOLIO_INFO: Portfolio = {
       id: "skr-payroll",
       title: "SKR (Sant Kanwar Ram Higher Secondary School)",
       description:
-        "A centralized platform for administrators and HR personnel to handle automatic salary calculations, employee records, and payroll management. Simplifies complex tax and allowance calculations within the education sector.",
+        "A centralized platform for administrators and HR personnel to handle automatic salary calculations, employee records, and payroll management. Simplifies complex tax and allowance calculations within the education sector. It simplifies the complex task of managing salary structures, allowances, deductions, and tax calculations, ensuring accuracy and compliance.",
       tags: ["React", "Custom CSS", "Payroll", "HRMS", "Education"],
       image: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXpqYWFhbnBraWt3ZXhvajZsdjg5andyMGZzY2VibGg3bXE0MWxwayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2PuPWxuLV1FGyh03Ja/giphy.gif",
       domain: "Education",
       createdFor: "Sant Kanwar Ram High School, Dabra",
-      links: [],
+      links: [
+        {
+          label: "GitHub",
+          url: "https://github.com/purviprasad/skr_frontend",
+          icon: "FaGithub",
+        },
+      ],
       isUnderDevelopment: false,
     }
   ],

@@ -188,10 +188,29 @@ export const ProjectModal: React.FC<{
                           className="rounded-lg border border-[var(--border)] mb-4 w-full h-auto object-cover max-h-60"
                         />
                       )}
+                      {/* Metadata */}
+                      {(project.domain || project.createdFor) && (
+                        <div className="flex flex-wrap gap-4 mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--brand)]">
+                          {project.domain && (
+                            <div className="flex flex-col gap-0.5">
+                              <span className="opacity-50 text-[10px]">Domain</span>
+                              <span>{project.domain}</span>
+                            </div>
+                          )}
+                          {project.createdFor && (
+                            <div className="flex flex-col gap-0.5">
+                              <span className="opacity-50 text-[10px]">Created For</span>
+                              <span>{project.createdFor}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {/* Description */}
-                      <p className="text-sm text-[var(--text)] mb-4">
+                      <p className="text-sm text-[var(--text)] mb-4 leading-relaxed">
                         {project.description}
                       </p>
+
 
                       {/* Links */}
                       {project.links && project.links.length > 0 && (
@@ -240,6 +259,56 @@ export const ProjectModal: React.FC<{
                           </span>
                         ))}
                       </div>
+
+
+                      {/* Credentials */}
+                      {project.credentials && (
+                        <div className="mb-6 mt-6 p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] shadow-sm">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--brand)] mb-3 flex items-center gap-2">
+                            Demo Credentials
+                          </h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {project.credentials.username && (
+                              <div className="flex flex-col gap-1">
+                                <span className="text-[10px] uppercase font-bold text-[var(--muted)]">Username</span>
+                                <div className="flex items-center gap-2 px-2 py-1.5 rounded bg-white dark:bg-white/10 text-sm font-mono border border-[var(--border)] text-[var(--text)] group/cred relative">
+                                  <code className="flex-1 truncate">
+                                    {project.credentials.username}
+                                  </code>
+                                  <button
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(project.credentials?.username || "");
+                                    }}
+                                    className="p-1 hover:bg-[var(--brand)]/10 rounded transition-colors text-[var(--muted)] hover:text-[var(--brand)]"
+                                    title="Copy Username"
+                                  >
+                                    <VscIcons.VscCopy size={14} />
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                            {project.credentials.password && (
+                              <div className="flex flex-col gap-1">
+                                <span className="text-[10px] uppercase font-bold text-[var(--muted)]">Password</span>
+                                <div className="flex items-center gap-2 px-2 py-1.5 rounded bg-white dark:bg-white/10 text-sm font-mono border border-[var(--border)] text-[var(--text)] group/cred relative">
+                                  <code className="flex-1 truncate">
+                                    {project.credentials.password}
+                                  </code>
+                                  <button
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(project.credentials?.password || "");
+                                    }}
+                                    className="p-1 hover:bg-[var(--brand)]/10 rounded transition-colors text-[var(--muted)] hover:text-[var(--brand)]"
+                                    title="Copy Password"
+                                  >
+                                    <VscIcons.VscCopy size={14} />
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
 
                       {/* README */}
                       {readme && (

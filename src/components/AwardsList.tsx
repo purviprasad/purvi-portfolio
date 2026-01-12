@@ -40,7 +40,7 @@ export const AwardsList: React.FC<{ awards?: Award[] }> = ({ awards = [] }) => {
                     key={index}
                     variants={item}
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="group relative p-6 rounded-2xl bg-white border border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
+                    className="group relative p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
                 >
                     {/* Hover Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

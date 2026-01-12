@@ -62,14 +62,22 @@ export const ProjectCard: React.FC<{
             title="Open project"
             type="button"
             onClick={() => onOpen?.(project)}
-            className="font-bold text-xl text-[var(--brand)] cursor-pointer"
+            className="font-bold text-xl text-[var(--brand)] cursor-pointer text-left"
           >
             {project.title}
           </button>
           {project.isUnderDevelopment && (
             <span className="text-xs text-[var(--muted)] pl-2">Under Development</span>
           )}
-          <p className="text-sm text-[var(--muted)] mt-1 line-clamp-2">{project.description}</p>
+
+          {(project.domain || project.createdFor) && (
+            <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--brand)] opacity-70">
+              {project.domain && <span>Domain: {project.domain}</span>}
+              {project.createdFor && <span>For: {project.createdFor}</span>}
+            </div>
+          )}
+
+          <p className="text-sm text-[var(--muted)] mt-2 line-clamp-2">{project.description}</p>
           <div className="mt-4 flex gap-3 flex-wrap text-[var(--muted)]">
             {project.href && (
               <a
