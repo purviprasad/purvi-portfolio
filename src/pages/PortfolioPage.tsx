@@ -15,6 +15,7 @@ import { ScrollToTop } from "../components/shared/ScrollToTop";
 import CLIResume from "../components/CLIResume";
 import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
+import { AwardsList } from "../components/AwardsList";
 
 
 interface PortfolioPageProps {
@@ -34,6 +35,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           { href: "#about", label: "About" },
           // { href: "#projects", label: "Projects" },
           { href: "#experience", label: "Experience" },
+          { href: "#awards", label: "Awards" },
           { href: "#skills", label: "Skills" },
           { href: "#contact", label: "Contact" },
         ]}
@@ -70,6 +72,16 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </p>
 
           <ExperienceTimeline items={EXPERIENCE} />
+        </section>
+
+        <section id="awards" className="py-8">
+          <h2 className="text-2xl font-semibold text-[var(--brand)]">
+            Honors & Awards
+          </h2>
+          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Recognition for excellence and dedication.
+          </p>
+          <AwardsList awards={PORTFOLIO_INFO.awards} />
         </section>
 
 

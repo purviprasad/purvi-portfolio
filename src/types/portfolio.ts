@@ -122,6 +122,16 @@ export type Certification = {
   description?: string;
 };
 
+export type Award = {
+  id?: string;
+  name: string;
+  issuer: string;
+  date: string;
+  associatedWith?: string;
+  description?: string;
+  icon?: string;
+};
+
 /* ---------- Resume root type ---------- */
 
 export type Portfolio = {
@@ -141,6 +151,7 @@ export type Portfolio = {
   projects?: Project[]; // portfolio projects
   education?: Education[];
   certifications?: Certification[];
+  awards?: Award[];
   extras?: {
     volunteer?: Role[];
     languages?: { name: string; level?: string }[];

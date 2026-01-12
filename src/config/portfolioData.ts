@@ -638,6 +638,26 @@ export const PORTFOLIO_INFO: Portfolio = {
       url: "https://www.coursera.org/account/accomplishments/verify/33VZVH3XB5WS",
     },
   ],
+  awards: [
+    {
+      name: "RISE Insta Award",
+      issuer: "Apple Inc.",
+      date: "Dec 2025",
+      associatedWith: "Infosys",
+    },
+    {
+      name: "RISE Glory Award",
+      issuer: "Verizon Communications",
+      date: "Feb 2022",
+      associatedWith: "Infosys",
+    },
+    {
+      name: "RISE Insta Award",
+      issuer: "Infosys Limited",
+      date: "Jun 2021",
+      associatedWith: "Infosys",
+    },
+  ],
   extras: {
     languages: [{ name: "English", level: "Native" }],
     interests: ["dance", "music"],
