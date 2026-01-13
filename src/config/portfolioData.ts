@@ -449,13 +449,36 @@ export const PORTFOLIO_INFO: Portfolio = {
   ],
   projects: [
     {
+      id: "pigb",
+      title: "PigB – Master Your Money with PigB",
+      description:
+        "Manage your finances with ease — track income, expenses, budgets, loans, and get AI-powered reports and insights, all in one beautiful dashboard.",
+      tags: ["React", "Next.js", "TailwindCSS", "Ant Design", "Context API", "Recharts", "Framer Motion", "React Icons", "React Markdown", "MongoDB", "Node.js", "Express", "JWT", "Google OAuth 2.0", "Redis", "Finance"],
+      image: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWN6ZGV1ZjA2cGxibzVoYm9tN3Z5a2p4ZHEydzd1bWVnY2U5ZTEzbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AV8smlt6yfkUtwW39B/giphy.gif",
+      // href: "https://pigb.sehgaltech.com/",
+      domain: "Finance",
+      createdFor: "Personal Project",
+      credentials: {
+        username: "test@test.com",
+        password: "test"
+      },
+      links: [
+        {
+          label: "Live Site",
+          url: "https://pigb.sehgaltech.com/",
+          icon: "FaGlobe",
+        },
+      ],
+      isUnderDevelopment: false,
+    },
+    {
       id: "finmate",
       title: "FinMate – Your One Stop Finance Buddy",
       description:
         "FinMate empowers users to track expenses, manage bills, plan and track savings, and gain insights into their finances. Built to address modern financial challenges with powerful tracking and visualization tools.",
       tags: ["React", "Ant Design", "Redux", "Webpack", "AntD Charts", "Syncfusion React Data Grid", "React Icons", "MySQL", "Node.js", "Express", "JWT", "Nodemailer", "Node Cron", "Finance"],
-      image: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGtuYjY1emtsZmNjMXp1czdrdXR5bXE5ZDJheHVvZjY1azZxYnJieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qzImRjQVb2OUI84mTt/giphy.gif",
-      href: "https://finmate.sehgaltech.com/",
+      image: "/trimmed-finmate-ezgif.com-video-to-gif-converter.gif",
+      // href: "https://finmate.sehgaltech.com/",
       domain: "Finance",
       createdFor: "Microsoft GitHub Copilot Hackathon",
       credentials: {
@@ -477,15 +500,15 @@ export const PORTFOLIO_INFO: Portfolio = {
       description:
         "A centralized platform for administrators and HR personnel to handle automatic salary calculations, employee records, and payroll management. Simplifies complex tax and allowance calculations within the education sector. It simplifies the complex task of managing salary structures, allowances, deductions, and tax calculations, ensuring accuracy and compliance.",
       tags: ["React", "Ant Design", "Redux", "Webpack", "AntD Charts", "Syncfusion React Data Grid", "MySQL", "Node.js", "Express", "JWT", "Education"],
-      image: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXpqYWFhbnBraWt3ZXhvajZsdjg5andyMGZzY2VibGg3bXE0MWxwayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2PuPWxuLV1FGyh03Ja/giphy.gif",
+      image: "/trimmedskr-ezgif.com-video-to-gif-converter.gif",
       domain: "Education",
       createdFor: "Sant Kanwar Ram High School, Dabra",
       links: [
-        {
-          label: "GitHub",
-          url: "https://github.com/purviprasad/skr_frontend",
-          icon: "FaGithub",
-        },
+        // {
+        //   label: "GitHub",
+        //   url: "https://github.com/purviprasad/skr_frontend",
+        //   icon: "FaGithub",
+        // },
       ],
       isUnderDevelopment: false,
     }
