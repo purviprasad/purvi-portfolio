@@ -389,25 +389,32 @@ export const PORTFOLIO_INFO: Portfolio = {
       date: { start: "2023-04", present: true },
       //TODO
       summary:
-        "Leading full-stack efforts around Python-based backends and React frontends for enterprise customers. Driving architecture, mentoring teammates and implementing IaC and cloud deployment practices.",
+        "",
       bullets: [
-        "Lead development of microservices using FastAPI and Python for enterprise-scale workloads.",
-        "Design and implement responsive React frontends and component libraries with TypeScript and Tailwind.",
-        "Drive IaC adoption using Terraform and Bicep; implement CI/CD pipelines and deployment automation.",
+        "Led end-to-end delivery of a project from inception to production within a 4-member team.",
+        "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, reducing memory usage by 80%+ (12 GB → 6 GB).",
+        "Owned backend & frontend architecture, database design, and client collaboration; consistently recognized for efficient planning, optimized code, and strong stakeholder feedback.",
         "Mentor engineers, conduct design reviews, and improve code quality and observability.",
       ],
       tech: [
         "React",
         "Redux",
+        "REST APIs",
         "Node",
         "Express",
         "Microservices",
         "TypeScript",
-        "Postgresql",
+        "PostgreSQL",
         "AWS",
         "Ag-grid",
         "Cron",
-        "Go Lang"
+        "Go Lang",
+        "Jenkins",
+        "Splunk",
+        "Miro",
+        "Postman",
+        "GitHub",
+        "VS Code",
       ],
     },
     {
@@ -417,14 +424,13 @@ export const PORTFOLIO_INFO: Portfolio = {
       location: "Remote",
       date: { start: "2021-12", end: "2023-04" },
       summary:
-        "Worked on web and desktop applications, cloud deployment tooling, and multi-cloud automation for Unisys products.",
+        "",
       bullets: [
-        "Built desktop and web UI features using React, Electron.js, TypeScript and Node.js.",
-        "Implemented cloud deployment workflows for Azure (ARM) and AWS (CloudFormation).",
-        "Improved code quality and CI pipelines, addressing SonarQube findings and standardizing testing.",
-        "Delivered features around redeployment, resource deletions and automation across cloud providers.",
+        "Independently built and delivered 2 POCs for Verizon Communications.",
+        "Migrated a legacy codebase to Micro Frontend architecture using Module Federation, improving modularity and scalability.",
+        "Developed and maintained high-quality MERN stack applications for Verizon, resulting in a 20% increase in user engagement.",
       ],
-      tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
+      tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "Cron", "MySQL", "PostgreSQL", "Jenkins", "Splunk", "Postman", "GitHub", "VS Code"],
     },
     {
       id: "infy-dse-2020",
@@ -433,12 +439,10 @@ export const PORTFOLIO_INFO: Portfolio = {
       location: "Remote",
       date: { start: "2020-09", end: "2021-12" },
       summary:
-        "Worked on UI and backend components for airline/travel solutions and internal tooling.",
+        "",
       bullets: [
-        "Developed front-end UIs using Angular and React and integrated with Unisys Design System.",
-        "Built REST APIs using Java (Vert.x) and integrated with NoSQL stores (MongoDB, Couchbase).",
-        "Implemented role-based access with Keycloak and developed data visualization tools.",
-        "Contributed to NDC stabilization, import/export features and product maintenance.",
+        "Collaborated with cross-functional teams to gather requirements, provide technical expertise, and implement robust solutions.",
+        "Played a key role in the successful and seamless delivery of the project in the Telecommunication domain.",
       ],
       tech: ["React", "Redux", "RTK", "Node", "Express", "Microservices", "TypeScript", "Cron"],
     },
@@ -449,7 +453,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       title: "FinMate – Your One Stop Finance Buddy",
       description:
         "FinMate empowers users to track expenses, manage bills, plan and track savings, and gain insights into their finances. Built to address modern financial challenges with powerful tracking and visualization tools.",
-      tags: ["React", "Node.js", "Express", "MySQL", "Chart.js", "Finance"],
+      tags: ["React", "Ant Design", "Redux", "Webpack", "AntD Charts", "Syncfusion React Data Grid", "React Icons", "MySQL", "Node.js", "Express", "JWT", "Nodemailer", "Node Cron", "Finance"],
       image: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGtuYjY1emtsZmNjMXp1czdrdXR5bXE5ZDJheHVvZjY1azZxYnJieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qzImRjQVb2OUI84mTt/giphy.gif",
       href: "https://finmate.sehgaltech.com/",
       domain: "Finance",
@@ -472,7 +476,7 @@ export const PORTFOLIO_INFO: Portfolio = {
       title: "SKR (Sant Kanwar Ram Higher Secondary School)",
       description:
         "A centralized platform for administrators and HR personnel to handle automatic salary calculations, employee records, and payroll management. Simplifies complex tax and allowance calculations within the education sector. It simplifies the complex task of managing salary structures, allowances, deductions, and tax calculations, ensuring accuracy and compliance.",
-      tags: ["React", "Custom CSS", "Payroll", "HRMS", "Education"],
+      tags: ["React", "Ant Design", "Redux", "Webpack", "AntD Charts", "Syncfusion React Data Grid", "MySQL", "Node.js", "Express", "JWT", "Education"],
       image: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXpqYWFhbnBraWt3ZXhvajZsdjg5andyMGZzY2VibGg3bXE0MWxwayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2PuPWxuLV1FGyh03Ja/giphy.gif",
       domain: "Education",
       createdFor: "Sant Kanwar Ram High School, Dabra",

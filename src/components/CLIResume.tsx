@@ -150,6 +150,7 @@ export default function CLIResume({ open = false, onClose }: Props) {
               // "projects — List featured projects",
               "experience — List work roles (ids shown)",
               "role <id> — Show role detail",
+              "awards — Show honors & awards",
               "open <id|resume> — Open project/role/resume in new tab",
               "resume --pdf — Open pre-rendered PDF resume (if provided)",
               "resume --json — Download resume JSON",
@@ -293,6 +294,18 @@ export default function CLIResume({ open = false, onClose }: Props) {
           await typeOut(`No project or role found with id "${target}".\n`);
           break;
         }
+        case "awards": {
+          if (!resumeData.awards || resumeData.awards.length === 0) {
+            await typeOut("No awards listed.\n");
+            break;
+          }
+          for (const award of resumeData.awards) {
+            let msg = `${award.name} — ${award.issuer} (${award.date})`;
+            if (award.associatedWith) msg += ` [Associated with ${award.associatedWith}]`;
+            await typeOut(`${msg}\n`, 8);
+          }
+          break;
+        }
         case "resume": {
           const flag = args[0];
           if (flag === "--pdf") {
@@ -401,6 +414,7 @@ export default function CLIResume({ open = false, onClose }: Props) {
         "projects",
         "experience",
         "role",
+        "awards",
         "open",
         "resume",
         "contact",

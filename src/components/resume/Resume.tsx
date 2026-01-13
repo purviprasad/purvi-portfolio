@@ -288,30 +288,6 @@ export const Resume: React.FC<{ className?: string }> = ({
         </section>
       )}
 
-      {/* Education */}
-      {resumeInfo.education && resumeInfo.education.length > 0 && (
-        <section>
-          <h2 className="text-base font-semibold mt-4">Education</h2>
-          <div className="space-y-2 text-sm">
-            {resumeInfo.education.map((ed) => (
-              <div
-                key={ed.school ?? ed.degree}
-                className="flex justify-between"
-              >
-                <div>
-                  {ed.degree ? <strong>{ed.degree}</strong> : null}
-                  {ed.school ? <span className="ml-2">{ed.school}</span> : null}
-                </div>
-                <div className="text-[var(--muted)]">
-                  {typeof ed.date === "string"
-                    ? ed.date
-                    : ed.date?.start ?? ed.date?.end ?? ""}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Certifications */}
       {resumeInfo.certifications && resumeInfo.certifications.length > 0 && (
@@ -366,6 +342,56 @@ export const Resume: React.FC<{ className?: string }> = ({
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* Honors & Awards */}
+      {resumeInfo.awards && resumeInfo.awards.length > 0 && (
+        <section>
+          <h2 className="text-base font-semibold mt-4">Honors & Awards</h2>
+          <ul className="text-sm list-disc list-inside">
+            {resumeInfo.awards.map((award, idx) => (
+              <li key={idx}>
+                <span className="font-medium">{award.name}</span>
+                <span className="text-[var(--muted)]"> — {award.issuer}</span>
+                {award.date && (
+                  <span className="text-xs text-[var(--muted)] ml-3">
+                    ({award.date})
+                  </span>
+                )}
+                {award.associatedWith && (
+                  <span className="text-xs text-[var(--muted)] ml-2 italic">
+                    [Associated with {award.associatedWith}]
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Education */}
+      {resumeInfo.education && resumeInfo.education.length > 0 && (
+        <section>
+          <h2 className="text-base font-semibold mt-4">Education</h2>
+          <div className="space-y-2 text-sm">
+            {resumeInfo.education.map((ed) => (
+              <div
+                key={ed.school ?? ed.degree}
+                className="flex justify-between"
+              >
+                <div>
+                  {ed.degree ? <strong>{ed.degree}</strong> : null}
+                  {ed.school ? <span className="ml-2">{ed.school}</span> : null}
+                </div>
+                <div className="text-[var(--muted)]">
+                  {typeof ed.date === "string"
+                    ? ed.date
+                    : ed.date?.start ?? ed.date?.end ?? ""}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
       )}
 
