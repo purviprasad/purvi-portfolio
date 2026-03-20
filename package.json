@@ -14,8 +14,13 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/vite": "^4.1.12",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/three": "^0.183.1",
+    "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
     "github-markdown-css": "^5.8.1",
@@ -27,7 +32,8 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.8.2",
     "react-scroll": "^1.9.3",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

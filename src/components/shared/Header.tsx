@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { PiSunDuotone, PiMoonDuotone, PiSnowflakeDuotone, PiCloudDuotone } from "react-icons/pi";
 import { useTheme } from "../../context/ThemeContext";
+import { usePortfolio } from "../../context/PortfolioContext";
 import { PORTFOLIO_INFO } from "../../config/portfolioData";
 
 type NavLink = { href: string; label: string };
@@ -20,6 +21,7 @@ export const Header: React.FC<{
   onToggleSnow?: () => void;
 }> = ({ links = [], onTryCLI, isSnowEnabled, onToggleSnow }) => {
   const { dark, toggle } = useTheme();
+  const { isRetro } = usePortfolio();
   const headerRef = useRef<HTMLElement | null>(null);
 
   const PERSONAL = PORTFOLIO_INFO.personal;
@@ -111,7 +113,7 @@ export const Header: React.FC<{
           </div>
           <span className="sr-only">Home</span>
           <div className="hidden sm:block leading-tight">
-            <div className="font-bold text-[var(--brand)]">{PERSONAL.name}</div>
+            <div className={`font-bold text-[var(--brand)] ${isRetro ? 'glitch-text' : ''}`} data-text={PERSONAL.name}>{PERSONAL.name}</div>
             <div className="text-xs text-[var(--muted)]">{PERSONAL.title}</div>
           </div>
         </a>

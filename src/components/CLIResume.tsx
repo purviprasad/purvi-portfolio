@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { Portfolio } from "../types/portfolio";
 import { PORTFOLIO_INFO } from "../config/portfolioData";
+import { usePortfolio } from "../context/PortfolioContext";
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
@@ -37,6 +38,7 @@ function JumpingDots({ className = "" }: { className?: string }) {
 }
 
 export default function CLIResume({ open = false, onClose }: Props) {
+  const { isRetro, setIsRetro, unlockAchievement, achievements } = usePortfolio();
   const [visible, setVisible] = useState(open);
   const [minimized, setMinimized] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
@@ -155,11 +157,49 @@ export default function CLIResume({ open = false, onClose }: Props) {
               "resume --pdf — Open pre-rendered PDF resume (if provided)",
               "resume --json — Download resume JSON",
               "contact — Show contact links",
+              "theme — Usage: theme <cyber|default>",
+              "achievements — List unlocked achievements",
               "clear — Clear terminal",
             ].join("\n") + "\n",
             6
           );
           break;
+        case "theme": {
+          const type = args[0];
+          if (type === "cyber") {
+            setIsRetro(true);
+            await typeOut("Theme updated to cyber/retro mode. CRT shader engaged.\n");
+            unlockAchievement("theme-cyber", "Digital Archaeologist");
+          } else if (type === "default") {
+            setIsRetro(false);
+            await typeOut("Theme restored to standard modern UI.\n");
+          } else {
+            await typeOut("Usage: theme <cyber|default>\n");
+          }
+          break;
+        }
+        case "sudo": {
+          const action = args[0];
+          if (action === "hiring") {
+            await typeOut("ROOT ACCESS GRANTED.\nUnlocking the hiring fast-track protocol...\n");
+            unlockAchievement("sudo-hiring", "The Chosen One");
+            await typeOut("Easter egg unlocked! Check your achievements tab (via 'achievements' command).\n");
+          } else {
+            await typeOut("Nice try. But only 'hiring' is permitted for sudo.\n");
+          }
+          break;
+        }
+        case "achievements": {
+          if (achievements.length === 0) {
+            await typeOut("No achievements unlocked yet. Try commands like 'sudo hiring' or 'theme cyber'!\n");
+          } else {
+            await typeOut("Your Unlocked Achievements:\n");
+            for (const a of achievements) {
+              await typeOut(`🏆 ${a}\n`, 10);
+            }
+          }
+          break;
+        }
         case "about": {
           const p = resumeData.personal;
           const s = resumeData.summary ?? p.summary ?? p.headline ?? "";
@@ -419,10 +459,12 @@ export default function CLIResume({ open = false, onClose }: Props) {
         "resume",
         "contact",
         "clear",
+        "theme",
+        "achievements"
       ];
       const match = options.find((o) => o.startsWith(input));
       if (match)
-        setInput(match + (match === "open" || match === "role" ? " " : ""));
+        setInput(match + (match === "open" || match === "role" || match === "theme" ? " " : ""));
     }
   }
 
