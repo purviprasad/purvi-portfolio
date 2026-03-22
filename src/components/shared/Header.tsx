@@ -6,6 +6,7 @@ import {
   useTransform,
   animate,
   useMotionTemplate,
+  useReducedMotion,
 } from "framer-motion";
 import { PiSunDuotone, PiMoonDuotone, PiSnowflakeDuotone, PiCloudDuotone } from "react-icons/pi";
 import { Menu, X } from "lucide-react";
@@ -24,6 +25,7 @@ export const Header: React.FC<{
 }> = ({ links = [], onTryCLI, isSnowEnabled, onToggleSnow }) => {
   const { dark, toggle } = useTheme();
   const { isRetro } = usePortfolio();
+  const reduceMotion = useReducedMotion();
   const headerRef = useRef<HTMLElement | null>(null);
 
   const PERSONAL = PORTFOLIO_INFO.personal;
@@ -107,25 +109,34 @@ export const Header: React.FC<{
         {/* Left: brand/home */}
         <Link
           to="/"
-          className="flex items-center gap-2 sm:gap-3 text-lg font-semibold text-[var(--text)] min-w-0"
+          className="no-click-pop text-lg font-semibold text-[var(--text)] min-w-0 cursor-pointer rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
           onClick={() => setMobileNavOpen(false)}
         >
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
-            {PERSONAL.avatar ? (
-              <img
-                className="w-full h-full object-cover rounded-2xl"
-                src={PERSONAL.avatar}
-                alt="profile"
-              />
-            ) : (
-              PERSONAL.name?.split(" ")?.[0]?.[0]
-            )}
-          </div>
-          <span className="sr-only">Home</span>
-          <div className="hidden sm:block leading-tight min-w-0 text-left">
-            <div className={`font-bold text-[var(--brand)] truncate ${isRetro ? 'glitch-text' : ''}`} data-text={PERSONAL.name}>{PERSONAL.name}</div>
-            <div className="text-xs text-[var(--muted)] truncate max-w-[12rem] md:max-w-none">{PERSONAL.title}</div>
-          </div>
+          <motion.div
+            className="flex items-center gap-2 sm:gap-3 min-w-0"
+            whileTap={
+              reduceMotion
+                ? undefined
+                : { scale: 0.96, transition: { type: "spring", stiffness: 520, damping: 24 } }
+            }
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
+              {PERSONAL.avatar ? (
+                <img
+                  className="w-full h-full object-cover rounded-2xl"
+                  src={PERSONAL.avatar}
+                  alt="profile"
+                />
+              ) : (
+                PERSONAL.name?.split(" ")?.[0]?.[0]
+              )}
+            </div>
+            <span className="sr-only">Home</span>
+            <div className="hidden sm:block leading-tight min-w-0 text-left">
+              <div className={`font-bold text-[var(--brand)] truncate ${isRetro ? 'glitch-text' : ''}`} data-text={PERSONAL.name}>{PERSONAL.name}</div>
+              <div className="text-xs text-[var(--muted)] truncate max-w-[12rem] md:max-w-none">{PERSONAL.title}</div>
+            </div>
+          </motion.div>
         </Link>
 
         {/* Right: nav + theme + Try CLI */}

@@ -19,54 +19,60 @@ export const RoleExplorer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 mb-16 w-full max-w-2xl min-w-0 px-4 sm:px-6">
-      <div className="flex flex-col items-center gap-2">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--brand)] opacity-80">
-          Personalize Experience
-        </h3>
-        <div className="h-0.5 w-6 bg-[var(--brand)] rounded-full mb-4" />
-      </div>
+    <div className="flex flex-col items-center gap-3 mb-8 w-full max-w-2xl min-w-0 px-4 sm:px-6">
+      <div className="w-full max-w-xl flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+        <div className="flex items-center justify-center sm:justify-start gap-2 shrink-0">
+          <h3 className="text-[9px] font-black uppercase tracking-[0.18em] text-[var(--brand)]/80 leading-none">
+            Personalize
+          </h3>
+          <span className="hidden sm:inline h-px w-6 bg-[var(--brand)]/40 rounded-full" aria-hidden />
+        </div>
 
-      <div className={`w-full p-1.5 sm:p-2 grid grid-cols-3 gap-1 sm:gap-2 transition-all duration-500 shadow-2xl overflow-hidden ${isRetro
-        ? "bg-[var(--bg)] border-2 border-[var(--brand)] rounded-none shadow-[0_0_20px_var(--brand)]"
-        : "bg-[var(--surface)] border-[var(--border)] rounded-full ring-1 ring-black/5 dark:ring-white/5"
-        }`}>
-        {roles.map((r) => {
-          const Icon = r.icon;
-          const active = userRole === r.id;
-          return (
-            <button
-              key={r.id}
-              onClick={() => handleRoleChange(r.id)}
-              className={`relative group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 px-2 py-3 sm:px-4 sm:py-4 transition-all duration-500 overflow-hidden ${isRetro ? "rounded-none" : "rounded-full"
-                } ${active
-                  ? `${isRetro ? 'bg-[var(--brand)] text-[var(--bg)] scale-105 shadow-[0_0_20px_var(--brand)] z-10' : 'bg-[var(--bg)] text-[var(--brand)] shadow-lg scale-[1.02] ring-1 ring-black/5 dark:ring-white/10 z-10'}`
-                  : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-black/5 dark:hover:bg-white/5"
-                }`}
-            >
-              <div className={`transition-all duration-300 ${active ? 'scale-110' : 'opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110'}`}>
-                <Icon size={20} className={active ? r.color : ""} />
-              </div>
-              <span className={`text-[11px] sm:text-sm font-black transition-all text-center leading-tight ${active ? 'opacity-100' : 'opacity-60'}`}>
-                {r.label}
-              </span>
-            </button>
-          );
-        })}
+        <div
+          className={`min-w-0 flex-1 p-1 grid grid-cols-3 gap-0.5 sm:gap-1 transition-all duration-500 shadow-lg overflow-hidden ${isRetro
+            ? "bg-[var(--bg)] border-2 border-[var(--brand)] rounded-none shadow-[0_0_16px_var(--brand)]"
+            : "bg-[var(--surface)] border border-[var(--border)] rounded-full ring-1 ring-black/5 dark:ring-white/5"
+            }`}
+        >
+          {roles.map((r) => {
+            const Icon = r.icon;
+            const active = userRole === r.id;
+            return (
+              <button
+                key={r.id}
+                onClick={() => handleRoleChange(r.id)}
+                className={`relative group flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2 px-1.5 py-2 sm:px-3 sm:py-2.5 transition-all duration-500 overflow-hidden ${isRetro ? "rounded-none" : "rounded-full"
+                  } ${active
+                    ? `${isRetro ? 'bg-[var(--brand)] text-[var(--bg)] scale-105 shadow-[0_0_16px_var(--brand)] z-10' : 'bg-[var(--bg)] text-[var(--brand)] shadow-md scale-[1.02] ring-1 ring-black/5 dark:ring-white/10 z-10'}`
+                    : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-black/5 dark:hover:bg-white/5"
+                  }`}
+              >
+                <div className={`transition-all duration-300 ${active ? 'scale-110' : 'opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110'}`}>
+                  <Icon size={18} className={active ? r.color : ""} />
+                </div>
+                <span className={`text-[10px] sm:text-xs font-black transition-all text-center leading-tight ${active ? 'opacity-100' : 'opacity-60'}`}>
+                  {r.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={userRole}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="text-center mt-2"
+          exit={{ opacity: 0, scale: 0.98 }}
+          className="text-center"
         >
-          <p className={`text-sm md:text-lg font-black uppercase tracking-widest text-[var(--text)] transition-colors ${isRetro ? 'glitch-text' : ''}`} data-text={roles.find(r => r.id === userRole)?.desc}>
-            {roles.find(r => r.id === userRole)?.desc}
+          <p
+            className={`text-xs sm:text-sm font-bold uppercase tracking-wide text-[var(--muted)] transition-colors ${isRetro ? 'glitch-text text-[var(--text)]' : ''}`}
+            data-text={roles.find((r) => r.id === userRole)?.desc}
+          >
+            {roles.find((r) => r.id === userRole)?.desc}
           </p>
-          <div className="mt-3 h-1.5 w-24 bg-gradient-to-r from-transparent via-[var(--brand)] to-transparent mx-auto rounded-full opacity-60" />
         </motion.div>
       </AnimatePresence>
     </div>

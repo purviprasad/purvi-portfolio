@@ -51,6 +51,30 @@ body {
   border-color: var(--border);
 }
 
+/*
+ * Subtle press feedback on interactive elements (skip .no-click-pop when
+ * another layer handles tap, e.g. Framer Motion whileTap).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :where(
+    button:not(:disabled):not(.no-click-pop),
+    a[href]:not(.no-click-pop),
+    [role="button"]:not([aria-disabled="true"]):not(.no-click-pop),
+    summary:not(.no-click-pop)
+  ) {
+    transition: transform 0.18s cubic-bezier(0.34, 1.45, 0.64, 1);
+  }
+
+  :where(
+    button:not(:disabled):not(.no-click-pop):active,
+    a[href]:not(.no-click-pop):active,
+    [role="button"]:not([aria-disabled="true"]):not(.no-click-pop):active,
+    summary:not(.no-click-pop):active
+  ) {
+    transform: scale(0.96);
+  }
+}
+
 /* Global scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
@@ -77,6 +101,39 @@ body {
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Global click position feedback (see ClickRipple.tsx) */
+@keyframes click-ripple-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+.click-ripple-ring {
+  position: fixed;
+  left: var(--rx, 0);
+  top: var(--ry, 0);
+  z-index: 10000;
+  width: 112px;
+  height: 112px;
+  margin: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--brand) 42%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 22%, transparent) 35%,
+    transparent 68%
+  );
+  box-shadow: 0 0 40px -4px color-mix(in srgb, var(--brand) 35%, transparent);
+  animation: click-ripple-pulse 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
 }
 
 /* print overrides */
@@ -446,5 +503,10 @@ body {
   .retro-crt .crt-overlay, /* Updated selector */
   .retro-crt .scanline-effect { /* Updated selector */
     animation: none !important;
+  }
+
+  .click-ripple-ring {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }

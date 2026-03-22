@@ -8,6 +8,7 @@ import ThemeProvider from "./components/ThemeProvider";
 import { PortfolioProvider } from "./context/PortfolioContext";
 import { AuroraBackground } from "./components/shared/AuroraBackground";
 import { MouseGlow } from "./components/shared/MouseGlow";
+import { ClickRipple } from "./components/shared/ClickRipple";
 import { AIAssistant } from "./components/AIAssistant";
 import { StyleCustomizer } from "./components/shared/StyleCustomizer";
 
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <div className="min-h-screen scroll-smooth relative overflow-x-hidden">
             <AuroraBackground />
             <MouseGlow />
+            <ClickRipple />
             <AIAssistant />
             <StyleCustomizer />
             <SnowEffect enabled={isSnowEnabled} />
