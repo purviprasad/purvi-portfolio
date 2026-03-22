@@ -1,27 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
-const SectionHeading: React.FC<{ title: string; subtitle: string; highlight?: string; glitch?: boolean }> = ({ title, subtitle, highlight, glitch }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      className="mb-12 group"
-    >
-      <h2 className={`text-4xl md:text-6xl font-black tracking-tighter text-[var(--text)] mb-3 flex items-baseline gap-3 transition-colors ${glitch ? 'glitch-text' : ''}`} data-text={title}>
-        {title}
-        {highlight && <span className="text-[var(--brand)] inline-block group-hover:rotate-3 transition-transform">{highlight}</span>}
-      </h2>
-      <div className="flex items-center gap-4">
-        <div className="h-[2px] w-12 bg-[var(--brand)]/30 group-hover:w-24 transition-all duration-500 rounded-full" />
-        <p className="text-sm font-medium text-[var(--muted)]/80 uppercase tracking-widest">{subtitle}</p>
-      </div>
-    </motion.div>
-  );
-};
-// import { ThemeProvider } from "../components/ThemeProvider"; // Removed (lifted to App)
 import { Header } from "../components/shared/Header";
+import { SectionHeading } from "../components/shared/SectionHeading";
 import { ProjectsGrid } from "../components/ProjectsGrid";
 import { SkillsList } from "../components/SkillsList";
 import { ContactForm } from "../components/ContactForm";
@@ -94,7 +74,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </div>
         </section>
 
-        <section id="experience" className={`py-12 transition-all duration-700 ${userRole === 'recruiter' ? 'ring-2 ring-[var(--brand)] ring-offset-8 rounded-[2.5rem] p-8 bg-[var(--surface)] shadow-2xl relative' : 'py-8'}`}>
+        <section id="experience" className={`py-12 transition-all duration-700 ${userRole === "recruiter" ? "ring-2 ring-[var(--brand)] ring-offset-8 rounded-[2.5rem] p-8 bg-[var(--surface)] shadow-2xl relative" : ""}`}>
           {userRole === 'recruiter' && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -108,6 +88,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             <SectionHeading
               title="Experience"
               subtitle="My professional journey & impact"
+              glitch={isRetro}
             />
             {userRole === 'recruiter' && (
               <a
@@ -123,16 +104,16 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           <ExperienceTimeline items={EXPERIENCE} />
         </section>
 
-        <section id="projects" className={`py-8 transition-all duration-700 ${userRole === 'developer' ? 'ring-2 ring-purple-500 ring-offset-8 rounded-[2.5rem] p-8' : ''}`}>
-          <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-end mb-10">
+        <section id="projects" className={`py-12 transition-all duration-700 ${userRole === "developer" ? "ring-2 ring-[var(--brand)] ring-offset-8 ring-offset-[var(--bg)] rounded-[2.5rem] p-8" : ""}`}>
+          <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-end mb-8">
             <SectionHeading
               title="Projects"
               subtitle="Where design meets performance"
               glitch={isRetro}
             />
             {userRole === 'developer' && (
-              <div className="hidden md:flex flex-col items-end gap-1 mb-12">
-                <span className="text-[10px] uppercase font-black text-purple-500 tracking-tighter bg-purple-500/10 px-2 py-0.5 rounded">Architect View</span>
+              <div className="hidden md:flex flex-col items-end gap-1 self-end pb-1">
+                <span className="text-[10px] uppercase font-black text-[var(--accent)] tracking-tighter bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] px-2 py-0.5 rounded">Architect View</span>
                 <span className="text-[9px] text-[var(--muted)]">Focusing on scalability & clean code</span>
               </div>
             )}
@@ -140,20 +121,12 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           <ProjectsGrid projects={PORTFOLIO_INFO.projects} onOpen={setSelected} />
         </section>
 
-        <section id="skills" className="py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--brand)] to-[var(--accent)]">
-              Core Stack & Capabilities
-            </h2>
-            <p className="text-sm text-[var(--muted)] mt-2">
-              A breakdown of the tools I use to build production systems.
-            </p>
-          </motion.div>
+        <section id="skills" className="py-12">
+          <SectionHeading
+            title="Core Stack & Capabilities"
+            subtitle="A breakdown of the tools I use to build production systems"
+            glitch={isRetro}
+          />
           <BentoSkills />
           <div className="mt-12">
             <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
@@ -164,24 +137,22 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </div>
         </section>
 
-        <section id="awards" className="py-8">
-          <h2 className="text-2xl font-semibold text-[var(--brand)]">
-            Honors & Awards
-          </h2>
-          <p className="mb-6 text-sm text-[var(--muted)] mt-1">
-            Recognition for excellence and dedication.
-          </p>
+        <section id="awards" className="py-12">
+          <SectionHeading
+            title="Honors & Awards"
+            subtitle="Recognition for excellence and dedication"
+            glitch={isRetro}
+          />
           <AwardsList awards={PORTFOLIO_INFO.awards} />
         </section>
 
-        <section id="contact" className="py-8">
-          <h2 className="text-2xl font-semibold text-[var(--brand)]">
-            Contact
-          </h2>
-          <p className="text-sm text-[var(--muted)] mt-1">
-            Tell me about your project, or just say hi.
-          </p>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section id="contact" className="py-12">
+          <SectionHeading
+            title="Contact"
+            subtitle="Tell me about your project, or just say hi"
+            glitch={isRetro}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)]">
               <ContactForm />
             </div>

@@ -9,7 +9,7 @@ export const RoleExplorer: React.FC = () => {
   const roles = [
     { id: "guest", label: "Guest", icon: User, color: "text-blue-500", desc: "Balanced Overview" },
     { id: "recruiter", label: "Recruiter", icon: Briefcase, color: "text-emerald-500", desc: "Experience & Metrics" },
-    { id: "developer", label: "Developer", icon: Code, color: "text-purple-500", desc: "Source Code & Stack" },
+    { id: "developer", label: "Developer", icon: Code, color: "text-[var(--accent)]", desc: "Source Code & Stack" },
   ] as const;
 
   const handleRoleChange = (role: typeof roles[number]["id"]) => {

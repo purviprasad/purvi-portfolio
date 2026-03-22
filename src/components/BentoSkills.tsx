@@ -98,9 +98,9 @@ export const BentoSkills: React.FC = () => {
       {/* UI/UX card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-tr from-pink-500/10 to-transparent"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-tr from-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-transparent"
       >
-        <Layout className="text-pink-500 mb-2" size={24} />
+        <Layout className="text-[var(--accent)] mb-2" size={24} />
         <h3 className="font-bold text-[var(--text)]">Modern UI/UX</h3>
         <p className="text-xs text-[var(--muted)] mt-1">Tailwind CSS, Framer Motion, and Ant Design for premium user experiences.</p>
       </motion.div>

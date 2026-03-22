@@ -66,7 +66,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href="#skills"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/50"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--accent)] text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 shadow-[0_10px_20px_-6px_color-mix(in_srgb,var(--brand)_35%,transparent)] hover:shadow-[0_14px_28px_-8px_color-mix(in_srgb,var(--brand)_50%,transparent)]"
             onClick={(e) => onNavClick(e, "#skills")}
           >
             Checkout Skills
@@ -103,7 +103,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
             }}
             className="relative"
           >
-            <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full p-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl shadow-indigo-500/20">
+            <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full p-1 bg-gradient-to-br from-[var(--brand)] via-[var(--accent)] to-[var(--brand)] shadow-2xl shadow-[0_12px_40px_-12px_color-mix(in_srgb,var(--brand)_25%,transparent)]">
               <div className="w-full h-full rounded-full bg-[var(--surface)] p-1 overflow-hidden flex items-center justify-center">
                 {personal.avatar ? (
                   <img
@@ -112,7 +112,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
                     alt="profile"
                   />
                 ) : (
-                  <span className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-pink-500">
+                  <span className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--brand)] to-[var(--accent)]">
                     {personal.name?.split(" ")[0]?.[0]}
                   </span>
                 )}

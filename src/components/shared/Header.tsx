@@ -110,7 +110,7 @@ export const Header: React.FC<{
           className="flex items-center gap-2 sm:gap-3 text-lg font-semibold text-[var(--text)] min-w-0"
           onClick={() => setMobileNavOpen(false)}
         >
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
             {PERSONAL.avatar ? (
               <img
                 className="w-full h-full object-cover rounded-2xl"

@@ -90,7 +90,7 @@ export const ScrollToTop: React.FC = () => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >
-      <div className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 border border-white/20 transition-all hover:shadow-xl overflow-hidden">
+      <div className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] shadow-lg border border-white/20 transition-all hover:shadow-xl overflow-hidden shadow-[0_10px_20px_-6px_color-mix(in_srgb,var(--brand)_35%,transparent)]">
         {/* Shiny overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-white/10 pointer-events-none" />
 

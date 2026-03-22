@@ -168,10 +168,10 @@ export const SkillsList: React.FC<{
                       <motion.div
                         key={s.name}
                         whileHover={{ y: -8, scale: 1.02 }}
-                        className="group relative p-5 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
+                        className="group relative p-5 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
                       >
                         {/* Hover Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_12%,transparent)] via-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-[color-mix(in_srgb,var(--brand)_10%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                         <div className="relative z-10 flex flex-col h-full justify-between gap-4">
                           <div className="flex items-start justify-between gap-4">
