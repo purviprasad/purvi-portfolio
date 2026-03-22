@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
+import { AchievementToast } from "../components/shared/AchievementToast";
 
 type UserRole = "guest" | "recruiter" | "developer";
 
@@ -17,14 +18,21 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [isRetro, setIsRetro] = useState(false);
   const [userRole, setUserRole] = useState<UserRole>("guest");
   const [achievements, setAchievements] = useState<string[]>([]);
+  const [achievementToast, setAchievementToast] = useState<string | null>(null);
 
-  const unlockAchievement = (id: string, label: string) => {
-    if (!achievements.includes(id)) {
-      setAchievements((prev) => [...prev, id]);
-      // In a real app, we'd use a toast library here. For now, we'll just console log or use a custom alert.
-      console.log(`Achievement Unlocked: ${label}`);
+  const dismissAchievementToast = useCallback(() => setAchievementToast(null), []);
+
+  const unlockAchievement = useCallback((id: string, label: string) => {
+    let newlyUnlocked = false;
+    setAchievements((prev) => {
+      if (prev.includes(id)) return prev;
+      newlyUnlocked = true;
+      return [...prev, id];
+    });
+    if (newlyUnlocked) {
+      setAchievementToast(label);
     }
-  };
+  }, []);
 
   return (
     <PortfolioContext.Provider value={{ isRetro, setIsRetro, userRole, setUserRole, achievements, unlockAchievement }}>
@@ -37,6 +45,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         )}
         {children}
       </div>
+      <AchievementToast message={achievementToast} onDismiss={dismissAchievementToast} />
     </PortfolioContext.Provider>
   );
 };

@@ -146,7 +146,7 @@ export const StyleCustomizer: React.FC = () => {
         aria-label="Open UI customizer"
         aria-haspopup="dialog"
         aria-expanded={isOpen}
-        className={`fixed bottom-[10.5rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${
+        className={`fixed bottom-[17rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${
           isRetro
             ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]"
             : "rounded-2xl bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] shadow-xl hover:text-[var(--brand)] hover:shadow-[0_8px_32px_var(--brand)]"

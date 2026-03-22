@@ -38,7 +38,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="md:col-span-2 order-2 md:order-1"
+        className="lg:col-span-2 order-2 lg:order-1"
       >
         <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--brand)]">
           {text.map((char, i) => (
@@ -63,7 +63,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
           </p>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-wrap gap-3 max-lg:justify-center">
           <a
             href="#skills"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--accent)] text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 shadow-[0_10px_20px_-6px_color-mix(in_srgb,var(--brand)_35%,transparent)] hover:shadow-[0_14px_28px_-8px_color-mix(in_srgb,var(--brand)_50%,transparent)]"
@@ -91,7 +91,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15 }}
-        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] order-1 md:order-2"
+        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
       >
         <div className="flex flex-col items-center text-center gap-4">
           <motion.div

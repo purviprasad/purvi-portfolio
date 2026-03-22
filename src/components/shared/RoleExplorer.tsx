@@ -19,7 +19,7 @@ export const RoleExplorer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 mb-16 w-full max-w-2xl px-4">
+    <div className="flex flex-col items-center gap-8 mb-16 w-full max-w-2xl min-w-0 px-4 sm:px-6">
       <div className="flex flex-col items-center gap-2">
         <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--brand)] opacity-80">
           Personalize Experience

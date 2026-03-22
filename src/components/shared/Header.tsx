@@ -51,7 +51,7 @@ export const Header: React.FC<{
   }, [links]);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
+    const mq = window.matchMedia("(min-width: 1024px)");
     const close = () => setMobileNavOpen(false);
     mq.addEventListener("change", close);
     return () => mq.removeEventListener("change", close);
@@ -130,7 +130,7 @@ export const Header: React.FC<{
 
         {/* Right: nav + theme + Try CLI */}
         <nav aria-label="Primary" className="relative flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-          <div className="relative hidden sm:flex gap-4">
+          <div className="relative hidden lg:flex gap-3 xl:gap-4">
             {links.map((l) => {
               const isActive = active === l.href;
               return (
@@ -140,7 +140,7 @@ export const Header: React.FC<{
                   onClick={(e) => {
                     onNavClick(e, l.href);
                   }}
-                  className="relative px-1 py-0.5 text-sm text-[var(--text)]"
+                  className="relative px-1 py-0.5 text-sm text-[var(--text)] whitespace-nowrap"
                 >
                   {l.label}
                   <AnimatePresence initial={false}>
@@ -161,16 +161,18 @@ export const Header: React.FC<{
             })}
           </div>
 
-          <button
-            type="button"
-            className="sm:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--border)]/30 transition cursor-pointer"
-            aria-expanded={mobileNavOpen}
-            aria-controls="mobile-nav"
-            aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileNavOpen((o) => !o)}
-          >
-            {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {links.length > 0 && (
+            <button
+              type="button"
+              className="lg:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--border)]/30 transition cursor-pointer"
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobile-nav"
+              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMobileNavOpen((o) => !o)}
+            >
+              {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          )}
 
           <button
             type="button"
@@ -210,14 +212,14 @@ export const Header: React.FC<{
       </div>
 
       <AnimatePresence initial={false}>
-        {mobileNavOpen && (
+        {mobileNavOpen && links.length > 0 && (
           <motion.div
             id="mobile-nav"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="sm:hidden overflow-hidden border-t border-[var(--border)] bg-[var(--surface)]/95 backdrop-blur-md"
+            className="lg:hidden overflow-hidden border-t border-[var(--border)] bg-[var(--surface)]/95 backdrop-blur-md"
           >
             <div className="px-4 py-3 flex flex-col gap-0.5 max-w-6xl mx-auto">
               {links.map((l) => {

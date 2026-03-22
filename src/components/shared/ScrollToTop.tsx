@@ -80,7 +80,7 @@ export const ScrollToTop: React.FC = () => {
     <motion.button
       aria-label="Scroll to top"
       type="button"
-      className="fixed bottom-6 right-6 z-50 focus:outline-none cursor-pointer group"
+      className="fixed bottom-32 right-6 z-50 focus:outline-none cursor-pointer group"
       style={{ display: "grid", placeItems: "center" }}
       onClick={onActivate}
       initial="hidden"
