@@ -159,10 +159,11 @@ export const SkillsList: React.FC<{
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
                   {groupSkills.map((s) => {
+                    type SkillIcon = React.ComponentType<{ className?: string }>;
                     const Icon =
-                      (SiIcons[s.icon as keyof typeof SiIcons] as React.ElementType) ||
-                      (VscIcons[s.icon as keyof typeof VscIcons] as React.ElementType) ||
-                      (Fa6Icons[s.icon as keyof typeof Fa6Icons] as React.ElementType);
+                      (SiIcons[s.icon as keyof typeof SiIcons] as SkillIcon) ||
+                      (VscIcons[s.icon as keyof typeof VscIcons] as SkillIcon) ||
+                      (Fa6Icons[s.icon as keyof typeof Fa6Icons] as SkillIcon);
                     return (
                       <motion.div
                         key={s.name}

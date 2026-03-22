@@ -27,7 +27,9 @@ export const StyleCustomizer: React.FC = () => {
   return (
     <>
       <button 
+        type="button"
         onClick={() => setIsOpen(true)}
+        aria-label="Open UI customizer"
         className={`fixed bottom-[10.5rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${
           isRetro 
             ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]" 
@@ -48,8 +50,15 @@ export const StyleCustomizer: React.FC = () => {
             }`}
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-bold">UI Customizer</h3>
-              <button onClick={() => setIsOpen(false)}><X size={18} /></button>
+              <h3 className="font-bold text-[var(--text)]">UI Customizer</h3>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="p-1 rounded-lg text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--border)]/40 transition-colors"
+                aria-label="Close customizer"
+              >
+                <X size={18} />
+              </button>
             </div>
 
             <div className="space-y-6">
@@ -58,6 +67,7 @@ export const StyleCustomizer: React.FC = () => {
                 <div className="grid grid-cols-3 gap-3">
                   {colors.map(c => (
                     <button
+                      type="button"
                       key={c.name}
                       onClick={() => updateBrandColor(c.value)}
                       className={`w-full h-10 border transition-transform hover:scale-110 active:scale-95 shadow-sm ${
@@ -71,6 +81,7 @@ export const StyleCustomizer: React.FC = () => {
               </div>
 
                <button
+                type="button"
                 onClick={resetStyles}
                 className={`w-full flex items-center justify-center gap-2 py-2 border text-sm font-medium transition-colors ${
                   isRetro 

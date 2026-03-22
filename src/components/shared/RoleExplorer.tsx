@@ -1,6 +1,6 @@
 import React from "react";
 import { usePortfolio } from "../../context/PortfolioContext";
-import { Briefcase, Code, User, ChevronRight, Binary } from "lucide-react";
+import { Briefcase, Code, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const RoleExplorer: React.FC = () => {
@@ -27,7 +27,7 @@ export const RoleExplorer: React.FC = () => {
         <div className="h-0.5 w-6 bg-[var(--brand)] rounded-full mb-4" />
       </div>
 
-      <div className={`w-full p-2 grid grid-cols-3 gap-2 transition-all duration-500 shadow-2xl overflow-hidden ${isRetro
+      <div className={`w-full p-1.5 sm:p-2 grid grid-cols-3 gap-1 sm:gap-2 transition-all duration-500 shadow-2xl overflow-hidden ${isRetro
         ? "bg-[var(--bg)] border-2 border-[var(--brand)] rounded-none shadow-[0_0_20px_var(--brand)]"
         : "bg-[var(--surface)] border-[var(--border)] rounded-full ring-1 ring-black/5 dark:ring-white/5"
         }`}>
@@ -38,7 +38,7 @@ export const RoleExplorer: React.FC = () => {
             <button
               key={r.id}
               onClick={() => handleRoleChange(r.id)}
-              className={`relative group flex items-center justify-center gap-3 px-4 py-4 transition-all duration-500 overflow-hidden ${isRetro ? "rounded-none" : "rounded-full"
+              className={`relative group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 px-2 py-3 sm:px-4 sm:py-4 transition-all duration-500 overflow-hidden ${isRetro ? "rounded-none" : "rounded-full"
                 } ${active
                   ? `${isRetro ? 'bg-[var(--brand)] text-[var(--bg)] scale-105 shadow-[0_0_20px_var(--brand)] z-10' : 'bg-[var(--bg)] text-[var(--brand)] shadow-lg scale-[1.02] ring-1 ring-black/5 dark:ring-white/10 z-10'}`
                   : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-black/5 dark:hover:bg-white/5"
@@ -47,7 +47,7 @@ export const RoleExplorer: React.FC = () => {
               <div className={`transition-all duration-300 ${active ? 'scale-110' : 'opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110'}`}>
                 <Icon size={20} className={active ? r.color : ""} />
               </div>
-              <span className={`text-sm font-black transition-all ${active ? 'opacity-100' : 'opacity-60'}`}>
+              <span className={`text-[11px] sm:text-sm font-black transition-all text-center leading-tight ${active ? 'opacity-100' : 'opacity-60'}`}>
                 {r.label}
               </span>
             </button>

@@ -19,7 +19,7 @@ export const BentoSkills: React.FC = () => {
       {/* Dynamic Main Card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-2 row-span-2 bg-gradient-to-br from-blue-500/10 to-transparent flex flex-col justify-between"
+        className="bento-item col-span-1 row-span-1 md:col-span-2 md:row-span-2 bg-gradient-to-br from-blue-500/10 to-transparent flex flex-col justify-between"
       >
         <div className="flex justify-between items-start">
           <div className="p-3 rounded-2xl bg-blue-500/20 text-blue-500">
@@ -28,7 +28,7 @@ export const BentoSkills: React.FC = () => {
           <Sparkles className="text-blue-400 animate-pulse" size={20} />
         </div>
         <div>
-          <h3 className="text-xl font-bold mt-4">
+          <h3 className="text-lg sm:text-xl font-bold mt-4 text-[var(--text)]">
             {userRole === 'recruiter' ? 'Enterprise Engineering' : 'Full-Stack Architecture'}
           </h3>
           <p className="text-sm text-[var(--muted)] mt-2">
@@ -42,13 +42,13 @@ export const BentoSkills: React.FC = () => {
       {/* Role-Specific Secondary Card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-2 bg-gradient-to-br from-green-500/10 to-transparent"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-green-500/10 to-transparent"
       >
         <div className="flex items-center gap-4">
           <div className="p-2 rounded-xl bg-green-500/20 text-green-500">
             {userRole === 'recruiter' ? <SiIcons.SiNodedotjs size={24} /> : <Database size={24} />}
           </div>
-          <h3 className="font-bold">
+          <h3 className="font-bold text-[var(--text)]">
             {userRole === 'recruiter' ? 'Production Impact' : 'Data Modeling'}
           </h3>
         </div>
@@ -82,7 +82,7 @@ export const BentoSkills: React.FC = () => {
       </motion.div>
 
       {/* Tech Stack Horizontal Scroll/Marquee feel */}
-      <div className="bento-item col-span-4 py-4">
+      <div className="bento-item col-span-1 md:col-span-4 py-4">
         <h4 className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3">The Rest of my Toolkit</h4>
         <div className="flex flex-wrap gap-2">
           {allSkills.filter(s => !featured.includes(s.name)).slice(0, 15).map((s, i) => (
@@ -98,17 +98,17 @@ export const BentoSkills: React.FC = () => {
       {/* UI/UX card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-2 bg-gradient-to-tr from-pink-500/10 to-transparent"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-tr from-pink-500/10 to-transparent"
       >
         <Layout className="text-pink-500 mb-2" size={24} />
-        <h3 className="font-bold">Modern UI/UX</h3>
+        <h3 className="font-bold text-[var(--text)]">Modern UI/UX</h3>
         <p className="text-xs text-[var(--muted)] mt-1">Tailwind CSS, Framer Motion, and Ant Design for premium user experiences.</p>
       </motion.div>
 
       {/* Terminal card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-2 bg-zinc-900 border-zinc-800 text-zinc-100"
+        className="bento-item col-span-1 md:col-span-2 bg-zinc-900 border-zinc-800 text-zinc-100 dark:border-zinc-700"
       >
         <Terminal className="text-emerald-500 mb-2" size={20} />
         <h3 className="text-sm font-mono tracking-tight">CLI Driven</h3>

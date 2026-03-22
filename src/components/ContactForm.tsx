@@ -110,12 +110,12 @@ export const ContactForm: React.FC = () => {
         </button>
 
         {success === true && (
-          <div className="text-sm text-green-600">
+          <div className="text-sm text-emerald-700 dark:text-emerald-400">
             Message sent — thank you!
           </div>
         )}
         {success === false && (
-          <div className="text-sm text-red-600">
+          <div className="text-sm text-red-700 dark:text-red-400">
             {errorMsg || "Failed to send."}
           </div>
         )}

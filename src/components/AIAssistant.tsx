@@ -57,10 +57,12 @@ export const AIAssistant: React.FC = () => {
   return (
     <>
       <motion.button
+        type="button"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         onClick={() => setIsOpen(true)}
+        aria-label="Open Purvi AI chat"
         className={`fixed bottom-24 right-6 z-50 w-14 h-14 transition-all flex items-center justify-center group border ${
           isRetro 
             ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]" 
@@ -68,7 +70,7 @@ export const AIAssistant: React.FC = () => {
         }`}
       >
         <MessageSquare size={24} className="group-hover:rotate-12 transition-transform" />
-        <span className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--surface)] text-[var(--text)] px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap border border-[var(--border)] shadow-xl pointer-events-none">
+        <span className="hidden sm:block absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--surface)] text-[var(--text)] px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap border border-[var(--border)] shadow-xl pointer-events-none">
           Ask Purvi AI
         </span>
       </motion.button>
@@ -79,7 +81,7 @@ export const AIAssistant: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
-            className={`fixed bottom-24 right-28 z-[60] w-[90vw] sm:w-[420px] h-[550px] bg-[var(--surface)]/95 border flex flex-col overflow-hidden backdrop-blur-2xl transition-all ${
+            className={`fixed z-[60] inset-x-3 bottom-20 max-sm:max-h-[min(70dvh,520px)] sm:inset-x-auto sm:left-auto sm:right-6 sm:bottom-24 md:right-28 w-auto sm:w-[min(420px,calc(100vw-3rem))] h-[min(70dvh,550px)] sm:h-[550px] bg-[var(--surface)]/95 border flex flex-col overflow-hidden backdrop-blur-2xl transition-all ${
               isRetro 
                 ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]" 
                 : "rounded-[2.5rem] border-[var(--border)] shadow-2xl ring-1 ring-[var(--border)]/50"
@@ -100,8 +102,10 @@ export const AIAssistant: React.FC = () => {
                 </div>
               </div>
               <button 
+                type="button"
                 onClick={() => setIsOpen(false)} 
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--text)] hover:bg-[var(--border)]/50 transition-colors"
+                aria-label="Close chat"
               >
                 <X size={18} />
               </button>

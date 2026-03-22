@@ -61,13 +61,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  /* light in dark mode */
+  /* Uses --text so thumb stays visible in light and dark (retro-crt overrides tokens too) */
+  background-color: color-mix(in srgb, var(--text) 30%, transparent);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: color-mix(in srgb, var(--text) 45%, transparent);
 }
 
 

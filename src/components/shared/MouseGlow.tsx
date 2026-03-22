@@ -24,6 +24,7 @@ export const MouseGlow: React.FC = () => {
   return (
     <div
       id="mouse-glow"
+      className="hidden md:block"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,

@@ -94,11 +94,12 @@ export const ProjectCard: React.FC<{
             {project.links &&
               project.links.length > 0 &&
               project.links.map((link) => {
+                type LinkIcon = React.ComponentType<{ className?: string }>;
                 const Icon =
-                  (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
-                  (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
-                  (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
-                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
+                  (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
+                  (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
+                  (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
+                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
                 return (
                   <a
                     key={link.label}

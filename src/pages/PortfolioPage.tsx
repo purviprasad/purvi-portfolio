@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const SectionHeading: React.FC<{ title: string; subtitle: string; highlight?: string; glitch?: boolean }> = ({ title, subtitle, highlight, glitch }) => {
   return (
@@ -104,7 +104,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
               Recruiter Insight Activated
             </motion.div>
           )}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-8">
             <SectionHeading
               title="Experience"
               subtitle="My professional journey & impact"
@@ -112,7 +112,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             {userRole === 'recruiter' && (
               <a
                 href="/PURVI_SEHGAL_RESUME.pdf"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--brand)] text-white text-sm font-bold shadow-lg hover:scale-105 transition-transform"
+                className="flex shrink-0 items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[var(--brand)] text-white text-sm font-bold shadow-lg hover:scale-105 transition-transform w-full sm:w-auto"
                 download
               >
                 Quick Download Resume
@@ -124,7 +124,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
         </section>
 
         <section id="projects" className={`py-8 transition-all duration-700 ${userRole === 'developer' ? 'ring-2 ring-purple-500 ring-offset-8 rounded-[2.5rem] p-8' : ''}`}>
-          <div className="flex justify-between items-end mb-10">
+          <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-end mb-10">
             <SectionHeading
               title="Projects"
               subtitle="Where design meets performance"
@@ -168,7 +168,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           <h2 className="text-2xl font-semibold text-[var(--brand)]">
             Honors & Awards
           </h2>
-          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="mb-6 text-sm text-[var(--muted)] mt-1">
             Recognition for excellence and dedication.
           </p>
           <AwardsList awards={PORTFOLIO_INFO.awards} />
@@ -178,7 +178,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           <h2 className="text-2xl font-semibold text-[var(--brand)]">
             Contact
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-sm text-[var(--muted)] mt-1">
             Tell me about your project, or just say hi.
           </p>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -189,17 +189,17 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] flex flex-col gap-4">
               <div>
                 <div className="font-semibold">Let's collaborate</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-[var(--muted)]">
                   I'm available for freelance and contract work. My inbox is
                   open.
                 </div>
               </div>
               <div className="mt-2">
                 <div className="font-semibold">Quick contact</div>
-                <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="mt-2 text-sm text-[var(--muted)]">
                   Email: purvisehgal5@gmail.com
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-[var(--muted)]">
                   Location: Remote
                 </div>
               </div>
@@ -207,7 +207,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
                 <div className="text-sm font-medium">Resume</div>
                 <a
                   href="/PURVI_SEHGAL_RESUME.pdf"
-                  className="block mt-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="block mt-2 px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] hover:border-[var(--brand)]/50 transition-colors text-center sm:text-left"
                   download
                 >
                   Download PDF

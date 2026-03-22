@@ -14,6 +14,26 @@ const ReactMarkdown = React.lazy(() => import("react-markdown"));
 
 import "github-markdown-css/github-markdown-light.css";
 
+/** Mount only when the modal is open so `useScroll({ container })` always has a hydrated ref. */
+const ModalScrollArea: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ container: containerRef });
+  return (
+    <div
+      ref={containerRef}
+      className="flex-1 overflow-y-auto min-h-0 max-h-[min(420px,52dvh)] sm:max-h-[500px] pr-1 custom-scroll relative"
+    >
+      <motion.div
+        className="sticky top-0 left-0 right-0 h-1 bg-[var(--border)]/50 z-10"
+        style={{ transformOrigin: "left", scaleX: scrollYProgress }}
+      />
+      {children}
+    </div>
+  );
+};
+
 export const ProjectModal: React.FC<{
   project: Project | null;
   open: boolean;
@@ -27,9 +47,6 @@ export const ProjectModal: React.FC<{
   );
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
-
-  const bodyRef = React.useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ container: bodyRef });
 
   const FaLink = FaIcons["FaLink" as keyof typeof FaIcons];
 
@@ -92,52 +109,45 @@ export const ProjectModal: React.FC<{
   }, [open, project]);
 
   return (
-    <div
-      ref={bodyRef}
-      className="flex-1 overflow-y-auto mt-2 pr-1 custom-scroll relative"
-    >
-      {/* progress bar lives *inside* the scroll container */}
-      <motion.div
-        className="sticky top-0 left-0 right-0 h-1 bg-[var(--border)]/50 z-10"
-        style={{ transformOrigin: "left", scaleX: scrollYProgress }}
-      />
-      <AnimatePresence>
-        {open && project && (
+    <AnimatePresence>
+      {open && project && (
+        <motion.div
+          key={`modal-${project.title}`}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            onClick={onClose}
+            role="presentation"
+            className="absolute inset-0 bg-[var(--bg)]/65 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-          >
-            {/* Backdrop */}
-            <motion.div
-              onClick={onClose}
-              className="absolute inset-0 bg-[color:var(--bg)/0.6] backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
+          />
 
-            {/* Modal Content */}
-            <motion.dialog
-              open={open}
-              aria-modal="true"
-              className="relative z-10 w-full max-w-4xl max-h-[90vh] p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-lg flex flex-col"
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 40, opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          <motion.dialog
+            open={open}
+            aria-modal="true"
+            className="relative z-10 w-full max-w-4xl max-h-[92dvh] min-h-0 p-4 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-lg flex flex-col"
+            initial={{ y: 50, opacity: 0, scale: 0.95 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 40, opacity: 0, scale: 0.95 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 cursor-pointer text-[var(--muted)] hover:text-[var(--text)] z-20"
+              aria-label="Close project details"
             >
-              {/* Close */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 cursor-pointer text-[var(--muted)] hover:text-[var(--text)]"
-              >
-                ✕
-              </button>
+              ✕
+            </button>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-[var(--brand)] mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-[var(--brand)] mb-2 pr-10">
                 {project.title}
               </h3>
 
@@ -145,6 +155,7 @@ export const ProjectModal: React.FC<{
               {iframeAllowed && (
                 <div className="flex border-b border-[var(--border)] mb-2">
                   <button
+                    type="button"
                     onClick={() => setActiveTab("details")}
                     className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "details"
                       ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
@@ -154,6 +165,7 @@ export const ProjectModal: React.FC<{
                     Details
                   </button>
                   <button
+                    type="button"
                     onClick={() => {
                       setActiveTab("playground");
                       setIframeLoaded(true);
@@ -169,8 +181,7 @@ export const ProjectModal: React.FC<{
                 </div>
               )}
 
-              {/* Body (scroll only here) */}
-              <div className="flex-1 overflow-y-auto pr-1 max-h-[500px] custom-scroll">
+              <ModalScrollArea>
                 <AnimatePresence mode="wait">
                   {activeTab === "details" && (
                     <motion.div
@@ -226,11 +237,14 @@ export const ProjectModal: React.FC<{
                             </a>
                           )}
                           {project.links.map((link) => {
+                            type LinkIcon = React.ComponentType<{
+                              className?: string;
+                            }>;
                             const Icon =
-                              (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
-                              (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
-                              (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
-                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
+                              (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
+                              (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
+                              (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
+                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
                             return (
                               <a
                                 key={link.label}
@@ -252,7 +266,7 @@ export const ProjectModal: React.FC<{
                         {project.tags?.map((t) => (
                           <span
                             key={t}
-                            className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-gray-100 text-gray-800"
+                            className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-[var(--bg)] text-[var(--text)] border border-[var(--border)]"
                               }`}
                           >
                             {t}
@@ -276,6 +290,7 @@ export const ProjectModal: React.FC<{
                                     {project.credentials.username}
                                   </code>
                                   <button
+                                    type="button"
                                     onClick={() => {
                                       navigator.clipboard.writeText(project.credentials?.username || "");
                                     }}
@@ -295,6 +310,7 @@ export const ProjectModal: React.FC<{
                                     {project.credentials.password}
                                   </code>
                                   <button
+                                    type="button"
                                     onClick={() => {
                                       navigator.clipboard.writeText(project.credentials?.password || "");
                                     }}
@@ -369,18 +385,17 @@ export const ProjectModal: React.FC<{
                         <iframe
                           src={project.href}
                           title={project.title}
-                          className="w-full h-100 rounded-lg border border-[var(--border)]"
+                          className="w-full min-h-[220px] h-[min(45vh,400px)] rounded-lg border border-[var(--border)]"
                           loading="lazy"
                           onLoad={() => setIframeReady(true)}
                         />
                       </motion.div>
                     )}
                 </AnimatePresence>
-              </div>
+              </ModalScrollArea>
             </motion.dialog>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
