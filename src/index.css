@@ -300,6 +300,26 @@ body {
 
 /* Cyber Mode Theme Overrides */
 .retro-crt {
+  /* Default: Light Terminal Theme */
+  --bg: #fdfdfd; 
+  --surface: #f0fdf4;
+  --text: #064e3b; /* emerald 900 */
+  --muted: #065f46; /* emerald 800 */
+  --border: #bbf7d0; /* emerald 200 */
+  --brand: #059669; /* emerald 600 */
+  --accent: #d946ef;
+  --glitch-1: #0891b2; /* cyan 700 for light mode */
+  --glitch-2: #c026d3; /* fuchsia 700 for light mode */
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Ensure background and text are applied */
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.dark .retro-crt {
+  /* Dark Cyber Theme (Original) */
   --bg: #050505;
   --surface: #0a0a0c;
   --text: #00ff41; /* Matrix green or Cyan */
@@ -307,7 +327,8 @@ body {
   --border: #00ff4133;
   --brand: #00ff41;
   --accent: #ff00ff; /* Neon Pink */
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  --glitch-1: #0ff;
+  --glitch-2: #f0f;
 }
 
 .retro-crt::before {
@@ -333,11 +354,11 @@ body {
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(18, 16, 16, 0.1);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
   opacity: 0;
   z-index: 9999;
   pointer-events: none;
-  animation: flicker 0.1s infinite;
+  animation: flicker 0.15s infinite;
 }
 
 @keyframes flicker {
@@ -348,8 +369,8 @@ body {
 
 .retro-crt .bento-item,
 .retro-crt .bg-surface {
-  background: #0a0a0c !important;
-  border: 1px solid var(--brand) !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
   box-shadow: 0 0 10px var(--brand), inset 0 0 5px var(--brand);
 }
 
@@ -377,13 +398,13 @@ body {
 }
 
 .retro-crt .glitch-text::before {
-  color: #0ff;
+  color: var(--glitch-1);
   z-index: -1;
   animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
 }
 
 .retro-crt .glitch-text::after {
-  color: #f0f;
+  color: var(--glitch-2);
   z-index: -2;
   animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
 }
@@ -410,11 +431,11 @@ body {
   left: 0;
   width: 100%;
   height: 2px;
-  background: rgba(0, 255, 65, 0.1);
-  opacity: 0.2;
+  background: var(--brand);
+  opacity: 0.05;
   z-index: 10001;
   pointer-events: none;
-  animation: scanline 10s linear infinite;
+  animation: scanline 8s linear infinite;
 }
 
 /* reduce motion respectful */

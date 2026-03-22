@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Bot, Sparkles, User } from "lucide-react";
+import { usePortfolio } from "../context/PortfolioContext";
 
 export const AIAssistant: React.FC = () => {
+  const { isRetro } = usePortfolio();
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -59,7 +61,11 @@ export const AIAssistant: React.FC = () => {
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_48px_rgba(0,0,0,0.3)] transition-all flex items-center justify-center group border border-white/20"
+        className={`fixed bottom-24 right-6 z-50 w-14 h-14 transition-all flex items-center justify-center group border ${
+          isRetro 
+            ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]" 
+            : "rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_48px_rgba(0,0,0,0.3)] border-[var(--border)]/20"
+        }`}
       >
         <MessageSquare size={24} className="group-hover:rotate-12 transition-transform" />
         <span className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--surface)] text-[var(--text)] px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap border border-[var(--border)] shadow-xl pointer-events-none">
@@ -73,10 +79,14 @@ export const AIAssistant: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
-            className="fixed bottom-24 right-28 z-[60] w-[90vw] sm:w-[420px] h-[550px] bg-[var(--surface)]/70 border border-white/20 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl ring-1 ring-white/10"
+            className={`fixed bottom-24 right-28 z-[60] w-[90vw] sm:w-[420px] h-[550px] bg-[var(--surface)]/95 border flex flex-col overflow-hidden backdrop-blur-2xl transition-all ${
+              isRetro 
+                ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]" 
+                : "rounded-[2.5rem] border-[var(--border)] shadow-2xl ring-1 ring-[var(--border)]/50"
+            }`}
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10 bg-gradient-to-r from-[var(--brand)]/10 to-transparent flex justify-between items-center">
+            <div className="p-6 border-b border-[var(--border)]/50 bg-gradient-to-r from-[var(--brand)]/10 to-transparent flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[var(--brand)] flex items-center justify-center shadow-inner">
                   <Bot size={22} className="text-white" />
@@ -106,13 +116,17 @@ export const AIAssistant: React.FC = () => {
                   key={i} 
                   className={`flex items-end gap-2 ${m.role === "user" ? "flex-row-reverse" : "flex-row"}`}
                 >
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] ${m.role === 'user' ? 'bg-zinc-800' : 'bg-[var(--brand)]'}`}>
+                  <div className={`w-6 h-6 flex items-center justify-center text-[10px] ${
+                    isRetro ? "rounded-none border border-[var(--brand)]" : "rounded-full"
+                  } ${m.role === 'user' ? 'bg-[var(--muted)] text-white' : 'bg-[var(--brand)] text-white'}`}>
                     {m.role === 'user' ? <User size={12} /> : <Bot size={12} />}
                   </div>
-                  <div className={`max-w-[85%] p-4 rounded-3xl text-sm leading-relaxed ${
+                  <div className={`max-w-[85%] p-4 text-sm leading-relaxed ${
+                    isRetro ? "rounded-none border border-[var(--brand)] bg-[var(--bg)]/10" : "rounded-3xl shadow-sm"
+                  } ${
                     m.role === "user" 
-                      ? "bg-[var(--brand)] text-white rounded-br-none shadow-lg" 
-                      : "bg-white/5 dark:bg-zinc-900/50 text-[var(--text)] rounded-bl-none border border-white/10 shadow-sm"
+                      ? (isRetro ? "border-r-4" : "bg-[var(--brand)] text-white rounded-br-none shadow-lg") 
+                      : (isRetro ? "border-l-4" : "bg-[var(--bg)] text-[var(--text)] rounded-bl-none border border-[var(--border)]")
                   }`}>
                     {m.text}
                   </div>
@@ -121,10 +135,10 @@ export const AIAssistant: React.FC = () => {
               
               {isTyping && (
                 <div className="flex items-center gap-2">
-                   <div className="w-6 h-6 rounded-full bg-[var(--brand)] flex items-center justify-center">
+                  <div className={`w-6 h-6 rounded-full bg-[var(--brand)] flex items-center justify-center text-white`}>
                     <Bot size={12} />
                   </div>
-                  <div className="bg-white/5 dark:bg-zinc-900/50 p-4 rounded-3xl rounded-bl-none border border-white/10 flex gap-1 items-center">
+                  <div className="bg-[var(--bg)] p-4 rounded-3xl rounded-bl-none border border-[var(--border)] flex gap-1 items-center">
                     <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce [animation-delay:-0.3s]" />
                     <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce [animation-delay:-0.15s]" />
                     <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce" />
@@ -139,7 +153,7 @@ export const AIAssistant: React.FC = () => {
                 <button
                   key={i}
                   onClick={() => handleSend(s)}
-                  className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-[var(--muted)] hover:bg-[var(--brand)] hover:text-white hover:border-[var(--brand)] transition-all"
+                  className="px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[10px] font-semibold text-[var(--muted)] hover:bg-[var(--brand)] hover:text-white hover:border-[var(--brand)] transition-all"
                 >
                   {s}
                 </button>
@@ -147,14 +161,14 @@ export const AIAssistant: React.FC = () => {
             </div>
 
             {/* Input */}
-            <div className="p-6 border-t border-white/10">
+            <div className="p-6 border-t border-[var(--border)]/50">
               <div className="relative flex items-center">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Ask me about Purvi..."
-                  className="w-full bg-white/5 dark:bg-zinc-900/50 border border-white/10 rounded-2xl pl-4 pr-12 py-3.5 text-sm outline-none focus:border-[var(--brand)]/50 focus:ring-1 focus:ring-[var(--brand)]/30 transition-all shadow-inner"
+                  className="w-full bg-[var(--bg)] border border-[var(--border)] rounded-2xl pl-4 pr-12 py-3.5 text-sm outline-none focus:border-[var(--brand)]/50 focus:ring-1 focus:ring-[var(--brand)]/30 transition-all shadow-inner text-[var(--text)]"
                 />
                 <button
                   onClick={() => handleSend()}

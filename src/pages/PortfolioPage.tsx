@@ -79,16 +79,16 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
         <FloatingOrb />
         <section
           id="about"
-          className="pt-24 md:pt-40 pb-8"
+          className="pt-20 pb-2"
         >
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center"
           >
             <RoleExplorer />
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             <About personal={PORTFOLIO_INFO.personal} />
           </div>
@@ -96,7 +96,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
 
         <section id="experience" className={`py-12 transition-all duration-700 ${userRole === 'recruiter' ? 'ring-2 ring-[var(--brand)] ring-offset-8 rounded-[2.5rem] p-8 bg-[var(--surface)] shadow-2xl relative' : 'py-8'}`}>
           {userRole === 'recruiter' && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               className="absolute -top-4 -right-4 bg-emerald-500 text-white px-4 py-2 rounded-xl shadow-lg text-xs font-bold z-10"
@@ -105,8 +105,8 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             </motion.div>
           )}
           <div className="flex items-center justify-between mb-8">
-            <SectionHeading 
-              title="Experience" 
+            <SectionHeading
+              title="Experience"
               subtitle="My professional journey & impact"
             />
             {userRole === 'recruiter' && (
@@ -125,8 +125,8 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
 
         <section id="projects" className={`py-8 transition-all duration-700 ${userRole === 'developer' ? 'ring-2 ring-purple-500 ring-offset-8 rounded-[2.5rem] p-8' : ''}`}>
           <div className="flex justify-between items-end mb-10">
-            <SectionHeading 
-              title="Projects" 
+            <SectionHeading
+              title="Projects"
               subtitle="Where design meets performance"
               glitch={isRetro}
             />

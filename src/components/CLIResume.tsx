@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import type { Portfolio } from "../types/portfolio";
 import { PORTFOLIO_INFO } from "../config/portfolioData";
 import { usePortfolio } from "../context/PortfolioContext";
+import confetti from "canvas-confetti";
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
@@ -183,6 +184,12 @@ export default function CLIResume({ open = false, onClose }: Props) {
           if (action === "hiring") {
             await typeOut("ROOT ACCESS GRANTED.\nUnlocking the hiring fast-track protocol...\n");
             unlockAchievement("sudo-hiring", "The Chosen One");
+            confetti({
+              particleCount: 150,
+              spread: 100,
+              origin: { y: 0.7 },
+              colors: ["#6366f1", "#ec4899", "#403aed"]
+            });
             await typeOut("Easter egg unlocked! Check your achievements tab (via 'achievements' command).\n");
           } else {
             await typeOut("Nice try. But only 'hiring' is permitted for sudo.\n");
@@ -543,7 +550,7 @@ export default function CLIResume({ open = false, onClose }: Props) {
             style={{ gridTemplateRows: "auto 1fr auto" }}
           >
             {/* ---------- TITLEBAR: restored to original visual layout ---------- */}
-            <div className="flex items-center gap-3 px-3 py-2 border-b border-slate-700">
+            <div className="flex items-center gap-3 px-3 py-2 border-b border-[var(--border)]">
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleClose}

@@ -4,6 +4,7 @@ import { Palette, X, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const StyleCustomizer: React.FC = () => {
+  const { isRetro } = usePortfolio();
   const [isOpen, setIsOpen] = React.useState(false);
   
   const colors = [
@@ -27,7 +28,11 @@ export const StyleCustomizer: React.FC = () => {
     <>
       <button 
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-[10.5rem] right-6 z-50 w-14 h-14 rounded-2xl bg-[var(--surface)] border border-[var(--border)] text-[var(--muted)] shadow-xl hover:text-[var(--brand)] hover:shadow-[0_8px_32px_var(--brand)] transition-all flex items-center justify-center opacity-80 hover:opacity-100"
+        className={`fixed bottom-[10.5rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${
+          isRetro 
+            ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]" 
+            : "rounded-2xl bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] shadow-xl hover:text-[var(--brand)] hover:shadow-[0_8px_32px_var(--brand)]"
+        }`}
       >
         <Palette size={24} />
       </button>
@@ -38,7 +43,9 @@ export const StyleCustomizer: React.FC = () => {
             initial={{ x: 300 }}
             animate={{ x: 0 }}
             exit={{ x: 300 }}
-            className="fixed top-20 right-6 z-50 w-64 p-6 bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl backdrop-blur-md"
+            className={`fixed top-20 right-6 z-50 w-64 p-6 bg-[var(--surface)]/95 border shadow-2xl backdrop-blur-md ${
+              isRetro ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]" : "rounded-2xl border-[var(--border)]"
+            }`}
           >
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-bold">UI Customizer</h3>
@@ -53,7 +60,9 @@ export const StyleCustomizer: React.FC = () => {
                     <button
                       key={c.name}
                       onClick={() => updateBrandColor(c.value)}
-                      className="w-full h-10 rounded-lg border border-[var(--border)] transition-transform hover:scale-110 active:scale-95 shadow-sm"
+                      className={`w-full h-10 border transition-transform hover:scale-110 active:scale-95 shadow-sm ${
+                        isRetro ? "rounded-none" : "rounded-lg border-[var(--border)]"
+                      }`}
                       style={{ backgroundColor: c.value }}
                       title={c.name}
                     />
@@ -61,9 +70,13 @@ export const StyleCustomizer: React.FC = () => {
                 </div>
               </div>
 
-              <button
+               <button
                 onClick={resetStyles}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm font-medium hover:bg-[var(--surface)] transition-colors"
+                className={`w-full flex items-center justify-center gap-2 py-2 border text-sm font-medium transition-colors ${
+                  isRetro 
+                    ? "rounded-none border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-[var(--bg)]" 
+                    : "rounded-xl bg-[var(--bg)] border-[var(--border)] text-[var(--muted)] hover:bg-[var(--surface)]"
+                }`}
               >
                 <RefreshCw size={14} /> Reset to Default
               </button>
