@@ -6,9 +6,13 @@ import {
   useTransform,
   animate,
   useMotionTemplate,
+  useReducedMotion,
 } from "framer-motion";
 import { PiSunDuotone, PiMoonDuotone, PiSnowflakeDuotone, PiCloudDuotone } from "react-icons/pi";
+import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { usePortfolio } from "../../context/PortfolioContext";
 import { PORTFOLIO_INFO } from "../../config/portfolioData";
 
 type NavLink = { href: string; label: string };
@@ -20,6 +24,8 @@ export const Header: React.FC<{
   onToggleSnow?: () => void;
 }> = ({ links = [], onTryCLI, isSnowEnabled, onToggleSnow }) => {
   const { dark, toggle } = useTheme();
+  const { isRetro } = usePortfolio();
+  const reduceMotion = useReducedMotion();
   const headerRef = useRef<HTMLElement | null>(null);
 
   const PERSONAL = PORTFOLIO_INFO.personal;
@@ -45,6 +51,13 @@ export const Header: React.FC<{
     sections.forEach((s) => obs.observe(s));
     return () => obs.disconnect();
   }, [links]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const close = () => setMobileNavOpen(false);
+    mq.addEventListener("change", close);
+    return () => mq.removeEventListener("change", close);
+  }, []);
 
   const springScrollTo = (y: number) => {
     const controls = animate(window.scrollY, y, {
@@ -75,7 +88,7 @@ export const Header: React.FC<{
   const overlayOpacity = useTransform(scrollY, [0, 200], [0.08, 0.14]);
   const backdrop = useMotionTemplate`blur(${blurPx}px)`;
 
-  const BASE = import.meta.env.BASE_URL || "/";
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
     <motion.header
@@ -92,41 +105,53 @@ export const Header: React.FC<{
           opacity: overlayOpacity,
         }}
       />
-      <div className="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
         {/* Left: brand/home */}
-        <a
-          href={BASE}
-          className="flex items-center gap-3 text-lg font-semibold text-[var(--text)]"
+        <Link
+          to="/"
+          className="no-click-pop text-lg font-semibold text-[var(--text)] min-w-0 cursor-pointer rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
+          onClick={() => setMobileNavOpen(false)}
         >
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
-            {PERSONAL.avatar ? (
-              <img
-                className="w-full h-full object-cover rounded-2xl"
-                src={PERSONAL.avatar}
-                alt="profile"
-              />
-            ) : (
-              PERSONAL.name?.split(" ")?.[0]?.[0]
-            )}
-          </div>
-          <span className="sr-only">Home</span>
-          <div className="hidden sm:block leading-tight">
-            <div className="font-bold text-[var(--brand)]">{PERSONAL.name}</div>
-            <div className="text-xs text-[var(--muted)]">{PERSONAL.title}</div>
-          </div>
-        </a>
+          <motion.div
+            className="flex items-center gap-2 sm:gap-3 min-w-0"
+            whileTap={
+              reduceMotion
+                ? undefined
+                : { scale: 0.96, transition: { type: "spring", stiffness: 520, damping: 24 } }
+            }
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] flex items-center justify-center text-2xl font-bold text-white overflow-hidden">
+              {PERSONAL.avatar ? (
+                <img
+                  className="w-full h-full object-cover rounded-2xl"
+                  src={PERSONAL.avatar}
+                  alt="profile"
+                />
+              ) : (
+                PERSONAL.name?.split(" ")?.[0]?.[0]
+              )}
+            </div>
+            <span className="sr-only">Home</span>
+            <div className="hidden sm:block leading-tight min-w-0 text-left">
+              <div className={`font-bold text-[var(--brand)] truncate ${isRetro ? 'glitch-text' : ''}`} data-text={PERSONAL.name}>{PERSONAL.name}</div>
+              <div className="text-xs text-[var(--muted)] truncate max-w-[12rem] md:max-w-none">{PERSONAL.title}</div>
+            </div>
+          </motion.div>
+        </Link>
 
         {/* Right: nav + theme + Try CLI */}
-        <nav aria-label="Primary" className="relative flex items-center gap-3">
-          <div className="relative hidden sm:flex gap-4">
+        <nav aria-label="Primary" className="relative flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+          <div className="relative hidden lg:flex gap-3 xl:gap-4">
             {links.map((l) => {
               const isActive = active === l.href;
               return (
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={(e) => onNavClick(e, l.href)}
-                  className="relative px-1 py-0.5 text-sm text-[var(--text)]"
+                  onClick={(e) => {
+                    onNavClick(e, l.href);
+                  }}
+                  className="relative px-1 py-0.5 text-sm text-[var(--text)] whitespace-nowrap"
                 >
                   {l.label}
                   <AnimatePresence initial={false}>
@@ -147,18 +172,34 @@ export const Header: React.FC<{
             })}
           </div>
 
+          {links.length > 0 && (
+            <button
+              type="button"
+              className="lg:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--border)]/30 transition cursor-pointer"
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobile-nav"
+              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMobileNavOpen((o) => !o)}
+            >
+              {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          )}
+
           <button
+            type="button"
             onClick={onTryCLI}
-            className="btn-light-flare sm:inline-flex items-center gap-2 px-3 py-1.5 rounded text-sm border border-[var(--border)] hover:bg-[var(--border)]/30 transition cursor-pointer"
+            className="btn-light-flare inline-flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded text-xs sm:text-sm border border-[var(--border)] hover:bg-[var(--border)]/30 transition cursor-pointer max-sm:min-w-0"
             aria-label="Try CLI"
           >
-            Try CLI
+            <span className="hidden min-[380px]:inline">Try CLI</span>
+            <span className="min-[380px]:hidden font-mono">CLI</span>
           </button>
 
           {onToggleSnow && (
-            <button
-              onClick={onToggleSnow}
-              className="p-2 rounded-full border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 transition cursor-pointer text-[var(--brand)]"
+          <button
+            type="button"
+            onClick={onToggleSnow}
+            className="p-2 rounded-full border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 transition cursor-pointer text-[var(--brand)]"
               aria-label="Toggle snow effect"
               title={isSnowEnabled ? "Turn off snow" : "Turn on snow"}
             >
@@ -171,6 +212,7 @@ export const Header: React.FC<{
           )}
 
           <button
+            type="button"
             onClick={toggle}
             aria-label="Toggle color theme"
             className="p-2 rounded-full border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 transition cursor-pointer"
@@ -179,6 +221,42 @@ export const Header: React.FC<{
           </button>
         </nav>
       </div>
+
+      <AnimatePresence initial={false}>
+        {mobileNavOpen && links.length > 0 && (
+          <motion.div
+            id="mobile-nav"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="lg:hidden overflow-hidden border-t border-[var(--border)] bg-[var(--surface)]/95 backdrop-blur-md"
+          >
+            <div className="px-4 py-3 flex flex-col gap-0.5 max-w-6xl mx-auto">
+              {links.map((l) => {
+                const isActive = active === l.href;
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={(e) => {
+                      onNavClick(e, l.href);
+                      setMobileNavOpen(false);
+                    }}
+                    className={`py-2.5 px-3 rounded-xl text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-[var(--brand)]/15 text-[var(--brand)]"
+                        : "text-[var(--text)] hover:bg-[var(--border)]/40"
+                    }`}
+                  >
+                    {l.label}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

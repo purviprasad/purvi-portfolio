@@ -40,10 +40,10 @@ export const AwardsList: React.FC<{ awards?: Award[] }> = ({ awards = [] }) => {
                     key={index}
                     variants={item}
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="group relative p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 overflow-hidden"
+                    className="group relative p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
                 >
                     {/* Hover Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_6%,transparent)] via-[color-mix(in_srgb,var(--accent)_6%,transparent)] to-[color-mix(in_srgb,var(--brand)_6%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="relative z-10">
                         <div className="flex items-start justify-between mb-4">
@@ -72,7 +72,7 @@ export const AwardsList: React.FC<{ awards?: Award[] }> = ({ awards = [] }) => {
                     </div>
 
                     {/* Decorative Corner Gradient */}
-                    <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-gradient-to-br from-indigo-500/10 to-transparent rounded-full blur-2xl group-hover:from-indigo-500/20 transition-all duration-500" />
+                    <div className="absolute -bottom-10 -right-10 w-24 h-24 rounded-full blur-2xl transition-all duration-500 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_14%,transparent)] to-transparent group-hover:from-[color-mix(in_srgb,var(--brand)_22%,transparent)]" />
                 </motion.div>
             ))}
         </motion.div>

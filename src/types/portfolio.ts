@@ -81,6 +81,11 @@ export type Project = {
   title: string;
   short?: string; // one-line description
   description?: string; // longer description, markdown ok
+  fullForm?: string;
+  packageName?: string;
+  tagline?: string;
+  features?: string[];
+  darkModeSupport?: boolean;
   tags?: string[]; // technologies / categories
   image?: Url; // preview image path
   href?: Url; // live url (for playground)

@@ -38,7 +38,8 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="md:col-span-2 order-2 md:order-1"
+        className="lg:col-span-2 order-2 lg:order-1"
+      // p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm"
       >
         <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--brand)]">
           {text.map((char, i) => (
@@ -63,10 +64,10 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
           </p>
         </div>
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6 flex flex-wrap gap-3 max-lg:justify-center">
           <a
             href="#skills"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/50"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--accent)] text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 shadow-[0_10px_20px_-6px_color-mix(in_srgb,var(--brand)_35%,transparent)] hover:shadow-[0_14px_28px_-8px_color-mix(in_srgb,var(--brand)_50%,transparent)]"
             onClick={(e) => onNavClick(e, "#skills")}
           >
             Checkout Skills
@@ -91,7 +92,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15 }}
-        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] order-1 md:order-2"
+        className="p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
       >
         <div className="flex flex-col items-center text-center gap-4">
           <motion.div
@@ -103,7 +104,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
             }}
             className="relative"
           >
-            <div className="w-72 h-72 rounded-full p-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl shadow-indigo-500/20">
+            <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full p-1 bg-gradient-to-br from-[var(--brand)] via-[var(--accent)] to-[var(--brand)] shadow-2xl shadow-[0_12px_40px_-12px_color-mix(in_srgb,var(--brand)_25%,transparent)]">
               <div className="w-full h-full rounded-full bg-[var(--surface)] p-1 overflow-hidden flex items-center justify-center">
                 {personal.avatar ? (
                   <img
@@ -112,7 +113,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
                     alt="profile"
                   />
                 ) : (
-                  <span className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-pink-500">
+                  <span className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--brand)] to-[var(--accent)]">
                     {personal.name?.split(" ")[0]?.[0]}
                   </span>
                 )}
@@ -125,10 +126,14 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
           </div>
           <div className="mt-3 flex gap-5 text-[var(--muted)]">
             {personal?.contact?.socials?.map((social, index) => {
+              type BrandIcon = React.ComponentType<{
+                className?: string;
+                size?: number;
+              }>;
               const Icon =
-                (SiIcons[social.icon as keyof typeof SiIcons] as React.ElementType) ||
-                (VscIcons[social.icon as keyof typeof VscIcons] as React.ElementType) ||
-                (Fa6Icons[social.icon as keyof typeof Fa6Icons] as React.ElementType);
+                (SiIcons[social.icon as keyof typeof SiIcons] as BrandIcon) ||
+                (VscIcons[social.icon as keyof typeof VscIcons] as BrandIcon) ||
+                (Fa6Icons[social.icon as keyof typeof Fa6Icons] as BrandIcon);
               return (
                 <a
                   key={social.label + index}
