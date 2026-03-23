@@ -54,13 +54,13 @@ export const BentoSkills: React.FC = () => {
       {/* Dynamic Main Card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 row-span-1 md:col-span-2 md:row-span-2 bg-gradient-to-br from-blue-500/10 to-transparent flex flex-col justify-between"
+        className="bento-item col-span-1 row-span-1 md:col-span-2 md:row-span-2 bg-gradient-to-br from-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-transparent flex flex-col justify-between"
       >
         <div className="flex justify-between items-start">
-          <div className="p-3 rounded-2xl bg-blue-500/20 text-blue-500">
+          <div className="p-3 rounded-2xl bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] text-[var(--accent)]">
             <SiIcons.SiReact size={32} />
           </div>
-          <Sparkles className="text-blue-400 animate-pulse" size={20} />
+          <Sparkles className="text-[var(--accent)] animate-pulse" size={20} />
         </div>
         <div>
           <h3 className="text-lg sm:text-xl font-bold mt-4 text-[var(--text)]">
@@ -77,10 +77,10 @@ export const BentoSkills: React.FC = () => {
       {/* Role-Specific Secondary Card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-green-500/10 to-transparent"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_12%,transparent)] to-transparent"
       >
         <div className="flex items-center gap-4">
-          <div className="p-2 rounded-xl bg-green-500/20 text-green-500">
+          <div className="p-2 rounded-xl bg-[color-mix(in_srgb,var(--brand)_18%,transparent)] text-[var(--brand)]">
             {userRole === 'recruiter' ? <SiIcons.SiNodedotjs size={24} /> : <Database size={24} />}
           </div>
           <h3 className="font-bold text-[var(--text)]">
@@ -117,7 +117,7 @@ export const BentoSkills: React.FC = () => {
         whileHover={{ y: -5 }}
         className="bento-item col-span-1 bg-[var(--surface)]"
       >
-        <SiIcons.SiTypescript className="text-blue-600 mb-2" size={20} />
+        <SiIcons.SiTypescript className="text-[var(--accent)] mb-2" size={20} />
         <span className="text-xs font-bold block">TypeScript</span>
         <p className="text-[10px] text-[var(--muted)] mt-1">
           {tsSkill?.note ?? "Typed React and Node surfaces in production."}
@@ -125,7 +125,7 @@ export const BentoSkills: React.FC = () => {
         {tsSkill?.level != null && (
           <div className="mt-2 w-full bg-gray-200 dark:bg-gray-800 h-1 rounded-full overflow-hidden">
             <div
-              className="bg-blue-600 h-full dark:bg-blue-500 transition-[width] duration-700"
+              className="bg-[var(--accent)] h-full transition-[width] duration-700"
               style={{ width: `${tsSkill.level}%` }}
             />
           </div>
@@ -147,7 +147,7 @@ export const BentoSkills: React.FC = () => {
               key={s.name}
               className="px-2 py-1 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-[10px] flex items-center gap-1"
             >
-              <SkillGlyph icon={s.icon} size={12} />
+              <SkillGlyph icon={s.icon} size={12} className="text-[var(--accent)]" />
               {s.name}
             </span>
           ))}
@@ -175,9 +175,9 @@ export const BentoSkills: React.FC = () => {
       {/* Terminal card */}
       <motion.div
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-emerald-500/10 to-transparent"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-transparent"
       >
-        <Terminal className="text-emerald-600 dark:text-emerald-400 mb-2" size={20} />
+        <Terminal className="text-[var(--accent)] mb-2" size={20} />
         <h3 className="text-sm font-mono tracking-tight text-[var(--text)]">Delivery &amp; quality</h3>
         <p className="text-[10px] font-mono mt-1 leading-relaxed text-[var(--muted)]">
           Git/GitHub, Postman for APIs, Jenkins pipelines, Splunk for ops visibility—comfortable on the terminal

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePortfolio } from "../../context/PortfolioContext";
 import { useTheme } from "../../context/ThemeContext";
+import type { Background3DMode } from "./Premium3DBackground";
 import { Palette, X, RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -55,7 +56,15 @@ function normHex(h: string): string {
   return h.trim().toLowerCase().slice(0, 7);
 }
 
-export const StyleCustomizer: React.FC = () => {
+interface StyleCustomizerProps {
+  background3DMode: "off" | Background3DMode;
+  onBackground3DModeChange: (mode: "off" | Background3DMode) => void;
+}
+
+export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
+  background3DMode,
+  onBackground3DModeChange,
+}) => {
   const { isRetro } = usePortfolio();
   const { dark, toggle: toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -210,6 +219,35 @@ export const StyleCustomizer: React.FC = () => {
                     {dark ? <Sun size={16} aria-hidden /> : <Moon size={16} aria-hidden />}
                     {dark ? "Switch to light mode" : "Switch to dark mode"}
                   </button>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[var(--muted)] block mb-2 uppercase tracking-wider">3D background</label>
+                  <p className="text-[10px] text-[var(--muted)] mb-2 leading-relaxed">Premium interactive background intensity.</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {([
+                      { id: "off", label: "Off" },
+                      { id: "subtle", label: "Subtle" },
+                      { id: "full", label: "Full" },
+                    ] as const).map((option) => {
+                      const active = background3DMode === option.id;
+                      return (
+                        <button
+                          type="button"
+                          key={option.id}
+                          onClick={() => onBackground3DModeChange(option.id)}
+                          className={`py-2 border text-xs font-semibold transition-colors ${
+                            isRetro
+                              ? `rounded-none ${active ? "bg-[var(--brand)] text-[var(--bg)] border-[var(--brand)]" : "bg-[var(--bg)] text-[var(--brand)] border-[var(--brand)]"}`
+                              : `${active ? "bg-[var(--brand)]/15 text-[var(--text)] border-[var(--brand)]" : "bg-[var(--bg)] text-[var(--muted)] border-[var(--border)] hover:bg-[var(--surface)]"} rounded-lg`
+                          }`}
+                          aria-pressed={active}
+                        >
+                          {option.label}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <div>

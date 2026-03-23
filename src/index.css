@@ -323,22 +323,47 @@ body {
 .aurora-container {
   position: fixed;
   inset: 0;
-  z-index: -10;
+  z-index: 1;
   overflow: hidden;
-  background: var(--bg);
+  background: transparent;
 }
 
 .aurora-blob {
   position: absolute;
   filter: blur(80px);
-  opacity: 0.3;
+  opacity: 0.14;
   width: 40vw;
   height: 40vw;
   border-radius: 50%;
 }
 
 .dark .aurora-blob {
-  opacity: 0.2;
+  opacity: 0.12;
+}
+
+/* Global 3D canvas background layer */
+.premium-3d-layer {
+  opacity: 1;
+  background:
+    radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--brand) 18%, transparent) 0%, transparent 52%),
+    linear-gradient(180deg, #050916 0%, #040812 40%, #03070f 100%);
+}
+
+:root .premium-3d-layer {
+  background:
+    radial-gradient(circle at 50% 76%, color-mix(in srgb, var(--brand) 12%, transparent) 0%, transparent 55%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 86%, var(--brand) 14%) 0%,
+      color-mix(in srgb, #f8fbff 88%, var(--accent) 12%) 54%,
+      color-mix(in srgb, #eef4ff 92%, var(--brand) 8%) 100%
+    );
+}
+
+.dark .premium-3d-layer {
+  background:
+    radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--brand) 18%, transparent) 0%, transparent 52%),
+    linear-gradient(180deg, #050916 0%, #040812 40%, #03070f 100%);
 }
 
 /* Mouse Follower Styling */

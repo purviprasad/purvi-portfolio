@@ -17,7 +17,6 @@ import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
 import { AwardsList } from "../components/AwardsList";
 import { BentoSkills } from "../components/BentoSkills";
-import { FloatingOrb } from "../components/shared/FloatingOrb";
 
 
 interface PortfolioPageProps {
@@ -56,7 +55,6 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
       <CLIResume open={showCLI} onClose={() => setShowCLI(false)} />
 
       <main className="max-w-6xl 2xl:max-w-9xl mx-auto px-6 py-10 relative">
-        <FloatingOrb />
         <section
           id="about"
           className="pt-20 pb-2"
@@ -74,7 +72,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </div>
         </section>
 
-        <section id="experience" className={`py-12 transition-all duration-700 ${userRole === "recruiter" ? "ring-2 ring-[var(--brand)] ring-offset-8 rounded-[2.5rem] p-8 bg-[var(--surface)] shadow-2xl relative" : ""}`}>
+        <section id="experience" className={`py-12 transition-all duration-700 mt-4 ${userRole === "recruiter" ? "ring-2 ring-[var(--brand)] ring-offset-8 rounded-[2.5rem] p-8 md:pr-12 lg:pr-14 bg-[var(--surface)] shadow-2xl relative" : ""}`}>
           {userRole === 'recruiter' && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
