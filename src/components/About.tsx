@@ -39,6 +39,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="lg:col-span-2 order-2 lg:order-1"
+      // p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm"
       >
         <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--brand)]">
           {text.map((char, i) => (
@@ -91,7 +92,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15 }}
-        className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
+        className="p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
       >
         <div className="flex flex-col items-center text-center gap-4">
           <motion.div

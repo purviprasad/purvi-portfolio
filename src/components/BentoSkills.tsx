@@ -97,7 +97,7 @@ export const BentoSkills: React.FC = () => {
       {/* Database card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 bg-[var(--surface)] border-dashed"
+        className="bento-item col-span-1 border-dashed"
       >
         <Database className="text-[var(--brand)] mb-2" size={20} />
         <span className="text-xs font-bold block">PostgreSQL</span>
@@ -115,7 +115,7 @@ export const BentoSkills: React.FC = () => {
       {/* TypeScript card */}
       <motion.div 
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 bg-[var(--surface)]"
+        className="bento-item col-span-1"
       >
         <SiIcons.SiTypescript className="text-[var(--accent)] mb-2" size={20} />
         <span className="text-xs font-bold block">TypeScript</span>

@@ -31,7 +31,7 @@ export const RoleExplorer: React.FC = () => {
         <div
           className={`min-w-0 flex-1 p-1 grid grid-cols-3 gap-0.5 sm:gap-1 transition-all duration-500 shadow-lg overflow-hidden ${isRetro
             ? "bg-[var(--bg)] border-2 border-[var(--brand)] rounded-none shadow-[0_0_16px_var(--brand)]"
-            : "bg-[var(--surface)] border border-[var(--border)] rounded-full ring-1 ring-black/5 dark:ring-white/5"
+            : "bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 rounded-full ring-1 ring-black/5 dark:ring-white/5"
             }`}
         >
           {roles.map((r) => {

@@ -29,7 +29,7 @@ export const ProjectCard: React.FC<{
     <motion.article
       layout
       whileHover={{ y: -6 }}
-      className="p-4 group rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-sm hover:shadow-md transition-shadow"
+      className="p-4 group rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm hover:shadow-md transition-shadow"
     >
       <div className="flex items-start justify-between gap-4">
         <div>

@@ -151,11 +151,11 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             glitch={isRetro}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)]">
+            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10">
               <ContactForm />
             </div>
 
-            <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] flex flex-col gap-4">
+            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 flex flex-col gap-4">
               <div>
                 <div className="font-semibold">Let's collaborate</div>
                 <div className="text-sm text-[var(--muted)]">
@@ -176,7 +176,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
                 <div className="text-sm font-medium">Resume</div>
                 <a
                   href="/PURVI_SEHGAL_RESUME.pdf"
-                  className="block mt-2 px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] hover:border-[var(--brand)]/50 transition-colors text-center sm:text-left"
+                  className="block mt-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] backdrop-blur-md text-[var(--text)] font-medium hover:bg-[var(--input-focus)] hover:border-[var(--brand)] hover:shadow-[0_4px_20px_color-mix(in_srgb,var(--brand)_20%,transparent)] transition-all duration-300 text-center flex justify-center items-center gap-2 hover:-translate-y-0.5 shadow-sm"
                   download
                 >
                   Download PDF
