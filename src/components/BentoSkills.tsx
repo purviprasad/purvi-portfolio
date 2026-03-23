@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { motion } from "framer-motion";
 import { PORTFOLIO_INFO } from "../config/portfolioData";
 import * as SiIcons from "react-icons/si";
-import { Sparkles, Code2, Database, Layout, Terminal } from "lucide-react";
+import * as VscIcons from "react-icons/vsc";
+import * as Fa6Icons from "react-icons/fa6";
+import { Sparkles, Database, Layout, Terminal } from "lucide-react";
+import type { Skill } from "../types/portfolio";
+
+function SkillGlyph({
+  icon,
+  size = 12,
+  className,
+}: {
+  icon?: string;
+  size?: number;
+  className?: string;
+}) {
+  if (!icon) return null;
+  type IconComp = React.ComponentType<{ size?: number; className?: string }>;
+  const Cmp =
+    (SiIcons[icon as keyof typeof SiIcons] as IconComp | undefined) ||
+    (VscIcons[icon as keyof typeof VscIcons] as IconComp | undefined) ||
+    (Fa6Icons[icon as keyof typeof Fa6Icons] as IconComp | undefined);
+  if (!Cmp) return null;
+  return <Cmp size={size} className={className} />;
+}
 
 export const BentoSkills: React.FC = () => {
   const { userRole } = usePortfolio();
-  const allSkills = PORTFOLIO_INFO.skills?.flatMap(g => g.skills) || [];
-  
-  // Highlight different skills based on role
-  const featured = userRole === 'developer' 
-    ? ["TypeScript", "Node.js", "React", "PostgreSQL"]
-    : ["React", "Experience", "Production", "Node.js"];
+  const allSkills = PORTFOLIO_INFO.skills?.flatMap((g) => g.skills) || [];
+
+  const { toolkitPreview, toolkitMoreCount, pgSkill, tsSkill } = useMemo(() => {
+    const featuredNames =
+      userRole === "developer"
+        ? ["TypeScript", "Node.js", "React", "PostgreSQL"]
+        : ["React", "Redux", "Node.js", "PostgreSQL"];
+    const featuredSet = new Set(featuredNames);
+    const toolkit = allSkills.filter((s) => !featuredSet.has(s.name));
+    const preview = toolkit.slice(0, 15);
+    const more = Math.max(0, toolkit.length - preview.length);
+    const byName = (n: string) => allSkills.find((s) => s.name === n);
+    return {
+      toolkitPreview: preview,
+      toolkitMoreCount: more,
+      pgSkill: byName("PostgreSQL"),
+      tsSkill: byName("TypeScript"),
+    };
+  }, [allSkills, userRole]);
 
   return (
     <div className="bento-grid">
@@ -32,9 +67,9 @@ export const BentoSkills: React.FC = () => {
             {userRole === 'recruiter' ? 'Enterprise Engineering' : 'Full-Stack Architecture'}
           </h3>
           <p className="text-sm text-[var(--muted)] mt-2">
-            {userRole === 'recruiter' 
-              ? 'Proven track record of delivering production-ready applications for clients like Apple and Verizon.' 
-              : 'Specializing in type-safe React patterns and scalable Node.js microservices.'}
+            {userRole === "recruiter"
+              ? "Production-grade web apps for Apple and Verizon: React frontends, Node/Express services, PostgreSQL, and clear ownership from design through release."
+              : "End-to-end TypeScript-aware React apps, Node.js and Express APIs, PostgreSQL-backed services, and patterns that stay maintainable as teams grow."}
           </p>
         </div>
       </motion.div>
@@ -53,9 +88,9 @@ export const BentoSkills: React.FC = () => {
           </h3>
         </div>
         <p className="text-xs text-[var(--muted)] mt-2">
-          {userRole === 'recruiter'
-            ? 'Optimized data pipelines reducing memory usage by 80% and improving reliability.'
-            : 'Expertise in PostgreSQL optimization and designing complex schema architectures.'}
+          {userRole === "recruiter"
+            ? "Re-architected data-generation pipelines (including Go → Node with delta filtering) for leaner memory use and more reliable runs—plus schema and query work in PostgreSQL."
+            : "PostgreSQL for relational modeling, indexing, and performance tuning alongside Node services and migrations across MySQL and MongoDB where projects need them."}
         </p>
       </motion.div>
 
@@ -67,8 +102,14 @@ export const BentoSkills: React.FC = () => {
         <Database className="text-[var(--brand)] mb-2" size={20} />
         <span className="text-xs font-bold block">PostgreSQL</span>
         <div className="mt-2 w-full bg-gray-200 dark:bg-gray-800 h-1 rounded-full overflow-hidden">
-          <div className="bg-[var(--brand)] h-full w-[90%]" />
+          <div
+            className="bg-[var(--brand)] h-full transition-[width] duration-700"
+            style={{ width: `${pgSkill?.level ?? 90}%` }}
+          />
         </div>
+        {pgSkill?.note && (
+          <p className="text-[10px] text-[var(--muted)] mt-2 leading-snug">{pgSkill.note}</p>
+        )}
       </motion.div>
 
       {/* TypeScript card */}
@@ -78,20 +119,43 @@ export const BentoSkills: React.FC = () => {
       >
         <SiIcons.SiTypescript className="text-blue-600 mb-2" size={20} />
         <span className="text-xs font-bold block">TypeScript</span>
-        <p className="text-[10px] text-[var(--muted)] mt-1">Type-safe development expert.</p>
+        <p className="text-[10px] text-[var(--muted)] mt-1">
+          {tsSkill?.note ?? "Typed React and Node surfaces in production."}
+        </p>
+        {tsSkill?.level != null && (
+          <div className="mt-2 w-full bg-gray-200 dark:bg-gray-800 h-1 rounded-full overflow-hidden">
+            <div
+              className="bg-blue-600 h-full dark:bg-blue-500 transition-[width] duration-700"
+              style={{ width: `${tsSkill.level}%` }}
+            />
+          </div>
+        )}
       </motion.div>
 
       {/* Tech Stack Horizontal Scroll/Marquee feel */}
       <div className="bento-item col-span-1 md:col-span-4 py-4">
-        <h4 className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3">The Rest of my Toolkit</h4>
+        <h4 className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-2">
+          Also in the toolkit
+        </h4>
+        <p className="text-[10px] text-[var(--muted)] mb-3 max-w-3xl leading-relaxed">
+          Express APIs, Redux / RTK, micro frontends (Module Federation), observability (Splunk), and CI with
+          Jenkins—aligned with what ships in client engagements and personal products.
+        </p>
         <div className="flex flex-wrap gap-2">
-          {allSkills.filter(s => !featured.includes(s.name)).slice(0, 15).map((s, i) => (
-            <span key={i} className="px-2 py-1 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-[10px] flex items-center gap-1">
-              {(SiIcons as any)[s.icon] && React.createElement((SiIcons as any)[s.icon], { size: 12 })}
+          {toolkitPreview.map((s: Skill) => (
+            <span
+              key={s.name}
+              className="px-2 py-1 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-[10px] flex items-center gap-1"
+            >
+              <SkillGlyph icon={s.icon} size={12} />
               {s.name}
             </span>
           ))}
-          <span className="text-[10px] text-[var(--brand)] font-bold">+ {allSkills.length - 19} more</span>
+          {toolkitMoreCount > 0 && (
+            <span className="text-[10px] text-[var(--brand)] font-bold self-center">
+              +{toolkitMoreCount} more
+            </span>
+          )}
         </div>
       </div>
 
@@ -102,17 +166,23 @@ export const BentoSkills: React.FC = () => {
       >
         <Layout className="text-[var(--accent)] mb-2" size={24} />
         <h3 className="font-bold text-[var(--text)]">Modern UI/UX</h3>
-        <p className="text-xs text-[var(--muted)] mt-1">Tailwind CSS, Framer Motion, and Ant Design for premium user experiences.</p>
+        <p className="text-xs text-[var(--muted)] mt-1">
+          Ant Design and Material UI in enterprise UIs; Tailwind and Framer Motion for fast, polished product
+          surfaces—plus Redux Toolkit where global client state matters.
+        </p>
       </motion.div>
 
       {/* Terminal card */}
-      <motion.div 
+      <motion.div
         whileHover={{ y: -5 }}
-        className="bento-item col-span-1 md:col-span-2 bg-zinc-900 border-zinc-800 text-zinc-100 dark:border-zinc-700"
+        className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-emerald-500/10 to-transparent"
       >
-        <Terminal className="text-emerald-500 mb-2" size={20} />
-        <h3 className="text-sm font-mono tracking-tight">CLI Driven</h3>
-        <p className="text-[10px] opacity-60 font-mono mt-1">$ npm install --premium-portfolio</p>
+        <Terminal className="text-emerald-600 dark:text-emerald-400 mb-2" size={20} />
+        <h3 className="text-sm font-mono tracking-tight text-[var(--text)]">Delivery &amp; quality</h3>
+        <p className="text-[10px] font-mono mt-1 leading-relaxed text-[var(--muted)]">
+          Git/GitHub, Postman for APIs, Jenkins pipelines, Splunk for ops visibility—comfortable on the terminal
+          day to day.
+        </p>
       </motion.div>
     </div>
   );

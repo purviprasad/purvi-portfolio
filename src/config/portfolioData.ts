@@ -75,7 +75,7 @@ export const PORTFOLIO_INFO: Portfolio = {
           icon: "SiJavascript",
           category: "frontend",
           years: 6,
-          note: "Used in production since 2020",
+          note: "Used in production since 2019",
         },
         {
           name: "HTML5",
@@ -392,7 +392,7 @@ export const PORTFOLIO_INFO: Portfolio = {
         "",
       bullets: [
         "Led end-to-end delivery of a project from inception to production within a 4-member team.",
-        "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, reducing memory usage by 80%+ (12 GB → 6 GB).",
+        "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, cutting memory use by roughly half on representative workloads (e.g. 12 GB → 6 GB).",
         "Owned backend & frontend architecture, database design, and client collaboration; consistently recognized for efficient planning, optimized code, and strong stakeholder feedback.",
         "Mentor engineers, conduct design reviews, and improve code quality and observability.",
       ],

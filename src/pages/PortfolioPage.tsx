@@ -124,7 +124,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
         <section id="skills" className="py-12">
           <SectionHeading
             title="Core Stack & Capabilities"
-            subtitle="A breakdown of the tools I use to build production systems"
+            subtitle="How I ship full-stack work—React and Node in production, data stores, and the tooling around reliable releases"
             glitch={isRetro}
           />
           <BentoSkills />
