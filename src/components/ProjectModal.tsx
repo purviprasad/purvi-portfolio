@@ -200,8 +200,12 @@ export const ProjectModal: React.FC<{
                         />
                       )}
                       {/* Metadata */}
-                      {(project.domain || project.createdFor) && (
-                        <div className="flex flex-wrap gap-4 mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--brand)]">
+                      {(project.domain ||
+                        project.createdFor ||
+                        project.fullForm ||
+                        project.packageName ||
+                        project.darkModeSupport !== undefined) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--brand)]">
                           {project.domain && (
                             <div className="flex flex-col gap-0.5">
                               <span className="opacity-50 text-[10px]">Domain</span>
@@ -214,7 +218,31 @@ export const ProjectModal: React.FC<{
                               <span>{project.createdFor}</span>
                             </div>
                           )}
+                          {project.fullForm && (
+                            <div className="flex flex-col gap-0.5">
+                              <span className="opacity-50 text-[10px]">Full Form</span>
+                              <span>{project.fullForm}</span>
+                            </div>
+                          )}
+                          {project.packageName && (
+                            <div className="flex flex-col gap-0.5">
+                              <span className="opacity-50 text-[10px]">Package</span>
+                              <span className="normal-case">{project.packageName}</span>
+                            </div>
+                          )}
+                          {project.darkModeSupport !== undefined && (
+                            <div className="flex flex-col gap-0.5">
+                              <span className="opacity-50 text-[10px]">Dark Mode</span>
+                              <span>{project.darkModeSupport ? "Supported" : "Not Supported"}</span>
+                            </div>
+                          )}
                         </div>
+                      )}
+
+                      {project.tagline && (
+                        <p className="text-base font-semibold text-[var(--brand)] mb-3">
+                          {project.tagline}
+                        </p>
                       )}
 
                       {/* Description */}
@@ -273,6 +301,22 @@ export const ProjectModal: React.FC<{
                           </span>
                         ))}
                       </div>
+
+                      {project.features && project.features.length > 0 && (
+                        <div className="mt-6 rounded-xl border border-[var(--border)] bg-black/5 dark:bg-white/5 p-4">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--brand)] mb-3">
+                            Features
+                          </h4>
+                          <ul className="space-y-2 text-sm text-[var(--text)]">
+                            {project.features.map((feature) => (
+                              <li key={feature} className="flex gap-2">
+                                <span className="text-[var(--brand)]">•</span>
+                                <span>{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
 
                       {/* Credentials */}

@@ -8,6 +8,8 @@ export const AIAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([
     {
       role: "ai",
@@ -22,6 +24,23 @@ export const AIAssistant: React.FC = () => {
     "How to contact her?",
     "View latest project"
   ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        chatRef.current &&
+        !chatRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -60,6 +79,7 @@ export const AIAssistant: React.FC = () => {
   return (
     <>
       <motion.button
+        ref={buttonRef}
         type="button"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -80,6 +100,7 @@ export const AIAssistant: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={chatRef}
             initial={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}

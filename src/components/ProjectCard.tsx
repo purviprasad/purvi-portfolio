@@ -70,14 +70,26 @@ export const ProjectCard: React.FC<{
             <span className="text-xs text-[var(--muted)] pl-2">Under Development</span>
           )}
 
-          {(project.domain || project.createdFor) && (
+          {project.tagline && (
+            <p className="mt-1 text-sm font-medium text-[var(--text)]">
+              {project.tagline}
+            </p>
+          )}
+
+          {(project.domain || project.createdFor || project.packageName || project.darkModeSupport !== undefined) && (
             <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--brand)] opacity-70">
               {project.domain && <span>Domain: {project.domain}</span>}
               {project.createdFor && <span>For: {project.createdFor}</span>}
+              {project.packageName && <span>Package: {project.packageName}</span>}
+              {project.darkModeSupport !== undefined && (
+                <span>Dark Mode: {project.darkModeSupport ? "Yes" : "No"}</span>
+              )}
             </div>
           )}
 
-          <p className="text-sm text-[var(--muted)] mt-2 line-clamp-2">{project.description}</p>
+          <p className="text-sm text-[var(--muted)] mt-2 line-clamp-3">
+            {project.short || project.description}
+          </p>
           <div className="mt-4 flex gap-3 flex-wrap text-[var(--muted)]">
             {project.href && (
               <a
