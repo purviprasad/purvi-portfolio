@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { FaArrowUp } from "react-icons/fa6";
 import type { Variants } from "framer-motion";
 
@@ -27,7 +27,7 @@ export const ScrollToTop: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [flying, setFlying] = useState(false);
   const [distance, setDistance] = useState(0);
-  const reduceMotion = useReducedMotion();
+  const prefersReducedMotion = useRef(false);
 
   let animationState: "flying" | "visible" | "hidden";
   if (flying) {
@@ -39,6 +39,12 @@ export const ScrollToTop: React.FC = () => {
   }
 
   useEffect(() => {
+    if (typeof window !== "undefined" && "matchMedia" in window) {
+      prefersReducedMotion.current = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+    }
+
     const onScroll = () => {
       // Only show button if not currently flying
       if (!flying) {
@@ -52,7 +58,7 @@ export const ScrollToTop: React.FC = () => {
   }, [flying]);
 
   const onActivate = () => {
-    if (reduceMotion) {
+    if (prefersReducedMotion.current) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -74,30 +80,21 @@ export const ScrollToTop: React.FC = () => {
     <motion.button
       aria-label="Scroll to top"
       type="button"
-      className="no-click-pop fixed bottom-32 right-6 z-50 focus:outline-none cursor-pointer group"
+      className="fixed bottom-6 right-6 z-50 focus:outline-none cursor-pointer group"
       style={{ display: "grid", placeItems: "center" }}
       onClick={onActivate}
       initial="hidden"
       animate={animationState}
       variants={containerVariants}
       custom={distance}
-      whileHover={reduceMotion ? undefined : { scale: 1.1 }}
-      whileTap={
-        reduceMotion
-          ? undefined
-          : {
-              scale: 0.86,
-              transition: { type: "spring", stiffness: 550, damping: 22 },
-            }
-      }
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <div
-        className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] border border-white/20 transition-[box-shadow,transform] duration-300 overflow-hidden shadow-[0_10px_20px_-6px_color-mix(in_srgb,var(--brand)_35%,transparent)] [@media(hover:none)]:shadow-[0_13px_32px_-8px_color-mix(in_srgb,var(--brand)_48%,transparent)] hover:shadow-[0_14px_28px_-8px_color-mix(in_srgb,var(--brand)_52%,transparent)] active:shadow-[0_14px_28px_-8px_color-mix(in_srgb,var(--brand)_52%,transparent)]"
-      >
+      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 border border-white/20 overflow-hidden">
         {/* Shiny overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-white/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-white/20 pointer-events-none" />
 
-        <FaArrowUp className="w-5 h-5 text-white drop-shadow-md group-hover:-translate-y-0.5 group-active:-translate-y-0.5 transition-transform duration-300" />
+        <FaArrowUp className="w-5 h-5 text-white drop-shadow-md group-hover:-translate-y-0.5 transition-transform duration-300" />
       </div>
     </motion.button>
   );

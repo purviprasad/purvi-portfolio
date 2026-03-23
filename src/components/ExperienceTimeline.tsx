@@ -18,7 +18,7 @@ const ExperienceCard: React.FC<{ item: ExperienceItem; isLeft: boolean }> = ({ i
             {/* Card - Adaptive Glass/Solid */}
             <div
                 onClick={() => setIsExpanded(!isExpanded)}
-                className={`ml-12 mr-4 md:mx-0 p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group cursor-pointer relative overflow-hidden w-auto md:w-full hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--brand)_14%,transparent)]
+                className={`ml-12 mr-4 md:mx-0 p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 group cursor-pointer relative overflow-hidden w-auto md:w-full
           ${isLeft ? "md:col-start-1 md:text-right md:mr-8" : "md:col-start-2 md:ml-8"}
         `}
             >

@@ -72,7 +72,7 @@ export const ContactForm: React.FC = () => {
         placeholder="Your name"
         value={state.name}
         onChange={update}
-        className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] backdrop-blur-md border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)]/70 focus:outline-none focus:bg-[var(--input-focus)] focus:ring-2 focus:ring-[var(--brand)]/40 focus:border-[var(--brand)] transition-all shadow-sm focus:shadow-md"
+        className="w-full px-3 py-2 rounded-md bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]"
         required
       />
       <label htmlFor="email" className="text-sm text-[var(--text)]">Email</label>
@@ -84,7 +84,7 @@ export const ContactForm: React.FC = () => {
         placeholder="Your email"
         value={state.email}
         onChange={update}
-        className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] backdrop-blur-md border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)]/70 focus:outline-none focus:bg-[var(--input-focus)] focus:ring-2 focus:ring-[var(--brand)]/40 focus:border-[var(--brand)] transition-all shadow-sm focus:shadow-md"
+        className="w-full px-3 py-2 rounded-md bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]"
         required
       />
       <label htmlFor="message" className="text-sm text-[var(--text)]">Message</label>
@@ -96,7 +96,7 @@ export const ContactForm: React.FC = () => {
         value={state.message}
         onChange={update}
         rows={6}
-        className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] backdrop-blur-md border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--muted)]/70 focus:outline-none focus:bg-[var(--input-focus)] focus:ring-2 focus:ring-[var(--brand)]/40 focus:border-[var(--brand)] transition-all shadow-sm focus:shadow-md resize-y"
+        className="w-full px-3 py-2 rounded-md bg-[var(--surface)] border border-[var(--border)] text-[var(--text)]"
         required
       />
 
@@ -104,18 +104,18 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-[var(--brand)] to-[var(--accent)] hover:scale-105 transition-all duration-300 shadow-[0_4px_14px_0_color-mix(in_srgb,var(--brand)_39%,transparent)] hover:shadow-[0_6px_20px_color-mix(in_srgb,var(--brand)_50%,transparent)] disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-not-allowed"
+          className="px-4 py-2 rounded-lg text-white bg-[var(--brand)] disabled:opacity-60 transition-opacity hover:opacity-90"
         >
           {loading ? "Sending..." : "Send message"}
         </button>
 
         {success === true && (
-          <div className="text-sm text-emerald-700 dark:text-emerald-400">
+          <div className="text-sm text-green-600">
             Message sent — thank you!
           </div>
         )}
         {success === false && (
-          <div className="text-sm text-red-700 dark:text-red-400">
+          <div className="text-sm text-red-600">
             {errorMsg || "Failed to send."}
           </div>
         )}

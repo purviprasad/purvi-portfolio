@@ -14,26 +14,6 @@ const ReactMarkdown = React.lazy(() => import("react-markdown"));
 
 import "github-markdown-css/github-markdown-light.css";
 
-/** Mount only when the modal is open so `useScroll({ container })` always has a hydrated ref. */
-const ModalScrollArea: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: containerRef });
-  return (
-    <div
-      ref={containerRef}
-      className="flex-1 overflow-y-auto min-h-0 max-h-[min(420px,52dvh)] sm:max-h-[500px] pr-1 custom-scroll relative"
-    >
-      <motion.div
-        className="sticky top-0 left-0 right-0 h-1 bg-[var(--border)]/50 z-10"
-        style={{ transformOrigin: "left", scaleX: scrollYProgress }}
-      />
-      {children}
-    </div>
-  );
-};
-
 export const ProjectModal: React.FC<{
   project: Project | null;
   open: boolean;
@@ -47,6 +27,9 @@ export const ProjectModal: React.FC<{
   );
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
+
+  const bodyRef = React.useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({ container: bodyRef });
 
   const FaLink = FaIcons["FaLink" as keyof typeof FaIcons];
 
@@ -109,45 +92,52 @@ export const ProjectModal: React.FC<{
   }, [open, project]);
 
   return (
-    <AnimatePresence>
-      {open && project && (
-        <motion.div
-          key={`modal-${project.title}`}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+    <div
+      ref={bodyRef}
+      className="flex-1 overflow-y-auto mt-2 pr-1 custom-scroll relative"
+    >
+      {/* progress bar lives *inside* the scroll container */}
+      <motion.div
+        className="sticky top-0 left-0 right-0 h-1 bg-[var(--border)]/50 z-10"
+        style={{ transformOrigin: "left", scaleX: scrollYProgress }}
+      />
+      <AnimatePresence>
+        {open && project && (
           <motion.div
-            onClick={onClose}
-            role="presentation"
-            className="absolute inset-0 bg-[var(--bg)]/65 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-          />
-
-          <motion.dialog
-            open={open}
-            aria-modal="true"
-            className="relative z-10 w-full max-w-4xl max-h-[92dvh] min-h-0 p-4 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-lg flex flex-col"
-            initial={{ y: 50, opacity: 0, scale: 0.95 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 40, opacity: 0, scale: 0.95 }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            onClick={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
+            {/* Backdrop */}
+            <motion.div
               onClick={onClose}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 cursor-pointer text-[var(--muted)] hover:text-[var(--text)] z-20"
-              aria-label="Close project details"
+              className="absolute inset-0 bg-[color:var(--bg)/0.6] backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Modal Content */}
+            <motion.dialog
+              open={open}
+              aria-modal="true"
+              className="relative z-10 w-full max-w-4xl max-h-[90vh] p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-lg flex flex-col"
+              initial={{ y: 50, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 40, opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
             >
-              ✕
-            </button>
+              {/* Close */}
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 cursor-pointer text-[var(--muted)] hover:text-[var(--text)]"
+              >
+                ✕
+              </button>
 
               {/* Title */}
-              <h3 className="text-lg sm:text-xl font-bold text-[var(--brand)] mb-2 pr-10">
+              <h3 className="text-xl font-bold text-[var(--brand)] mb-2">
                 {project.title}
               </h3>
 
@@ -155,7 +145,6 @@ export const ProjectModal: React.FC<{
               {iframeAllowed && (
                 <div className="flex border-b border-[var(--border)] mb-2">
                   <button
-                    type="button"
                     onClick={() => setActiveTab("details")}
                     className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "details"
                       ? "text-[var(--brand)] border-b-2 border-[var(--brand)]"
@@ -165,7 +154,6 @@ export const ProjectModal: React.FC<{
                     Details
                   </button>
                   <button
-                    type="button"
                     onClick={() => {
                       setActiveTab("playground");
                       setIframeLoaded(true);
@@ -181,7 +169,8 @@ export const ProjectModal: React.FC<{
                 </div>
               )}
 
-              <ModalScrollArea>
+              {/* Body (scroll only here) */}
+              <div className="flex-1 overflow-y-auto pr-1 max-h-[500px] custom-scroll">
                 <AnimatePresence mode="wait">
                   {activeTab === "details" && (
                     <motion.div
@@ -200,12 +189,8 @@ export const ProjectModal: React.FC<{
                         />
                       )}
                       {/* Metadata */}
-                      {(project.domain ||
-                        project.createdFor ||
-                        project.fullForm ||
-                        project.packageName ||
-                        project.darkModeSupport !== undefined) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--brand)]">
+                      {(project.domain || project.createdFor) && (
+                        <div className="flex flex-wrap gap-4 mb-4 text-xs font-semibold uppercase tracking-wide text-[var(--brand)]">
                           {project.domain && (
                             <div className="flex flex-col gap-0.5">
                               <span className="opacity-50 text-[10px]">Domain</span>
@@ -218,31 +203,7 @@ export const ProjectModal: React.FC<{
                               <span>{project.createdFor}</span>
                             </div>
                           )}
-                          {project.fullForm && (
-                            <div className="flex flex-col gap-0.5">
-                              <span className="opacity-50 text-[10px]">Full Form</span>
-                              <span>{project.fullForm}</span>
-                            </div>
-                          )}
-                          {project.packageName && (
-                            <div className="flex flex-col gap-0.5">
-                              <span className="opacity-50 text-[10px]">Package</span>
-                              <span className="normal-case">{project.packageName}</span>
-                            </div>
-                          )}
-                          {project.darkModeSupport !== undefined && (
-                            <div className="flex flex-col gap-0.5">
-                              <span className="opacity-50 text-[10px]">Dark Mode</span>
-                              <span>{project.darkModeSupport ? "Supported" : "Not Supported"}</span>
-                            </div>
-                          )}
                         </div>
-                      )}
-
-                      {project.tagline && (
-                        <p className="text-base font-semibold text-[var(--brand)] mb-3">
-                          {project.tagline}
-                        </p>
                       )}
 
                       {/* Description */}
@@ -265,14 +226,11 @@ export const ProjectModal: React.FC<{
                             </a>
                           )}
                           {project.links.map((link) => {
-                            type LinkIcon = React.ComponentType<{
-                              className?: string;
-                            }>;
                             const Icon =
-                              (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
-                              (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
-                              (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
-                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
+                              (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
+                              (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
+                              (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
+                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
                             return (
                               <a
                                 key={link.label}
@@ -294,29 +252,13 @@ export const ProjectModal: React.FC<{
                         {project.tags?.map((t) => (
                           <span
                             key={t}
-                            className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-[var(--bg)] text-[var(--text)] border border-[var(--border)]"
+                            className={`text-xs font-semibold px-2 py-1 rounded-full ${tagColors[t] || "bg-gray-100 text-gray-800"
                               }`}
                           >
                             {t}
                           </span>
                         ))}
                       </div>
-
-                      {project.features && project.features.length > 0 && (
-                        <div className="mt-6 rounded-xl border border-[var(--border)] bg-black/5 dark:bg-white/5 p-4">
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--brand)] mb-3">
-                            Features
-                          </h4>
-                          <ul className="space-y-2 text-sm text-[var(--text)]">
-                            {project.features.map((feature) => (
-                              <li key={feature} className="flex gap-2">
-                                <span className="text-[var(--brand)]">•</span>
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
 
 
                       {/* Credentials */}
@@ -334,7 +276,6 @@ export const ProjectModal: React.FC<{
                                     {project.credentials.username}
                                   </code>
                                   <button
-                                    type="button"
                                     onClick={() => {
                                       navigator.clipboard.writeText(project.credentials?.username || "");
                                     }}
@@ -354,7 +295,6 @@ export const ProjectModal: React.FC<{
                                     {project.credentials.password}
                                   </code>
                                   <button
-                                    type="button"
                                     onClick={() => {
                                       navigator.clipboard.writeText(project.credentials?.password || "");
                                     }}
@@ -429,17 +369,18 @@ export const ProjectModal: React.FC<{
                         <iframe
                           src={project.href}
                           title={project.title}
-                          className="w-full min-h-[220px] h-[min(45vh,400px)] rounded-lg border border-[var(--border)]"
+                          className="w-full h-100 rounded-lg border border-[var(--border)]"
                           loading="lazy"
                           onLoad={() => setIframeReady(true)}
                         />
                       </motion.div>
                     )}
                 </AnimatePresence>
-              </ModalScrollArea>
+              </div>
             </motion.dialog>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };

@@ -29,7 +29,7 @@ export const ProjectCard: React.FC<{
     <motion.article
       layout
       whileHover={{ y: -6 }}
-      className="p-4 group rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm hover:shadow-md transition-shadow"
+      className="p-4 group rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-sm hover:shadow-md transition-shadow"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -70,26 +70,14 @@ export const ProjectCard: React.FC<{
             <span className="text-xs text-[var(--muted)] pl-2">Under Development</span>
           )}
 
-          {project.tagline && (
-            <p className="mt-1 text-sm font-medium text-[var(--text)]">
-              {project.tagline}
-            </p>
-          )}
-
-          {(project.domain || project.createdFor || project.packageName || project.darkModeSupport !== undefined) && (
+          {(project.domain || project.createdFor) && (
             <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--brand)] opacity-70">
               {project.domain && <span>Domain: {project.domain}</span>}
               {project.createdFor && <span>For: {project.createdFor}</span>}
-              {project.packageName && <span>Package: {project.packageName}</span>}
-              {project.darkModeSupport !== undefined && (
-                <span>Dark Mode: {project.darkModeSupport ? "Yes" : "No"}</span>
-              )}
             </div>
           )}
 
-          <p className="text-sm text-[var(--muted)] mt-2 line-clamp-3">
-            {project.short || project.description}
-          </p>
+          <p className="text-sm text-[var(--muted)] mt-2 line-clamp-2">{project.description}</p>
           <div className="mt-4 flex gap-3 flex-wrap text-[var(--muted)]">
             {project.href && (
               <a
@@ -106,12 +94,11 @@ export const ProjectCard: React.FC<{
             {project.links &&
               project.links.length > 0 &&
               project.links.map((link) => {
-                type LinkIcon = React.ComponentType<{ className?: string }>;
                 const Icon =
-                  (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
-                  (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
-                  (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
-                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
+                  (SiIcons[link.icon as keyof typeof SiIcons] as React.ElementType) ??
+                  (FaIcons[link.icon as keyof typeof FaIcons] as React.ElementType) ??
+                  (VscIcons[link.icon as keyof typeof VscIcons] as React.ElementType) ??
+                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as React.ElementType);
                 return (
                   <a
                     key={link.label}

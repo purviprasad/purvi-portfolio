@@ -75,7 +75,7 @@ export const PORTFOLIO_INFO: Portfolio = {
           icon: "SiJavascript",
           category: "frontend",
           years: 6,
-          note: "Used in production since 2019",
+          note: "Used in production since 2020",
         },
         {
           name: "HTML5",
@@ -392,7 +392,7 @@ export const PORTFOLIO_INFO: Portfolio = {
         "",
       bullets: [
         "Led end-to-end delivery of a project from inception to production within a 4-member team.",
-        "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, cutting memory use by roughly half on representative workloads (e.g. 12 GB → 6 GB).",
+        "Optimized a high-memory data generation pipeline by re-architecting a Go-based solution to Node.js with delta filtering, reducing memory usage by 80%+ (12 GB → 6 GB).",
         "Owned backend & frontend architecture, database design, and client collaboration; consistently recognized for efficient planning, optimized code, and strong stakeholder feedback.",
         "Mentor engineers, conduct design reviews, and improve code quality and observability.",
       ],
@@ -449,60 +449,6 @@ export const PORTFOLIO_INFO: Portfolio = {
   ],
   projects: [
     {
-      id: "psui",
-      title: "PSUI",
-      fullForm: "Pro Style UI",
-      packageName: "@sehgaltech/psui",
-      tagline: "Headless. Themeable. Beautiful.",
-      short:
-        "A headless, themeable React component library built with Radix and Tailwind to help teams ship accessible interfaces faster.",
-      description:
-        "Pro Style UI is a scalable and customizable UI library built with Tailwind CSS v4, TypeScript, and React. It focuses on headless primitives, theme flexibility, accessibility, and a polished developer experience for building production-ready interfaces faster.",
-      features: [
-        "Tailwind CSS v4 with modern CSS-first configuration and @theme blocks",
-        "TypeScript-first APIs for type safety and a strong developer experience",
-        "Built with tsup for fast ESM and CJS package output",
-        "Interactive documentation site powered by Vite",
-        "Vitest and React Testing Library for component testing",
-        "Tree-shakeable exports for smaller bundles",
-        "Easy theme customization through CSS variables",
-      ],
-      tags: [
-        "React",
-        "TypeScript",
-        "Tailwind CSS v4",
-        "Radix UI",
-        "Headless UI",
-        "Component Library",
-        "Vite",
-        "Vitest",
-        "tsup",
-        "NPM",
-      ],
-      image: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2h4b2djdm13d3Y2a3pjem45dWY4Y251cXdlaXk4NHNjZG9jZXQzOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qEMov1GrEwleBRXHdE/giphy.gif",
-      domain: "UI Library",
-      createdFor: "Personal Project",
-      darkModeSupport: true,
-      links: [
-        {
-          label: "Website",
-          url: "https://psui.sehgaltech.com/",
-          icon: "FaGlobe",
-        },
-        {
-          label: "Docs",
-          url: "https://psui.sehgaltech.com/docs/getstarted",
-          icon: "FaBook",
-        },
-        {
-          label: "NPM Package",
-          url: "https://www.npmjs.com/package/@sehgaltech/psui",
-          icon: "SiNpm",
-        },
-      ],
-      isUnderDevelopment: true,
-    },
-    {
       id: "pigb",
       title: "PigB – Master Your Money with PigB",
       description:
@@ -512,7 +458,6 @@ export const PORTFOLIO_INFO: Portfolio = {
       // href: "https://pigb.sehgaltech.com/",
       domain: "Finance",
       createdFor: "Personal Project",
-      darkModeSupport: true,
       credentials: {
         username: "test@test.com",
         password: "test"
