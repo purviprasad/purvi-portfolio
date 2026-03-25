@@ -614,21 +614,33 @@ export const PORTFOLIO_INFO: Portfolio = {
   awards: [
     {
       name: "RISE Insta Award",
-      issuer: "Apple Inc.",
+      issuer: "Infosys Limited",
       date: "Dec 2025",
-      associatedWith: "Infosys Ltd.",
+      associatedWith: "Infosys",
+      description: "Purvi has consistently fulfilled the assigned task on time along with assisting other teams in debugging and resolving issues. Additionally she has actively contributed to the team's recruitment process.",
+      url: "/certifications/INFOSYS_INSTA_DEC_2025.png"
+    },
+    {
+      name: "RISE Gracias Award",
+      issuer: "Infosys Limited",
+      date: "Mar 2025",
+      associatedWith: "Infosys",
+      description: "Thank you for being the Tech Wizard who turns miracles into technology.",
+      url: "/certifications/INFOSYS_GRACIAS_MAR_2025.png"
     },
     {
       name: "RISE Glory Award",
       issuer: "Verizon Communications",
       date: "Feb 2022",
-      associatedWith: "Infosys Ltd.",
+      associatedWith: "Infosys",
     },
     {
       name: "RISE Insta Award",
-      issuer: "Verizon Communications",
+      issuer: "Infosys Limited",
       date: "Jun 2021",
-      associatedWith: "Infosys Ltd.",
+      associatedWith: "Infosys",
+      description: "Thanks for all your hard work and dedication towards the Network Transparency ART. Appreciate all your hard work in implementing the KIRKE PI 8 user stories.",
+      url: "/certifications/INFOSYS_INSTA_JUNE_2021.png"
     },
   ],
   extras: {

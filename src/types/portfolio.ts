@@ -140,6 +140,7 @@ export type Award = {
   date: string;
   associatedWith?: string;
   description?: string;
+  url?: string;
   icon?: string;
 };
 
