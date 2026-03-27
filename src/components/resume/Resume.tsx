@@ -8,6 +8,7 @@ import { IoPhonePortrait } from "react-icons/io5";
 import { PORTFOLIO_INFO } from "../../config/portfolioData";
 import type { DateRange, Portfolio } from "../../types/portfolio";
 import { getIconByName } from "../../utils/iconRegistry";
+import { triggerDownloadAnimation } from "../../utils/animations";
 
 export const Resume: React.FC<{ className?: string }> = ({
   className = "",
@@ -406,6 +407,7 @@ export const Resume: React.FC<{ className?: string }> = ({
               href={meta.pdf ?? "/PURVI_SEHGAL_RESUME.pdf"}
               className="inline-flex items-center gap-2 text-sm underline"
               download
+              onClick={triggerDownloadAnimation}
             >
               <FaFileDownload className="w-4 h-4" /> Download PDF
             </a>

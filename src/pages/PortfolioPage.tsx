@@ -26,6 +26,7 @@ interface PortfolioPageProps {
 
 import { RoleExplorer } from "../components/shared/RoleExplorer";
 import { usePortfolio } from "../context/PortfolioContext";
+import { triggerDownloadAnimation } from "../utils/animations";
 
 const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSnow }) => {
   const { userRole, unlockAchievement, isRetro } = usePortfolio();
@@ -93,6 +94,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
                 href="/PURVI_SEHGAL_RESUME.pdf"
                 className="flex shrink-0 items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[var(--brand)] text-white text-sm font-bold shadow-lg hover:scale-105 transition-transform w-full sm:w-auto"
                 download
+                onClick={triggerDownloadAnimation}
               >
                 Quick Download Resume
               </a>
@@ -178,6 +180,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
                   href="/PURVI_SEHGAL_RESUME.pdf"
                   className="block mt-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] backdrop-blur-md text-[var(--text)] font-medium hover:bg-[var(--input-focus)] hover:border-[var(--brand)] hover:shadow-[0_4px_20px_color-mix(in_srgb,var(--brand)_20%,transparent)] transition-all duration-300 text-center flex justify-center items-center gap-2 hover:-translate-y-0.5 shadow-sm"
                   download
+                  onClick={triggerDownloadAnimation}
                 >
                   Download PDF
                 </a>
