@@ -8,9 +8,55 @@ import {
   type VisitorLogEntry,
 } from "../utils/visitorAnalytics";
 
-const tableHeaders = ["Time", "Visitor Key", "IP", "Location", "Path", "Referrer", "Viewport", "Language", "Timezone", "User Agent"];
+type VisitorGroup = {
+  key: string;
+  visitorKey: string;
+  logs: VisitorLogEntry[];
+  latest: VisitorLogEntry;
+  location: string;
+  paths: string[];
+};
 
-const skeletonWidths = ["w-28", "w-24", "w-20", "w-32", "w-24", "w-36", "w-20", "w-16", "w-24", "w-40"];
+const tableHeaders = ["Visitor", "Last Seen", "Location", "Hits", "Paths", "IP", "Timezone", "User Agent"];
+
+const skeletonWidths = ["w-28", "w-24", "w-28", "w-12", "w-32", "w-20", "w-24", "w-40"];
+
+function formatLocation(log: VisitorLogEntry): string {
+  return [log.city, log.region, log.country].filter(Boolean).join(", ") || "unknown";
+}
+
+function buildGroupKey(log: VisitorLogEntry): string {
+  return log.visitorKey || `${log.ip || "unknown"}|${log.userAgent}|${log.language}|${log.timezone}`;
+}
+
+function groupLogsByVisitor(logs: VisitorLogEntry[]): VisitorGroup[] {
+  const groups = new Map<string, VisitorLogEntry[]>();
+
+  for (const log of logs) {
+    const key = buildGroupKey(log);
+    const current = groups.get(key);
+    if (current) {
+      current.push(log);
+    } else {
+      groups.set(key, [log]);
+    }
+  }
+
+  return Array.from(groups.entries()).map(([key, visitorLogs]) => {
+    const sortedLogs = [...visitorLogs].sort((a, b) => new Date(b.ts).getTime() - new Date(a.ts).getTime());
+    const latest = sortedLogs[0];
+    const paths = Array.from(new Set(sortedLogs.map((log) => log.path))).slice(0, 3);
+
+    return {
+      key,
+      visitorKey: latest.visitorKey || "-",
+      logs: sortedLogs,
+      latest,
+      location: formatLocation(latest),
+      paths,
+    };
+  });
+}
 
 const VisitorLogsPage: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -19,6 +65,7 @@ const VisitorLogsPage: React.FC = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState<VisitorLogEntry[]>([]);
+  const [expandedGroups, setExpandedGroups] = useState<string[]>([]);
 
   useEffect(() => {
     if (!auth) return;
@@ -88,6 +135,11 @@ const VisitorLogsPage: React.FC = () => {
   };
 
   const showTableSkeleton = loading && logs.length === 0;
+  const groupedLogs = groupLogsByVisitor(logs);
+
+  const toggleGroup = (groupKey: string) => {
+    setExpandedGroups((current) => (current.includes(groupKey) ? current.filter((key) => key !== groupKey) : [...current, groupKey]));
+  };
 
   if (!auth) {
     return (
@@ -140,7 +192,9 @@ const VisitorLogsPage: React.FC = () => {
         </div>
       </div>
 
-      <p className="text-sm text-[var(--muted)] mb-2">Entries stored in MongoDB. Total records: {logs.length}</p>
+      <p className="text-sm text-[var(--muted)] mb-2">
+        Entries stored in MongoDB. Total records: {logs.length} across {groupedLogs.length} visitors.
+      </p>
       {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
 
       <div className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--surface)]">
@@ -165,26 +219,60 @@ const VisitorLogsPage: React.FC = () => {
                   ))}
                 </tr>
               ))}
-            {logs.map((log) => (
-              <tr key={log.id} className="border-b border-[var(--border)] align-top">
-                <td className="p-3 whitespace-nowrap">{new Date(log.ts).toLocaleString()}</td>
-                <td className="p-3 font-mono text-xs whitespace-nowrap">{log.visitorKey || "-"}</td>
-                <td className="p-3 whitespace-nowrap">{log.ip || "-"}</td>
-                <td className="p-3 whitespace-nowrap">
-                  {[log.city, log.region, log.country].filter(Boolean).join(", ") || "unknown"}
-                </td>
-                <td className="p-3 whitespace-nowrap">{log.path}</td>
-                <td className="p-3 max-w-[220px] truncate" title={log.referrer}>
-                  {log.referrer}
-                </td>
-                <td className="p-3 whitespace-nowrap">{log.viewport}</td>
-                <td className="p-3 whitespace-nowrap">{log.language}</td>
-                <td className="p-3 whitespace-nowrap">{log.timezone}</td>
-                <td className="p-3 max-w-[320px] truncate" title={log.userAgent}>
-                  {log.userAgent}
-                </td>
-              </tr>
-            ))}
+            {groupedLogs.map((group) => {
+              const isExpanded = expandedGroups.includes(group.key);
+
+              return (
+                <React.Fragment key={group.key}>
+                  <tr className="border-b border-[var(--border)] align-top">
+                    <td className="p-3 min-w-[180px]">
+                      <button
+                        type="button"
+                        onClick={() => toggleGroup(group.key)}
+                        className="flex items-start gap-3 text-left"
+                      >
+                        <span className="mt-0.5 text-[var(--muted)]">{isExpanded ? "−" : "+"}</span>
+                        <div>
+                          <div className="font-mono text-xs whitespace-nowrap">{group.visitorKey}</div>
+                          <div className="text-xs text-[var(--muted)]">{isExpanded ? "Hide individual hits" : "Show individual hits"}</div>
+                        </div>
+                      </button>
+                    </td>
+                    <td className="p-3 whitespace-nowrap">{new Date(group.latest.ts).toLocaleString()}</td>
+                    <td className="p-3 whitespace-nowrap">{group.location}</td>
+                    <td className="p-3 whitespace-nowrap font-semibold">{group.logs.length}</td>
+                    <td className="p-3">
+                      <div className="max-w-[240px] truncate" title={group.logs.map((log) => log.path).join(", ")}>
+                        {group.paths.join(", ")}
+                        {group.logs.length > group.paths.length ? " ..." : ""}
+                      </div>
+                    </td>
+                    <td className="p-3 whitespace-nowrap">{group.latest.ip || "-"}</td>
+                    <td className="p-3 whitespace-nowrap">{group.latest.timezone}</td>
+                    <td className="p-3 max-w-[320px] truncate" title={group.latest.userAgent}>
+                      {group.latest.userAgent}
+                    </td>
+                  </tr>
+                  {isExpanded &&
+                    group.logs.map((log) => (
+                      <tr key={log.id} className="border-b border-[var(--border)]/60 bg-[var(--bg)]/40 align-top text-xs text-[var(--muted)]">
+                        <td className="p-3 pl-12">
+                          <div className="font-mono">{log.visitorKey || "-"}</div>
+                        </td>
+                        <td className="p-3 whitespace-nowrap">{new Date(log.ts).toLocaleString()}</td>
+                        <td className="p-3 whitespace-nowrap">{formatLocation(log)}</td>
+                        <td className="p-3 whitespace-nowrap">1</td>
+                        <td className="p-3 whitespace-nowrap">{log.path}</td>
+                        <td className="p-3 whitespace-nowrap">{log.ip || "-"}</td>
+                        <td className="p-3 whitespace-nowrap">{log.timezone}</td>
+                        <td className="p-3 max-w-[320px] truncate" title={`${log.referrer} | ${log.viewport} | ${log.userAgent}`}>
+                          {log.referrer} • {log.viewport}
+                        </td>
+                      </tr>
+                    ))}
+                </React.Fragment>
+              );
+            })}
             {!showTableSkeleton && logs.length === 0 && (
               <tr>
                 <td className="p-6 text-[var(--muted)]" colSpan={tableHeaders.length}>
