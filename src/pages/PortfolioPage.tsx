@@ -151,11 +151,11 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
             glitch={isRetro}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10">
+            <div className="glass-card p-6 rounded-2xl">
               <ContactForm />
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 flex flex-col gap-4">
+            <div className="glass-card p-6 rounded-2xl flex flex-col gap-4">
               <div>
                 <div className="font-semibold">Let's collaborate</div>
                 <div className="text-sm text-[var(--muted)]">

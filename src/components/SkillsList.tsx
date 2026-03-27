@@ -157,7 +157,7 @@ export const SkillsList: React.FC<{
                   {groupTitle}
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-5">
                   {groupSkills.map((s) => {
                     type SkillIcon = React.ComponentType<{ className?: string }>;
                     const Icon =
@@ -168,18 +168,18 @@ export const SkillsList: React.FC<{
                       <motion.div
                         key={s.name}
                         whileHover={{ y: -8, scale: 1.02 }}
-                        className="group relative p-5 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
+                        className="glass-card group relative p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
                       >
                         {/* Hover Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_12%,transparent)] via-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-[color-mix(in_srgb,var(--brand)_10%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        <div className="relative z-10 flex flex-col h-full justify-between gap-4">
-                          <div className="flex items-start justify-between gap-4">
+                        <div className="relative z-10 flex flex-col h-full justify-between gap-3 sm:gap-4">
+                          <div className="flex items-start justify-between gap-3 sm:gap-4">
                             <div className="flex flex-col">
-                              <div className="font-semibold text-[var(--text)] text-base group-hover:text-[var(--brand)] transition-colors">
+                              <div className="font-semibold text-[var(--text)] text-[1.05rem] sm:text-base group-hover:text-[var(--brand)] transition-colors">
                                 {s.name}
                               </div>
-                              <div className="text-xs text-[var(--muted)] mt-1 font-medium">
+                              <div className="text-[11px] sm:text-xs text-[var(--muted)] mt-1 font-medium">
                                 {s.years
                                   ? `${s.years} yr${s.years > 1 ? "s" : ""}`
                                   : null}
@@ -187,20 +187,20 @@ export const SkillsList: React.FC<{
                             </div>
 
                             {Icon && (
-                              <div className="p-2 rounded-lg bg-[var(--surface)] text-[var(--muted)] group-hover:text-[var(--brand)] group-hover:bg-white transition-colors shadow-sm flex-shrink-0">
-                                <Icon className="w-6 h-6" />
+                              <div className="p-1.5 sm:p-2 rounded-lg bg-[var(--surface)] text-[var(--muted)] group-hover:text-[var(--brand)] group-hover:bg-white transition-colors shadow-sm flex-shrink-0">
+                                <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                               </div>
                             )}
                           </div>
 
                           {s.note && (
-                            <div className="text-xs text-[var(--muted)]/80 italic line-clamp-2">
+                            <div className="text-[12px] sm:text-xs text-[var(--muted)]/80 italic line-clamp-2">
                               {s.note}
                             </div>
                           )}
 
                           {s.level != null && isBar && (
-                            <div className="w-full bg-[var(--border)]/30 h-1.5 rounded-full overflow-hidden mt-auto">
+                            <div className="w-full bg-[var(--border)]/30 h-1.5 rounded-full overflow-hidden mt-1 sm:mt-auto">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${s.level}%` }}

@@ -55,6 +55,23 @@ body {
   border-color: var(--border);
 }
 
+/* Higher-contrast glass style for content cards */
+.glass-card {
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow:
+    0 10px 30px -20px color-mix(in srgb, var(--text) 22%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 40%, transparent);
+}
+
+.dark .glass-card {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  box-shadow:
+    0 14px 34px -24px color-mix(in srgb, black 70%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 16%, transparent);
+}
+
 /*
  * Subtle press feedback on interactive elements (skip .no-click-pop when
  * another layer handles tap, e.g. Framer Motion whileTap).
@@ -313,16 +330,20 @@ body {
   overflow: hidden;
   border-radius: 1.5rem;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow:
+    0 10px 30px -20px color-mix(in srgb, var(--text) 22%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 40%, transparent);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark .bento-item {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  box-shadow:
+    0 14px 34px -24px color-mix(in srgb, black 70%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 16%, transparent);
 }
 
 .bento-item:hover {
@@ -355,12 +376,15 @@ body {
 /* Global 3D canvas background layer */
 .premium-3d-layer {
   opacity: 1;
+  filter: blur(1.2px) saturate(0.92);
+  transform: scale(1.015);
   background:
     radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--brand) 18%, transparent) 0%, transparent 52%),
     linear-gradient(180deg, #050916 0%, #040812 40%, #03070f 100%);
 }
 
 :root .premium-3d-layer {
+  filter: blur(0.8px) saturate(0.95);
   background:
     radial-gradient(circle at 50% 76%, color-mix(in srgb, var(--brand) 12%, transparent) 0%, transparent 55%),
     linear-gradient(
@@ -372,6 +396,7 @@ body {
 }
 
 .dark .premium-3d-layer {
+  filter: blur(1.4px) saturate(0.9) brightness(0.95);
   background:
     radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--brand) 18%, transparent) 0%, transparent 52%),
     linear-gradient(180deg, #050916 0%, #040812 40%, #03070f 100%);
@@ -464,7 +489,6 @@ body {
   background: color-mix(in srgb, var(--surface) 40%, transparent) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid var(--border) !important;
   box-shadow: 0 2px 10px color-mix(in srgb, var(--brand) 15%, transparent);
 }
 

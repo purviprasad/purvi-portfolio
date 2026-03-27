@@ -39,7 +39,6 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="lg:col-span-2 order-2 lg:order-1"
-      // p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm"
       >
         <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--brand)]">
           {text.map((char, i) => (
@@ -53,9 +52,9 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
             </motion.span>
           ))}
         </motion.h1>
-        <p className="mt-4 text-lg max-w-prose">{personal.headline}</p>
+        <p className="mt-4 text-lg max-w-prose text-[var(--text)]/95">{personal.headline}</p>
 
-        <div className="mt-6 text-md dark:prose-invert max-w-none text-[var(--muted)]">
+        <div className="mt-6 text-md dark:prose-invert max-w-none text-[var(--text)]/85">
           <p>
             With a solid understanding of front-end and back-end development, I am skilled in creating responsive UIs, developing efficient APIs, and optimizing database performance. I excel in collaborating with cross-functional teams and thrive in fast-paced environments. Constantly up-to-date with emerging technologies, I am passionate about delivering high-quality code and exceeding project expectations.
           </p>
@@ -92,7 +91,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15 }}
-        className="p-8 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-[var(--border)] dark:border-white/10 shadow-sm order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
+        className="glass-card p-8 rounded-3xl shadow-sm order-1 lg:order-2 max-lg:mx-auto max-lg:max-w-md w-full"
       >
         <div className="flex flex-col items-center text-center gap-4">
           <motion.div

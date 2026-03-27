@@ -43,7 +43,7 @@ export const AwardsList: React.FC<{ awards?: Award[] }> = ({ awards = [] }) => {
                         key={index}
                         variants={item}
                         whileHover={{ y: -5, scale: 1.02 }}
-                        className="group relative flex flex-col p-6 rounded-2xl bg-white border !border-[var(--border)] dark:bg-white/5 dark:backdrop-blur-md dark:border-white/10 transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
+                        className="glass-card group relative flex flex-col p-6 rounded-2xl transition-all duration-300 hover:shadow-xl overflow-hidden hover:shadow-[0_20px_25px_-5px_color-mix(in_srgb,var(--brand)_12%,transparent)]"
                     >
                         {/* Hover Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-br from-[color-mix(in_srgb,var(--brand)_6%,transparent)] via-[color-mix(in_srgb,var(--accent)_6%,transparent)] to-[color-mix(in_srgb,var(--brand)_6%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

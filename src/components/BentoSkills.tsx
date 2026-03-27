@@ -63,10 +63,10 @@ export const BentoSkills: React.FC = () => {
           <Sparkles className="text-[var(--accent)] animate-pulse" size={20} />
         </div>
         <div>
-          <h3 className="text-lg sm:text-xl font-bold mt-4 text-[var(--text)]">
+          <h3 className="text-xl font-bold mt-4 text-[var(--text)]">
             {userRole === 'recruiter' ? 'Enterprise Engineering' : 'Full-Stack Architecture'}
           </h3>
-          <p className="text-sm text-[var(--muted)] mt-2">
+          <p className="text-sm leading-relaxed text-[var(--text)]/82 mt-2">
             {userRole === "recruiter"
               ? "Production-grade web apps for Apple and Verizon: React frontends, Node/Express services, PostgreSQL, and clear ownership from design through release."
               : "End-to-end TypeScript-aware React apps, Node.js and Express APIs, PostgreSQL-backed services, and patterns that stay maintainable as teams grow."}
@@ -83,11 +83,11 @@ export const BentoSkills: React.FC = () => {
           <div className="p-2 rounded-xl bg-[color-mix(in_srgb,var(--brand)_18%,transparent)] text-[var(--brand)]">
             {userRole === 'recruiter' ? <SiIcons.SiNodedotjs size={24} /> : <Database size={24} />}
           </div>
-          <h3 className="font-bold text-[var(--text)]">
+          <h3 className="text-xl font-bold text-[var(--text)]">
             {userRole === 'recruiter' ? 'Production Impact' : 'Data Modeling'}
           </h3>
         </div>
-        <p className="text-xs text-[var(--muted)] mt-2">
+        <p className="text-sm leading-relaxed text-[var(--text)]/82 mt-2">
           {userRole === "recruiter"
             ? "Re-architected data-generation pipelines (including Go → Node with delta filtering) for leaner memory use and more reliable runs—plus schema and query work in PostgreSQL."
             : "PostgreSQL for relational modeling, indexing, and performance tuning alongside Node services and migrations across MySQL and MongoDB where projects need them."}
@@ -100,7 +100,7 @@ export const BentoSkills: React.FC = () => {
         className="bento-item col-span-1 border-dashed"
       >
         <Database className="text-[var(--brand)] mb-2" size={20} />
-        <span className="text-xs font-bold block">PostgreSQL</span>
+        <span className="text-base font-bold block text-[var(--text)]">PostgreSQL</span>
         <div className="mt-2 w-full bg-gray-200 dark:bg-gray-800 h-1 rounded-full overflow-hidden">
           <div
             className="bg-[var(--brand)] h-full transition-[width] duration-700"
@@ -108,7 +108,7 @@ export const BentoSkills: React.FC = () => {
           />
         </div>
         {pgSkill?.note && (
-          <p className="text-[10px] text-[var(--muted)] mt-2 leading-snug">{pgSkill.note}</p>
+          <p className="text-sm leading-relaxed text-[var(--text)]/78 mt-2">{pgSkill.note}</p>
         )}
       </motion.div>
 
@@ -118,8 +118,8 @@ export const BentoSkills: React.FC = () => {
         className="bento-item col-span-1"
       >
         <SiIcons.SiTypescript className="text-[var(--accent)] mb-2" size={20} />
-        <span className="text-xs font-bold block">TypeScript</span>
-        <p className="text-[10px] text-[var(--muted)] mt-1">
+        <span className="text-base font-bold block text-[var(--text)]">TypeScript</span>
+        <p className="text-sm leading-relaxed text-[var(--text)]/78 mt-1">
           {tsSkill?.note ?? "Typed React and Node surfaces in production."}
         </p>
         {tsSkill?.level != null && (
@@ -134,10 +134,10 @@ export const BentoSkills: React.FC = () => {
 
       {/* Tech Stack Horizontal Scroll/Marquee feel */}
       <div className="bento-item col-span-1 md:col-span-4 py-4">
-        <h4 className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-2">
+        <h4 className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text)]/72 mb-2">
           Also in the toolkit
         </h4>
-        <p className="text-[10px] text-[var(--muted)] mb-3 max-w-3xl leading-relaxed">
+        <p className="text-sm leading-relaxed text-[var(--text)]/80 mb-3 max-w-3xl">
           Express APIs, Redux / RTK, micro frontends (Module Federation), observability (Splunk), and CI with
           Jenkins—aligned with what ships in client engagements and personal products.
         </p>
@@ -145,14 +145,14 @@ export const BentoSkills: React.FC = () => {
           {toolkitPreview.map((s: Skill) => (
             <span
               key={s.name}
-              className="px-2 py-1 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-[10px] flex items-center gap-1"
+              className="px-2 py-1 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-xs font-medium text-[var(--text)]/88 flex items-center gap-1"
             >
               <SkillGlyph icon={s.icon} size={12} className="text-[var(--accent)]" />
               {s.name}
             </span>
           ))}
           {toolkitMoreCount > 0 && (
-            <span className="text-[10px] text-[var(--brand)] font-bold self-center">
+            <span className="text-xs text-[var(--brand)] font-semibold self-center">
               +{toolkitMoreCount} more
             </span>
           )}
@@ -165,8 +165,8 @@ export const BentoSkills: React.FC = () => {
         className="bento-item col-span-1 md:col-span-2 bg-gradient-to-tr from-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-transparent"
       >
         <Layout className="text-[var(--accent)] mb-2" size={24} />
-        <h3 className="font-bold text-[var(--text)]">Modern UI/UX</h3>
-        <p className="text-xs text-[var(--muted)] mt-1">
+        <h3 className="text-xl font-bold text-[var(--text)]">Modern UI/UX</h3>
+        <p className="text-sm leading-relaxed text-[var(--text)]/82 mt-1">
           Ant Design and Material UI in enterprise UIs; Tailwind and Framer Motion for fast, polished product
           surfaces—plus Redux Toolkit where global client state matters.
         </p>
@@ -178,8 +178,8 @@ export const BentoSkills: React.FC = () => {
         className="bento-item col-span-1 md:col-span-2 bg-gradient-to-br from-[color-mix(in_srgb,var(--accent)_12%,transparent)] to-transparent"
       >
         <Terminal className="text-[var(--accent)] mb-2" size={20} />
-        <h3 className="text-sm font-mono tracking-tight text-[var(--text)]">Delivery &amp; quality</h3>
-        <p className="text-[10px] font-mono mt-1 leading-relaxed text-[var(--muted)]">
+        <h3 className="text-xl font-bold tracking-tight text-[var(--text)]">Delivery &amp; quality</h3>
+        <p className="text-sm mt-1 leading-relaxed text-[var(--text)]/82">
           Git/GitHub, Postman for APIs, Jenkins pipelines, Splunk for ops visibility—comfortable on the terminal
           day to day.
         </p>

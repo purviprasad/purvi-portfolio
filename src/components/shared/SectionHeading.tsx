@@ -39,8 +39,10 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
         ) : null}
       </h2>
       <div className={`flex items-center gap-4 ${centered ? "justify-center" : ""}`}>
-        <div className="h-[2px] w-12 bg-[var(--brand)]/30 group-hover:w-24 transition-all duration-500 rounded-full shrink-0" />
-        <p className="text-sm font-medium text-[var(--muted)]/80 uppercase tracking-widest">{subtitle}</p>
+        <div className="h-[3px] w-14 bg-[var(--brand)]/75 shadow-[0_0_14px_color-mix(in_srgb,var(--brand)_40%,transparent)] group-hover:w-28 transition-all duration-500 rounded-full shrink-0" />
+        <p className="text-[13px] md:text-sm font-semibold text-[var(--text)]/75 uppercase tracking-[0.18em] drop-shadow-[0_1px_1px_rgba(0,0,0,0.18)] dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
+          {subtitle}
+        </p>
       </div>
     </motion.div>
   );
