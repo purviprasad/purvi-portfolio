@@ -7,11 +7,13 @@ import { PortfolioProvider } from "./context/PortfolioContext";
 import { AuroraBackground } from "./components/shared/AuroraBackground";
 import { MouseGlow } from "./components/shared/MouseGlow";
 import { ClickRipple } from "./components/shared/ClickRipple";
+import VisitorAnalyticsTracker from "./components/VisitorAnalyticsTracker";
 
 const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
 const ResumePage = lazy(() => import("./pages/ResumePage"));
 const AIAssistant = lazy(() => import("./components/AIAssistant").then((m) => ({ default: m.AIAssistant })));
 const StyleCustomizer = lazy(() => import("./components/shared/StyleCustomizer").then((m) => ({ default: m.StyleCustomizer })));
+const VisitorLogsPage = lazy(() => import("./pages/VisitorLogsPage"));
 
 const App: React.FC = () => {
   const [isSnowEnabled, setIsSnowEnabled] = useState(false);
@@ -55,6 +57,7 @@ const App: React.FC = () => {
       <PortfolioProvider>
         <Router>
           <div className="min-h-screen scroll-smooth relative overflow-x-hidden isolate">
+            <VisitorAnalyticsTracker />
             <AuroraBackground />
             <MouseGlow />
             <ClickRipple />
@@ -69,6 +72,7 @@ const App: React.FC = () => {
                 <Routes>
                   <Route path="/" element={<PortfolioPage isSnowEnabled={isSnowEnabled} onToggleSnow={() => setIsSnowEnabled(!isSnowEnabled)} />} />
                   <Route path="/resume" element={<ResumePage isSnowEnabled={isSnowEnabled} onToggleSnow={() => setIsSnowEnabled(!isSnowEnabled)} />} />
+                  <Route path="/__visitor-logs" element={<VisitorLogsPage />} />
                 </Routes>
               </Suspense>
             </div>
