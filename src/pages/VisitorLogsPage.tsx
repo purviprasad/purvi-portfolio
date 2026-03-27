@@ -1,26 +1,51 @@
-import React, { useMemo, useState } from "react";
-import { clearVisitorLogs, getVisitorLogs, isAdminAuthenticated, setAdminAuthenticated } from "../utils/visitorAnalytics";
-
-const ADMIN_USER = import.meta.env.VITE_ANALYTICS_USERNAME;
-const ADMIN_PASS = import.meta.env.VITE_ANALYTICS_PASSWORD;
+import React, { useEffect, useState } from "react";
+import {
+  clearVisitorLogs,
+  fetchVisitorLogs,
+  isAdminAuthenticated,
+  loginVisitorAdmin,
+  setAdminAuthenticated,
+  type VisitorLogEntry,
+} from "../utils/visitorAnalytics";
 
 const VisitorLogsPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState<boolean>(() => isAdminAuthenticated());
   const [error, setError] = useState("");
-  const [version, setVersion] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [logs, setLogs] = useState<VisitorLogEntry[]>([]);
 
-  const logs = useMemo(() => getVisitorLogs(), [version]);
+  useEffect(() => {
+    if (!auth) return;
+    const load = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const data = await fetchVisitorLogs();
+        setLogs(data);
+      } catch {
+        setError("Unable to fetch logs. Please login again.");
+        setAdminAuthenticated(false);
+        setAuth(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    void load();
+  }, [auth]);
 
-  const onLogin = (e: React.FormEvent) => {
+  const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      setAdminAuthenticated(true);
+    setLoading(true);
+    const ok = await loginVisitorAdmin(username, password);
+    if (ok) {
       setAuth(true);
       setError("");
+      setLoading(false);
       return;
     }
+    setLoading(false);
     setError("Invalid username or password.");
   };
 
@@ -31,9 +56,18 @@ const VisitorLogsPage: React.FC = () => {
     setPassword("");
   };
 
-  const onClear = () => {
-    clearVisitorLogs();
-    setVersion((v) => v + 1);
+  const onClear = async () => {
+    setLoading(true);
+    try {
+      await clearVisitorLogs();
+      const fresh = await fetchVisitorLogs();
+      setLogs(fresh);
+      setError("");
+    } catch {
+      setError("Failed to clear logs.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onExport = () => {
@@ -70,8 +104,12 @@ const VisitorLogsPage: React.FC = () => {
               className="w-full rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-3 py-2 outline-none"
             />
             {error && <p className="text-sm text-red-500">{error}</p>}
-            <button type="submit" className="w-full rounded-xl bg-[var(--brand)] text-white font-semibold py-2.5">
-              Login
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-xl bg-[var(--brand)] text-white font-semibold py-2.5 disabled:opacity-60"
+            >
+              {loading ? "Signing in..." : "Login"}
             </button>
           </div>
         </form>
@@ -87,7 +125,7 @@ const VisitorLogsPage: React.FC = () => {
           <button type="button" onClick={onExport} className="px-3 py-2 rounded-lg border border-[var(--border)]">
             Export JSON
           </button>
-          <button type="button" onClick={onClear} className="px-3 py-2 rounded-lg border border-[var(--border)]">
+          <button type="button" disabled={loading} onClick={onClear} className="px-3 py-2 rounded-lg border border-[var(--border)] disabled:opacity-60">
             Clear Logs
           </button>
           <button type="button" onClick={onLogout} className="px-3 py-2 rounded-lg bg-[var(--brand)] text-white">
@@ -96,9 +134,8 @@ const VisitorLogsPage: React.FC = () => {
         </div>
       </div>
 
-      <p className="text-sm text-[var(--muted)] mb-4">
-        Entries stored in browser local storage. Total records: {logs.length}
-      </p>
+      <p className="text-sm text-[var(--muted)] mb-2">Entries stored in MongoDB. Total records: {logs.length}</p>
+      {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
 
       <div className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--surface)]">
         <table className="w-full text-sm">

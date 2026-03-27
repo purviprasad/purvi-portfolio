@@ -7,29 +7,33 @@ export interface VisitorLogEntry {
   language: string;
   viewport: string;
   timezone: string;
+  ip?: string;
 }
 
-const LOGS_KEY = "portfolio-visitor-logs";
 const ADMIN_SESSION_KEY = "portfolio-visitor-admin-session";
-const MAX_LOGS = 500;
+const ADMIN_AUTH_TOKEN_KEY = "portfolio-visitor-admin-auth-token";
 
-function safeParseLogs(value: string | null): VisitorLogEntry[] {
-  if (!value) return [];
-  try {
-    const parsed = JSON.parse(value) as unknown;
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((entry) => typeof entry === "object" && entry !== null) as VisitorLogEntry[];
-  } catch {
-    return [];
-  }
+function buildBasicAuthToken(username: string, password: string): string {
+  return btoa(`${username}:${password}`);
 }
 
-export function getVisitorLogs(): VisitorLogEntry[] {
-  if (typeof window === "undefined") return [];
-  return safeParseLogs(localStorage.getItem(LOGS_KEY));
+function getStoredAuthToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return sessionStorage.getItem(ADMIN_AUTH_TOKEN_KEY);
 }
 
-export function recordVisit(path: string): void {
+export async function fetchVisitorLogs(limit = 500): Promise<VisitorLogEntry[]> {
+  const token = getStoredAuthToken();
+  if (!token) throw new Error("Not authenticated");
+  const res = await fetch(`/api/analytics/logs?limit=${limit}`, {
+    headers: { Authorization: `Basic ${token}` },
+  });
+  if (!res.ok) throw new Error("Failed to fetch logs");
+  const data = (await res.json()) as { logs?: VisitorLogEntry[] };
+  return Array.isArray(data.logs) ? data.logs : [];
+}
+
+export async function recordVisit(path: string): Promise<void> {
   if (typeof window === "undefined") return;
 
   const now = Date.now();
@@ -37,9 +41,7 @@ export function recordVisit(path: string): void {
   if ((window as Window & { __lastVisitDedupe?: string }).__lastVisitDedupe === dedupeKey) return;
   (window as Window & { __lastVisitDedupe?: string }).__lastVisitDedupe = dedupeKey;
 
-  const entry: VisitorLogEntry = {
-    id: `${now}-${Math.random().toString(36).slice(2, 9)}`,
-    ts: new Date(now).toISOString(),
+  const payload = {
     path,
     referrer: document.referrer || "direct",
     userAgent: navigator.userAgent,
@@ -48,23 +50,50 @@ export function recordVisit(path: string): void {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "unknown",
   };
 
-  const logs = getVisitorLogs();
-  logs.unshift(entry);
-  localStorage.setItem(LOGS_KEY, JSON.stringify(logs.slice(0, MAX_LOGS)));
+  try {
+    await fetch("/api/analytics/visit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    // Best-effort analytics; never block page usage.
+  }
 }
 
-export function clearVisitorLogs(): void {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(LOGS_KEY);
+export async function clearVisitorLogs(): Promise<void> {
+  const token = getStoredAuthToken();
+  if (!token) throw new Error("Not authenticated");
+  const res = await fetch("/api/analytics/logs", {
+    method: "DELETE",
+    headers: { Authorization: `Basic ${token}` },
+  });
+  if (!res.ok) throw new Error("Failed to clear logs");
+}
+
+export async function loginVisitorAdmin(username: string, password: string): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+  const token = buildBasicAuthToken(username, password);
+  const res = await fetch("/api/analytics/logs?limit=1", {
+    headers: { Authorization: `Basic ${token}` },
+  });
+  if (!res.ok) return false;
+  sessionStorage.setItem(ADMIN_AUTH_TOKEN_KEY, token);
+  setAdminAuthenticated(true);
+  return true;
 }
 
 export function isAdminAuthenticated(): boolean {
   if (typeof window === "undefined") return false;
-  return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
+  return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1" && !!sessionStorage.getItem(ADMIN_AUTH_TOKEN_KEY);
 }
 
 export function setAdminAuthenticated(value: boolean): void {
   if (typeof window === "undefined") return;
-  if (value) sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
-  else sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  if (value) {
+    sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+    return;
+  }
+  sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  sessionStorage.removeItem(ADMIN_AUTH_TOKEN_KEY);
 }

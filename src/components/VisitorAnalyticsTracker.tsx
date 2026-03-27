@@ -6,7 +6,7 @@ const VisitorAnalyticsTracker: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    recordVisit(`${location.pathname}${location.search}${location.hash}`);
+    void recordVisit(`${location.pathname}${location.search}${location.hash}`);
   }, [location.pathname, location.search, location.hash]);
 
   return null;
