@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePortfolio } from "../../context/PortfolioContext";
 import { useTheme } from "../../context/ThemeContext";
-import type { Background3DMode } from "./Premium3DBackground";
 import { Palette, X, RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -56,15 +55,7 @@ function normHex(h: string): string {
   return h.trim().toLowerCase().slice(0, 7);
 }
 
-interface StyleCustomizerProps {
-  background3DMode: "off" | Background3DMode;
-  onBackground3DModeChange: (mode: "off" | Background3DMode) => void;
-}
-
-export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
-  background3DMode,
-  onBackground3DModeChange,
-}) => {
+export const StyleCustomizer: React.FC = () => {
   const { isRetro } = usePortfolio();
   const { dark, toggle: toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -155,11 +146,10 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
         aria-label="Open UI customizer"
         aria-haspopup="dialog"
         aria-expanded={isOpen}
-        className={`fixed bottom-[17rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${
-          isRetro
-            ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]"
-            : "rounded-2xl bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] shadow-xl hover:text-[var(--brand)] hover:shadow-[0_8px_32px_var(--brand)]"
-        }`}
+        className={`fixed bottom-[17rem] right-6 z-50 w-14 h-14 border transition-all flex items-center justify-center opacity-80 hover:opacity-100 ${isRetro
+          ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]"
+          : "rounded-2xl bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] shadow-xl hover:text-[var(--brand)] hover:shadow-[0_8px_32px_var(--brand)]"
+          }`}
       >
         <Palette size={24} />
       </button>
@@ -185,9 +175,8 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 320, opacity: 0.9 }}
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
-              className={`fixed top-20 right-6 z-[91] w-[min(100vw-2rem,20rem)] p-6 bg-[var(--surface)]/95 border shadow-2xl backdrop-blur-md ${
-                isRetro ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]" : "rounded-2xl border-[var(--border)]"
-              }`}
+              className={`fixed top-4 bottom-4 left-3 right-3 sm:top-8 sm:bottom-auto sm:left-auto sm:right-6 z-[91] w-auto sm:w-[min(100vw-2rem,20rem)] p-4 sm:p-6 max-h-[calc(100dvh-2rem)] sm:max-h-[85dvh] overflow-y-auto overscroll-contain bg-[var(--surface)]/95 border shadow-2xl backdrop-blur-md ${isRetro ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]" : "rounded-2xl border-[var(--border)]"
+                }`}
             >
               <div className="flex justify-between items-center mb-5">
                 <h3 id="ui-customizer-title" className="font-bold text-[var(--text)] flex items-center gap-2">
@@ -210,44 +199,14 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                   <button
                     type="button"
                     onClick={() => toggleTheme()}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 border text-sm font-medium transition-colors ${
-                      isRetro
-                        ? "rounded-none border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-[var(--bg)]"
-                        : "rounded-xl bg-[var(--bg)] border-[var(--border)] text-[var(--text)] hover:bg-[var(--surface)]"
-                    }`}
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 border text-sm font-medium transition-colors ${isRetro
+                      ? "rounded-none border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-[var(--bg)]"
+                      : "rounded-xl bg-[var(--bg)] border-[var(--border)] text-[var(--text)] hover:bg-[var(--surface)]"
+                      }`}
                   >
                     {dark ? <Sun size={16} aria-hidden /> : <Moon size={16} aria-hidden />}
                     {dark ? "Switch to light mode" : "Switch to dark mode"}
                   </button>
-                </div>
-
-                <div>
-                  <label className="text-xs font-medium text-[var(--muted)] block mb-2 uppercase tracking-wider">3D background</label>
-                  <p className="text-[10px] text-[var(--muted)] mb-2 leading-relaxed">Premium interactive background intensity.</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {([
-                      { id: "off", label: "Off" },
-                      { id: "subtle", label: "Subtle" },
-                      { id: "full", label: "Full" },
-                    ] as const).map((option) => {
-                      const active = background3DMode === option.id;
-                      return (
-                        <button
-                          type="button"
-                          key={option.id}
-                          onClick={() => onBackground3DModeChange(option.id)}
-                          className={`py-2 border text-xs font-semibold transition-colors ${
-                            isRetro
-                              ? `rounded-none ${active ? "bg-[var(--brand)] text-[var(--bg)] border-[var(--brand)]" : "bg-[var(--bg)] text-[var(--brand)] border-[var(--brand)]"}`
-                              : `${active ? "bg-[var(--brand)]/15 text-[var(--text)] border-[var(--brand)]" : "bg-[var(--bg)] text-[var(--muted)] border-[var(--border)] hover:bg-[var(--surface)]"} rounded-lg`
-                          }`}
-                          aria-pressed={active}
-                        >
-                          {option.label}
-                        </button>
-                      );
-                    })}
-                  </div>
                 </div>
 
                 <div>
@@ -260,9 +219,8 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                           type="button"
                           key={c.name}
                           onClick={() => persistBrand(c.value)}
-                          className={`w-full h-10 border transition-transform hover:scale-105 active:scale-95 shadow-sm ${presetRing(active)} ${
-                            isRetro ? "rounded-none" : "rounded-lg border-[var(--border)]"
-                          }`}
+                          className={`w-full h-10 border transition-transform hover:scale-105 active:scale-95 shadow-sm ${presetRing(active)} ${isRetro ? "rounded-none" : "rounded-lg border-[var(--border)]"
+                            }`}
                           style={{ backgroundColor: c.value }}
                           title={c.name}
                           aria-label={`Primary accent ${c.name}`}
@@ -276,9 +234,8 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                       type="color"
                       value={displayBrand}
                       onChange={(e) => persistBrand(e.target.value.toLowerCase())}
-                      className={`h-10 w-14 cursor-pointer border bg-transparent p-0.5 shrink-0 ${
-                        isRetro ? "rounded-none border-[var(--border)]" : "rounded-lg border-[var(--border)]"
-                      }`}
+                      className={`h-10 w-14 cursor-pointer border bg-transparent p-0.5 shrink-0 ${isRetro ? "rounded-none border-[var(--border)]" : "rounded-lg border-[var(--border)]"
+                        }`}
                       aria-label="Custom primary accent color"
                     />
                     <span className="text-xs font-mono text-[var(--muted)] truncate">{displayBrand}</span>
@@ -296,9 +253,8 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                           type="button"
                           key={c.name}
                           onClick={() => persistAccent(c.value)}
-                          className={`w-full h-10 border transition-transform hover:scale-105 active:scale-95 shadow-sm ${presetRing(active)} ${
-                            isRetro ? "rounded-none" : "rounded-lg border-[var(--border)]"
-                          }`}
+                          className={`w-full h-10 border transition-transform hover:scale-105 active:scale-95 shadow-sm ${presetRing(active)} ${isRetro ? "rounded-none" : "rounded-lg border-[var(--border)]"
+                            }`}
                           style={{ backgroundColor: c.value }}
                           title={c.name}
                           aria-label={`Secondary accent ${c.name}`}
@@ -312,9 +268,8 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                       type="color"
                       value={displayAccent}
                       onChange={(e) => persistAccent(e.target.value.toLowerCase())}
-                      className={`h-10 w-14 cursor-pointer border bg-transparent p-0.5 shrink-0 ${
-                        isRetro ? "rounded-none border-[var(--border)]" : "rounded-lg border-[var(--border)]"
-                      }`}
+                      className={`h-10 w-14 cursor-pointer border bg-transparent p-0.5 shrink-0 ${isRetro ? "rounded-none border-[var(--border)]" : "rounded-lg border-[var(--border)]"
+                        }`}
                       aria-label="Custom secondary accent color"
                     />
                     <span className="text-xs font-mono text-[var(--muted)] truncate">{displayAccent}</span>
@@ -324,11 +279,10 @@ export const StyleCustomizer: React.FC<StyleCustomizerProps> = ({
                 <button
                   type="button"
                   onClick={resetStyles}
-                  className={`w-full flex items-center justify-center gap-2 py-2.5 border text-sm font-medium transition-colors ${
-                    isRetro
-                      ? "rounded-none border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-[var(--bg)]"
-                      : "rounded-xl bg-[var(--bg)] border-[var(--border)] text-[var(--muted)] hover:bg-[var(--surface)]"
-                  }`}
+                  className={`w-full flex items-center justify-center gap-2 py-2.5 border text-sm font-medium transition-colors ${isRetro
+                    ? "rounded-none border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] hover:bg-[var(--brand)] hover:text-[var(--bg)]"
+                    : "rounded-xl bg-[var(--bg)] border-[var(--border)] text-[var(--muted)] hover:bg-[var(--surface)]"
+                    }`}
                 >
                   <RefreshCw size={14} aria-hidden />
                   Reset to defaults

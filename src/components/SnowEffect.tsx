@@ -51,10 +51,10 @@ const SnowEffect: React.FC<SnowEffectProps> = ({ enabled }) => {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Adaptive color based on theme
-      // Dark mode: White
-      // Light mode: Soft Indigo/Slate for visibility against light background
-      ctx.fillStyle = dark ? "rgba(255, 255, 255, 0.8)" : "rgba(99, 102, 241, 0.4)";
+      // Adaptive color based on theme:
+      // - Dark mode: bright white flakes
+      // - Light mode: deeper slate-indigo for better contrast
+      ctx.fillStyle = dark ? "rgba(255, 255, 255, 0.82)" : "rgba(71, 85, 105, 0.72)";
 
       ctx.beginPath();
 
@@ -105,7 +105,7 @@ const SnowEffect: React.FC<SnowEffectProps> = ({ enabled }) => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-50"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: dark ? 0.6 : 0.9 }}
     />
   );
 };
