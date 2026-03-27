@@ -8,6 +8,10 @@ import {
   type VisitorLogEntry,
 } from "../utils/visitorAnalytics";
 
+const tableHeaders = ["Time", "Visitor Key", "IP", "Location", "Path", "Referrer", "Viewport", "Language", "Timezone", "User Agent"];
+
+const skeletonWidths = ["w-28", "w-24", "w-20", "w-32", "w-24", "w-36", "w-20", "w-16", "w-24", "w-40"];
+
 const VisitorLogsPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -83,6 +87,8 @@ const VisitorLogsPage: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const showTableSkeleton = loading && logs.length === 0;
+
   if (!auth) {
     return (
       <main className="min-h-screen px-4 py-20 flex items-center justify-center">
@@ -141,19 +147,24 @@ const VisitorLogsPage: React.FC = () => {
         <table className="w-full text-sm">
           <thead className="bg-[var(--bg)] border-b border-[var(--border)]">
             <tr className="text-left">
-              <th className="p-3">Time</th>
-              <th className="p-3">Visitor Key</th>
-              <th className="p-3">IP</th>
-              <th className="p-3">Location</th>
-              <th className="p-3">Path</th>
-              <th className="p-3">Referrer</th>
-              <th className="p-3">Viewport</th>
-              <th className="p-3">Language</th>
-              <th className="p-3">Timezone</th>
-              <th className="p-3">User Agent</th>
+              {tableHeaders.map((header) => (
+                <th key={header} className="p-3">
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
+            {showTableSkeleton &&
+              Array.from({ length: 6 }, (_, rowIndex) => (
+                <tr key={`skeleton-${rowIndex}`} className="border-b border-[var(--border)] align-top animate-pulse">
+                  {skeletonWidths.map((widthClass, cellIndex) => (
+                    <td key={`${rowIndex}-${cellIndex}`} className="p-3">
+                      <div className={`h-4 rounded bg-[color:color-mix(in_srgb,var(--border)_75%,transparent)] ${widthClass}`} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
             {logs.map((log) => (
               <tr key={log.id} className="border-b border-[var(--border)] align-top">
                 <td className="p-3 whitespace-nowrap">{new Date(log.ts).toLocaleString()}</td>
@@ -174,9 +185,9 @@ const VisitorLogsPage: React.FC = () => {
                 </td>
               </tr>
             ))}
-            {logs.length === 0 && (
+            {!showTableSkeleton && logs.length === 0 && (
               <tr>
-                <td className="p-6 text-[var(--muted)]" colSpan={10}>
+                <td className="p-6 text-[var(--muted)]" colSpan={tableHeaders.length}>
                   No logs yet.
                 </td>
               </tr>

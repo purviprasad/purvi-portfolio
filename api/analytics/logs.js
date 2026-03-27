@@ -2,6 +2,12 @@ import { ObjectId } from "mongodb";
 import { requireAdminAuth } from "../_lib/auth.js";
 import { getDb } from "../_lib/mongodb.js";
 
+function isRealVisitorLog(doc) {
+  const userAgent = typeof doc.userAgent === "string" ? doc.userAgent.toLowerCase() : "";
+  const hasBrowserContext = Boolean(doc.language && doc.viewport && doc.timezone);
+  return hasBrowserContext && !userAgent.includes("vercel");
+}
+
 function normalizeLog(doc) {
   return {
     id: doc._id instanceof ObjectId ? doc._id.toString() : String(doc._id),
@@ -31,8 +37,9 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     const rawLimit = Number(req.query.limit);
     const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? Math.min(rawLimit, 1000) : 500;
-    const docs = await collection.find({}).sort({ ts: -1 }).limit(limit).toArray();
-    return res.status(200).json({ logs: docs.map(normalizeLog) });
+    const docs = await collection.find({}).sort({ ts: -1 }).limit(limit * 3).toArray();
+    const filteredDocs = docs.filter(isRealVisitorLog).slice(0, limit);
+    return res.status(200).json({ logs: filteredDocs.map(normalizeLog) });
   }
 
   if (req.method === "DELETE") {

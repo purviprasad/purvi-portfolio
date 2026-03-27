@@ -1,6 +1,9 @@
 import { getDb } from "../_lib/mongodb.js";
 import crypto from "node:crypto";
 
+const VISITOR_SOURCE_HEADER = "x-visitor-source";
+const VISITOR_SOURCE_VALUE = "browser";
+
 function readClientIp(req) {
   const forwarded = req.headers["x-forwarded-for"];
   if (typeof forwarded === "string" && forwarded.length > 0) {
@@ -30,6 +33,21 @@ function buildVisitorKey(input) {
   return crypto.createHash("sha256").update(input).digest("hex").slice(0, 20);
 }
 
+function isTrustedBrowserVisit(req, payload) {
+  const source = sanitizeString(req.headers[VISITOR_SOURCE_HEADER], 32).toLowerCase();
+  if (source !== VISITOR_SOURCE_VALUE) return false;
+
+  const userAgent = sanitizeString(payload.userAgent, 2048).toLowerCase();
+  if (!userAgent || userAgent.includes("vercel")) return false;
+
+  const hasBrowserContext =
+    sanitizeString(payload.language, 64) &&
+    sanitizeString(payload.viewport, 64) &&
+    sanitizeString(payload.timezone, 128);
+
+  return Boolean(hasBrowserContext);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -38,6 +56,10 @@ export default async function handler(req, res) {
 
   try {
     const payload = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+    if (!isTrustedBrowserVisit(req, payload)) {
+      return res.status(202).json({ ignored: true });
+    }
+
     const db = await getDb();
     const collection = db.collection("visitor_logs");
     const ip = readClientIp(req);

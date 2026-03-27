@@ -59,7 +59,10 @@ export async function recordVisit(path: string): Promise<void> {
   try {
     await fetch("/api/analytics/visit", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-visitor-source": "browser",
+      },
       body: JSON.stringify(payload),
     });
   } catch {
