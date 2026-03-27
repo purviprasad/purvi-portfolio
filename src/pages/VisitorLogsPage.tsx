@@ -67,23 +67,24 @@ const VisitorLogsPage: React.FC = () => {
   const [logs, setLogs] = useState<VisitorLogEntry[]>([]);
   const [expandedGroups, setExpandedGroups] = useState<string[]>([]);
 
+  const loadLogs = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await fetchVisitorLogs();
+      setLogs(data);
+    } catch {
+      setError("Unable to fetch logs. Please login again.");
+      setAdminAuthenticated(false);
+      setAuth(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!auth) return;
-    const load = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const data = await fetchVisitorLogs();
-        setLogs(data);
-      } catch {
-        setError("Unable to fetch logs. Please login again.");
-        setAdminAuthenticated(false);
-        setAuth(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    void load();
+    void loadLogs();
   }, [auth]);
 
   const onLogin = async (e: React.FormEvent) => {
@@ -111,13 +112,12 @@ const VisitorLogsPage: React.FC = () => {
     setLoading(true);
     try {
       await clearVisitorLogs();
-      const fresh = await fetchVisitorLogs();
-      setLogs(fresh);
-      setError("");
+      await loadLogs();
     } catch {
       setError("Failed to clear logs.");
-    } finally {
       setLoading(false);
+    } finally {
+      setExpandedGroups([]);
     }
   };
 
@@ -180,6 +180,9 @@ const VisitorLogsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-[var(--text)]">Visitor Analytics Logs</h1>
         <div className="flex gap-2">
+          <button type="button" disabled={loading} onClick={() => void loadLogs()} className="px-3 py-2 rounded-lg border border-[var(--border)] disabled:opacity-60">
+            {loading ? "Refreshing..." : "Refresh Logs"}
+          </button>
           <button type="button" onClick={onExport} className="px-3 py-2 rounded-lg border border-[var(--border)]">
             Export JSON
           </button>
