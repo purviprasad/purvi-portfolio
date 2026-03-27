@@ -142,6 +142,9 @@ const VisitorLogsPage: React.FC = () => {
           <thead className="bg-[var(--bg)] border-b border-[var(--border)]">
             <tr className="text-left">
               <th className="p-3">Time</th>
+              <th className="p-3">Visitor Key</th>
+              <th className="p-3">IP</th>
+              <th className="p-3">Location</th>
               <th className="p-3">Path</th>
               <th className="p-3">Referrer</th>
               <th className="p-3">Viewport</th>
@@ -154,6 +157,11 @@ const VisitorLogsPage: React.FC = () => {
             {logs.map((log) => (
               <tr key={log.id} className="border-b border-[var(--border)] align-top">
                 <td className="p-3 whitespace-nowrap">{new Date(log.ts).toLocaleString()}</td>
+                <td className="p-3 font-mono text-xs whitespace-nowrap">{log.visitorKey || "-"}</td>
+                <td className="p-3 whitespace-nowrap">{log.ip || "-"}</td>
+                <td className="p-3 whitespace-nowrap">
+                  {[log.city, log.region, log.country].filter(Boolean).join(", ") || "unknown"}
+                </td>
                 <td className="p-3 whitespace-nowrap">{log.path}</td>
                 <td className="p-3 max-w-[220px] truncate" title={log.referrer}>
                   {log.referrer}
@@ -168,7 +176,7 @@ const VisitorLogsPage: React.FC = () => {
             ))}
             {logs.length === 0 && (
               <tr>
-                <td className="p-6 text-[var(--muted)]" colSpan={7}>
+                <td className="p-6 text-[var(--muted)]" colSpan={10}>
                   No logs yet.
                 </td>
               </tr>

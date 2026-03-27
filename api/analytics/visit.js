@@ -1,4 +1,5 @@
 import { getDb } from "../_lib/mongodb.js";
+import crypto from "node:crypto";
 
 function readClientIp(req) {
   const forwarded = req.headers["x-forwarded-for"];
@@ -15,6 +16,20 @@ function sanitizeString(input, maxLen) {
   return input.slice(0, maxLen);
 }
 
+function readGeo(req) {
+  return {
+    country: sanitizeString(req.headers["x-vercel-ip-country"], 64) || sanitizeString(req.headers["cf-ipcountry"], 64) || "unknown",
+    region: sanitizeString(req.headers["x-vercel-ip-country-region"], 128) || "unknown",
+    city: sanitizeString(req.headers["x-vercel-ip-city"], 128) || "unknown",
+    latitude: sanitizeString(req.headers["x-vercel-ip-latitude"], 64) || "",
+    longitude: sanitizeString(req.headers["x-vercel-ip-longitude"], 64) || "",
+  };
+}
+
+function buildVisitorKey(input) {
+  return crypto.createHash("sha256").update(input).digest("hex").slice(0, 20);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -25,16 +40,24 @@ export default async function handler(req, res) {
     const payload = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
     const db = await getDb();
     const collection = db.collection("visitor_logs");
+    const ip = readClientIp(req);
+    const geo = readGeo(req);
+    const userAgent = sanitizeString(payload.userAgent, 2048);
+    const language = sanitizeString(payload.language, 64);
+    const timezone = sanitizeString(payload.timezone, 128);
+    const visitorKey = buildVisitorKey(`${ip}|${userAgent}|${language}|${timezone}`);
 
     const doc = {
       ts: new Date(),
       path: sanitizeString(payload.path, 2048) || "/",
       referrer: sanitizeString(payload.referrer, 2048) || "direct",
-      userAgent: sanitizeString(payload.userAgent, 2048),
-      language: sanitizeString(payload.language, 64),
+      userAgent,
+      language,
       viewport: sanitizeString(payload.viewport, 64),
-      timezone: sanitizeString(payload.timezone, 128),
-      ip: readClientIp(req),
+      timezone,
+      ip,
+      ...geo,
+      visitorKey,
     };
 
     await collection.insertOne(doc);

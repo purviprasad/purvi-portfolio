@@ -13,6 +13,12 @@ function normalizeLog(doc) {
     viewport: doc.viewport || "",
     timezone: doc.timezone || "",
     ip: doc.ip || "unknown",
+    country: doc.country || "unknown",
+    region: doc.region || "unknown",
+    city: doc.city || "unknown",
+    latitude: doc.latitude || "",
+    longitude: doc.longitude || "",
+    visitorKey: doc.visitorKey || "",
   };
 }
 

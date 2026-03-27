@@ -8,6 +8,12 @@ export interface VisitorLogEntry {
   viewport: string;
   timezone: string;
   ip?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  latitude?: string;
+  longitude?: string;
+  visitorKey?: string;
 }
 
 const ADMIN_SESSION_KEY = "portfolio-visitor-admin-session";
