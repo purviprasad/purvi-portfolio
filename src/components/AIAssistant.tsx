@@ -62,13 +62,13 @@ export const AIAssistant: React.FC = () => {
 
       const lowerMsg = msg.toLowerCase();
       if (lowerMsg.includes("skill") || lowerMsg.includes("stack")) {
-        response = "Purvi's core stack includes React, Redux, Node.js, PostgreSQL, and Go. She's also an expert in designing Microservices and cloud infrastructure on AWS/Azure.";
+        response = "Purvi's core stack includes React, Redux, Node.js, Express, PostgreSQL, and MongoDB. She's also an expert in designing Microservices and cloud infrastructure on AWS/Azure.";
       } else if (lowerMsg.includes("apple")) {
         response = "At Apple, Purvi was a Specialist Programmer L2. She notably optimized a Go-based data generation pipeline, reducing memory usage from 12GB to 6GB (80%+ gain).";
       } else if (lowerMsg.includes("contact") || lowerMsg.includes("email")) {
         response = "You can reach her at purvisehgal5@gmail.com or through the LinkedIn link in the header. She's currently open to exciting new roles!";
       } else if (lowerMsg.includes("project")) {
-        response = "Her latest major project is PigB—an AI-powered financial dashboard built with Next.js and MongoDB. You can see it in the Projects section!";
+        response = "Her latest major projects include PSUI—a headless, themeable React component library—and PigB—an AI-powered financial dashboard built with Next.js and MongoDB. You can see them in the Projects section!";
       }
 
       setMessages((prev) => [...prev, { role: "ai", text: response }]);
@@ -87,8 +87,8 @@ export const AIAssistant: React.FC = () => {
         onClick={() => setIsOpen(true)}
         aria-label="Open quick answers about Purvi"
         className={`fixed bottom-[12.5rem] right-6 z-50 w-14 h-14 transition-all flex items-center justify-center group border ${isRetro
-            ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]"
-            : "rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_48px_rgba(0,0,0,0.3)] border-[var(--border)]/20"
+          ? "rounded-none border-2 border-[var(--brand)] bg-[var(--bg)] text-[var(--brand)] shadow-[0_0_15px_var(--brand)]"
+          : "rounded-2xl bg-gradient-to-br from-[var(--brand)] to-[var(--accent)] text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_48px_rgba(0,0,0,0.3)] border-[var(--border)]/20"
           }`}
       >
         <MessageSquare size={24} className="group-hover:rotate-12 transition-transform" />
@@ -105,8 +105,8 @@ export const AIAssistant: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 50, filter: "blur(10px)" }}
             className={`fixed z-[60] inset-x-3 bottom-28 max-sm:max-h-[min(70dvh,520px)] sm:inset-x-auto sm:left-auto sm:right-6 sm:bottom-[12.5rem] md:right-28 w-auto sm:w-[min(420px,calc(100vw-3rem))] h-[min(70dvh,550px)] sm:h-[550px] bg-[var(--surface)]/95 border flex flex-col overflow-hidden backdrop-blur-2xl transition-all ${isRetro
-                ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]"
-                : "rounded-[2.5rem] border-[var(--border)] shadow-2xl ring-1 ring-[var(--border)]/50"
+              ? "rounded-none border-2 border-[var(--brand)] shadow-[0_0_30px_var(--brand)]"
+              : "rounded-[2.5rem] border-[var(--border)] shadow-2xl ring-1 ring-[var(--border)]/50"
               }`}
           >
             {/* Header */}

@@ -1,9 +1,7 @@
 import { animate, motion } from "framer-motion";
 import type { Personal } from "../types/portfolio";
-import * as SiIcons from "react-icons/si";
-import * as VscIcons from "react-icons/vsc";
-import * as Fa6Icons from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { getIconByName } from "../utils/iconRegistry";
 
 export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
   const text = personal.name.split("");
@@ -125,14 +123,7 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
           </div>
           <div className="mt-3 flex gap-5 text-[var(--muted)]">
             {personal?.contact?.socials?.map((social, index) => {
-              type BrandIcon = React.ComponentType<{
-                className?: string;
-                size?: number;
-              }>;
-              const Icon =
-                (SiIcons[social.icon as keyof typeof SiIcons] as BrandIcon) ||
-                (VscIcons[social.icon as keyof typeof VscIcons] as BrandIcon) ||
-                (Fa6Icons[social.icon as keyof typeof Fa6Icons] as BrandIcon);
+              const Icon = getIconByName(social.icon);
               return (
                 <a
                   key={social.label + index}

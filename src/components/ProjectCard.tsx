@@ -3,11 +3,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { tagColors } from "../config/portfolioData";
 import type { Project } from "../types/portfolio";
-import * as SiIcons from "react-icons/si";
-import * as FaIcons from "react-icons/fa";
-import * as VscIcons from "react-icons/vsc";
-import * as Fa6Icons from "react-icons/fa6";
+import { FaLink } from "react-icons/fa";
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
+import { getIconByName } from "../utils/iconRegistry";
 
 export const ProjectCard: React.FC<{
   project: Project;
@@ -17,8 +15,6 @@ export const ProjectCard: React.FC<{
 
   // how many tags to show before "+x"
   const VISIBLE_COUNT = 3;
-
-  const FaLink = FaIcons["FaLink" as keyof typeof FaIcons];
 
   const visibleTags = showAll
     ? project?.tags
@@ -106,12 +102,7 @@ export const ProjectCard: React.FC<{
             {project.links &&
               project.links.length > 0 &&
               project.links.map((link) => {
-                type LinkIcon = React.ComponentType<{ className?: string }>;
-                const Icon =
-                  (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
-                  (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
-                  (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
-                  (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
+                const Icon = getIconByName(link.icon);
                 return (
                   <a
                     key={link.label}

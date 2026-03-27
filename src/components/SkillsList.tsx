@@ -1,10 +1,9 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { SkillGroup } from "../types/portfolio";
-import * as SiIcons from "react-icons/si";
-import * as VscIcons from "react-icons/vsc";
-import * as Fa6Icons from "react-icons/fa6";
 import { SkillCircle } from "./SkillCircle";
+import { getIconByName } from "../utils/iconRegistry";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 export const SkillsList: React.FC<{
   skills?: SkillGroup[];
@@ -159,11 +158,7 @@ export const SkillsList: React.FC<{
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-5">
                   {groupSkills.map((s) => {
-                    type SkillIcon = React.ComponentType<{ className?: string }>;
-                    const Icon =
-                      (SiIcons[s.icon as keyof typeof SiIcons] as SkillIcon) ||
-                      (VscIcons[s.icon as keyof typeof VscIcons] as SkillIcon) ||
-                      (Fa6Icons[s.icon as keyof typeof Fa6Icons] as SkillIcon);
+                    const Icon = getIconByName(s.icon);
                     return (
                       <motion.div
                         key={s.name}
@@ -242,7 +237,7 @@ export const SkillsList: React.FC<{
             className="flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--border)]/30 text-[var(--text)] transition"
             aria-expanded={expanded}
           >
-            {expanded ? <Fa6Icons.FaChevronUp size={16} /> : <Fa6Icons.FaChevronDown size={16} />}
+            {expanded ? <FaChevronUp size={16} /> : <FaChevronDown size={16} />}
             <span className="text-sm">
               {expanded ? "Show less" : "Show more"}
             </span>

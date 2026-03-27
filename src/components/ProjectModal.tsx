@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import * as SiIcons from "react-icons/si";
-import * as FaIcons from "react-icons/fa";
-import * as VscIcons from "react-icons/vsc";
-import * as Fa6Icons from "react-icons/fa6";
+import { FaLink } from "react-icons/fa";
+import { VscCopy } from "react-icons/vsc";
 import remarkGfm from "remark-gfm";
 import type { Project } from "../types/portfolio";
 import { tagColors } from "../config/portfolioData";
 import { useTheme } from "../context/ThemeContext";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { Spinner } from "./shared/Spinner";
+import { getIconByName } from "../utils/iconRegistry";
 
 const ReactMarkdown = React.lazy(() => import("react-markdown"));
 
@@ -47,8 +46,6 @@ export const ProjectModal: React.FC<{
   );
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
-
-  const FaLink = FaIcons["FaLink" as keyof typeof FaIcons];
 
   // Reset state when modal opens
   useEffect(() => {
@@ -265,14 +262,7 @@ export const ProjectModal: React.FC<{
                             </a>
                           )}
                           {project.links.map((link) => {
-                            type LinkIcon = React.ComponentType<{
-                              className?: string;
-                            }>;
-                            const Icon =
-                              (SiIcons[link.icon as keyof typeof SiIcons] as LinkIcon) ??
-                              (FaIcons[link.icon as keyof typeof FaIcons] as LinkIcon) ??
-                              (VscIcons[link.icon as keyof typeof VscIcons] as LinkIcon) ??
-                              (Fa6Icons[link.icon as keyof typeof Fa6Icons] as LinkIcon);
+                            const Icon = getIconByName(link.icon);
                             return (
                               <a
                                 key={link.label}
@@ -341,7 +331,7 @@ export const ProjectModal: React.FC<{
                                     className="p-1 hover:bg-[var(--brand)]/10 rounded transition-colors text-[var(--muted)] hover:text-[var(--brand)]"
                                     title="Copy Username"
                                   >
-                                    <VscIcons.VscCopy size={14} />
+                                    <VscCopy size={14} />
                                   </button>
                                 </div>
                               </div>
@@ -361,7 +351,7 @@ export const ProjectModal: React.FC<{
                                     className="p-1 hover:bg-[var(--brand)]/10 rounded transition-colors text-[var(--muted)] hover:text-[var(--brand)]"
                                     title="Copy Password"
                                   >
-                                    <VscIcons.VscCopy size={14} />
+                                    <VscCopy size={14} />
                                   </button>
                                 </div>
                               </div>

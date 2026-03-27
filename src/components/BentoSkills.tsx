@@ -2,11 +2,10 @@ import React, { useMemo } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { motion } from "framer-motion";
 import { PORTFOLIO_INFO } from "../config/portfolioData";
-import * as SiIcons from "react-icons/si";
-import * as VscIcons from "react-icons/vsc";
-import * as Fa6Icons from "react-icons/fa6";
+import { SiNodedotjs, SiReact, SiTypescript } from "react-icons/si";
 import { Sparkles, Database, Layout, Terminal } from "lucide-react";
 import type { Skill } from "../types/portfolio";
+import { getIconByName } from "../utils/iconRegistry";
 
 function SkillGlyph({
   icon,
@@ -17,12 +16,7 @@ function SkillGlyph({
   size?: number;
   className?: string;
 }) {
-  if (!icon) return null;
-  type IconComp = React.ComponentType<{ size?: number; className?: string }>;
-  const Cmp =
-    (SiIcons[icon as keyof typeof SiIcons] as IconComp | undefined) ||
-    (VscIcons[icon as keyof typeof VscIcons] as IconComp | undefined) ||
-    (Fa6Icons[icon as keyof typeof Fa6Icons] as IconComp | undefined);
+  const Cmp = getIconByName(icon);
   if (!Cmp) return null;
   return <Cmp size={size} className={className} />;
 }
@@ -58,7 +52,7 @@ export const BentoSkills: React.FC = () => {
       >
         <div className="flex justify-between items-start">
           <div className="p-3 rounded-2xl bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] text-[var(--accent)]">
-            <SiIcons.SiReact size={32} />
+            <SiReact size={32} />
           </div>
           <Sparkles className="text-[var(--accent)] animate-pulse" size={20} />
         </div>
@@ -81,7 +75,7 @@ export const BentoSkills: React.FC = () => {
       >
         <div className="flex items-center gap-4">
           <div className="p-2 rounded-xl bg-[color-mix(in_srgb,var(--brand)_18%,transparent)] text-[var(--brand)]">
-            {userRole === 'recruiter' ? <SiIcons.SiNodedotjs size={24} /> : <Database size={24} />}
+            {userRole === 'recruiter' ? <SiNodedotjs size={24} /> : <Database size={24} />}
           </div>
           <h3 className="text-xl font-bold text-[var(--text)]">
             {userRole === 'recruiter' ? 'Production Impact' : 'Data Modeling'}
@@ -117,7 +111,7 @@ export const BentoSkills: React.FC = () => {
         whileHover={{ y: -5 }}
         className="bento-item col-span-1"
       >
-        <SiIcons.SiTypescript className="text-[var(--accent)] mb-2" size={20} />
+        <SiTypescript className="text-[var(--accent)] mb-2" size={20} />
         <span className="text-base font-bold block text-[var(--text)]">TypeScript</span>
         <p className="text-sm leading-relaxed text-[var(--text)]/78 mt-1">
           {tsSkill?.note ?? "Typed React and Node surfaces in production."}

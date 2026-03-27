@@ -5,9 +5,9 @@ import { LuMapPinHouse } from "react-icons/lu";
 import { FaFileDownload } from "react-icons/fa";
 import { TbWorldWww } from "react-icons/tb";
 import { IoPhonePortrait } from "react-icons/io5";
-import * as SiIcons from "react-icons/si";
 import { PORTFOLIO_INFO } from "../../config/portfolioData";
 import type { DateRange, Portfolio } from "../../types/portfolio";
+import { getIconByName } from "../../utils/iconRegistry";
 
 export const Resume: React.FC<{ className?: string }> = ({
   className = "",
@@ -99,7 +99,7 @@ export const Resume: React.FC<{ className?: string }> = ({
           {contact.socials && contact.socials.length > 0 && (
             <div className="flex items-center justify-end gap-3 flex-wrap">
               {contact.socials.map((s) => {
-                const Icon = SiIcons[s.icon as keyof typeof SiIcons];
+                const Icon = getIconByName(s.icon);
                 return (
                   <a
                     key={s.label}
