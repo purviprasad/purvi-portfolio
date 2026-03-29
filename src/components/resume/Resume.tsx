@@ -44,9 +44,9 @@ export const Resume: React.FC<{ className?: string }> = ({
       id="resume-print-area"
     >
       {/* Header */}
-      <header className="flex items-start justify-between gap-4">
+      <header className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             {personal.name}
           </h1>
           {personal.title && (
@@ -59,9 +59,9 @@ export const Resume: React.FC<{ className?: string }> = ({
           )}
         </div>
 
-        <div className="text-sm text-right space-y-1">
+        <div className="text-sm text-left sm:text-right space-y-1">
           {contact.email && (
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-start sm:justify-end gap-2">
               <IoIosMail size={16} />
               <a href={`mailto:${contact.email}`} className="underline">
                 {contact.email}
@@ -70,14 +70,14 @@ export const Resume: React.FC<{ className?: string }> = ({
           )}
 
           {contact.phone && (
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-start sm:justify-end gap-2">
               <IoPhonePortrait size={16} />
               <span>{contact.phone}</span>
             </div>
           )}
 
           {contact.website && (
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-start sm:justify-end gap-2">
               <TbWorldWww size={16} />
               <a
                 href={contact.website}
@@ -91,14 +91,14 @@ export const Resume: React.FC<{ className?: string }> = ({
           )}
 
           {contact.location && (
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-start sm:justify-end gap-2">
               <LuMapPinHouse size={16} />
               <span>{contact.location}</span>
             </div>
           )}
 
           {contact.socials && contact.socials.length > 0 && (
-            <div className="flex items-center justify-end gap-3 flex-wrap">
+            <div className="flex items-center justify-start sm:justify-end gap-3 flex-wrap">
               {contact.socials.map((s) => {
                 const Icon = getIconByName(s.icon);
                 return (

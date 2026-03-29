@@ -8,6 +8,7 @@ import { AuroraBackground } from "./components/shared/AuroraBackground";
 import { MouseGlow } from "./components/shared/MouseGlow";
 import { ClickRipple } from "./components/shared/ClickRipple";
 import VisitorAnalyticsTracker from "./components/VisitorAnalyticsTracker";
+import { ScrollToTop } from "./components/shared/ScrollToTop";
 
 const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
 const ResumePage = lazy(() => import("./pages/ResumePage"));
@@ -75,6 +76,7 @@ const App: React.FC = () => {
                   <Route path="/__visitor-logs" element={<VisitorLogsPage />} />
                 </Routes>
               </Suspense>
+              <ScrollToTop />
             </div>
           </div>
         </Router>

@@ -11,7 +11,6 @@ import { About } from "../components/About";
 import type { Project } from "../types/portfolio";
 import { ProjectModal } from "../components/ProjectModal";
 import { ScrollProgressBar } from "../components/shared/ScrollProgressBar";
-import { ScrollToTop } from "../components/shared/ScrollToTop";
 import CLIResume from "../components/CLIResume";
 import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
@@ -189,7 +188,6 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
           </div>
         </section>
       </main>
-      <ScrollToTop />
       <Footer />
 
       <ProjectModal

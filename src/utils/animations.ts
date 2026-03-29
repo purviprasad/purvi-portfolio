@@ -1,12 +1,9 @@
 import React from "react";
 
-export const triggerDownloadAnimation = (e: React.MouseEvent) => {
-  // Prevent any default clicks if needed, though typically download links
-  // will work just fine unless we call preventDefault
-  
-  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-  const startX = rect.left + rect.width / 2;
-  const startY = rect.top + rect.height / 2;
+/** Center point of the element that “throws” the flying file icon (px, viewport). */
+export function triggerDownloadFlyFromPoint(centerX: number, centerY: number) {
+  const startX = centerX;
+  const startY = centerY;
 
   // Create an SVG file icon
   const icon = document.createElement("div");
@@ -44,4 +41,9 @@ export const triggerDownloadAnimation = (e: React.MouseEvent) => {
   animation.onfinish = () => {
     icon.remove();
   };
+}
+
+export const triggerDownloadAnimation = (e: React.MouseEvent) => {
+  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+  triggerDownloadFlyFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
 };
