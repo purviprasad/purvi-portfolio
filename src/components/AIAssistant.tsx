@@ -58,11 +58,13 @@ export const AIAssistant: React.FC = () => {
 
     // Simulate thinking
     setTimeout(() => {
-      let response = "That's a great question! Purvi is a Senior Full-Stack Engineer specializing in React, Node.js, and scaling high-performance systems.";
+      let response =
+        "That's a great question! Purvi is a Senior Engineer focused on MERN full-stack delivery and applied AI—React, Node.js, LangChain, RAG, and LLM integrations alongside scalable backends.";
 
       const lowerMsg = msg.toLowerCase();
       if (lowerMsg.includes("skill") || lowerMsg.includes("stack")) {
-        response = "Purvi's core stack includes React, Redux, Node.js, Express, PostgreSQL, and MongoDB. She's also an expert in designing Microservices and cloud infrastructure on AWS/Azure.";
+        response =
+          "Purvi's stack spans MERN (React, Redux, Node.js, Express, MongoDB) plus PostgreSQL and SQL. On the AI side she works with LangChain, RAG, LLMs, vector stores, and integrating model APIs into apps—alongside microservices and AWS/Azure where projects need them.";
       } else if (lowerMsg.includes("apple")) {
         response = "At Apple, Purvi was a Specialist Programmer L2. She notably optimized a Go-based data generation pipeline, reducing memory usage from 12GB to 6GB (80%+ gain).";
       } else if (lowerMsg.includes("contact") || lowerMsg.includes("email")) {

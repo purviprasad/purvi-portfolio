@@ -54,10 +54,10 @@ export const About: React.FC<{ personal: Personal }> = ({ personal }) => {
 
         <div className="mt-6 text-md dark:prose-invert max-w-none text-[var(--text)]/85">
           <p>
-            With a solid understanding of front-end and back-end development, I am skilled in creating responsive UIs, developing efficient APIs, and optimizing database performance. I excel in collaborating with cross-functional teams and thrive in fast-paced environments. Constantly up-to-date with emerging technologies, I am passionate about delivering high-quality code and exceeding project expectations.
+            I am a MERN full-stack engineer who ships responsive UIs, efficient REST and Node/Express APIs, and thoughtful database design—from PostgreSQL and MySQL to MongoDB. I am expanding into applied AI: LangChain, RAG, LLM integrations, and vector-store retrieval layered on the same stack.
           </p>
           <p>
-            I enjoy shipping scalable and meaningful features and improving UX.
+            I collaborate well across disciplines, keep pace with a changing toolchain, and care about scalable features, clear UX, and production-quality code.
           </p>
         </div>
 

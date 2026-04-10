@@ -58,12 +58,12 @@ export const BentoSkills: React.FC = () => {
         </div>
         <div>
           <h3 className="text-xl font-bold mt-4 text-[var(--text)]">
-            {userRole === 'recruiter' ? 'Enterprise Engineering' : 'Full-Stack Architecture'}
+            {userRole === "recruiter" ? "Enterprise & applied AI" : "MERN + applied AI"}
           </h3>
           <p className="text-sm leading-relaxed text-[var(--text)]/82 mt-2">
             {userRole === "recruiter"
-              ? "Production-grade web apps for Apple and Verizon: React frontends, Node/Express services, PostgreSQL, and clear ownership from design through release."
-              : "End-to-end TypeScript-aware React apps, Node.js and Express APIs, PostgreSQL-backed services, and patterns that stay maintainable as teams grow."}
+              ? "Production web apps for Apple and Verizon on React and Node/Express, plus growing applied-AI work: LangChain, RAG, LLM integrations, and vector retrieval—owned from design through release."
+              : "MERN-style delivery with TypeScript-aware React, Node/Express APIs, and PostgreSQL—extended with LangChain, RAG, and vector-store patterns for LLM-powered features."}
           </p>
         </div>
       </motion.div>
@@ -83,8 +83,8 @@ export const BentoSkills: React.FC = () => {
         </div>
         <p className="text-sm leading-relaxed text-[var(--text)]/82 mt-2">
           {userRole === "recruiter"
-            ? "Re-architected data-generation pipelines (including Go → Node with delta filtering) for leaner memory use and more reliable runs—plus schema and query work in PostgreSQL."
-            : "PostgreSQL for relational modeling, indexing, and performance tuning alongside Node services and migrations across MySQL and MongoDB where projects need them."}
+            ? "Re-architected data-generation pipelines (including Go → Node with delta filtering) for leaner memory use—plus PostgreSQL schema work and retrieval-friendly data shapes for RAG and analytics."
+            : "PostgreSQL and SQL for relational modeling and performance; MongoDB where document models fit; embeddings and vector indexes when building retrieval and RAG flows."}
         </p>
       </motion.div>
 
@@ -132,8 +132,8 @@ export const BentoSkills: React.FC = () => {
           Also in the toolkit
         </h4>
         <p className="text-sm leading-relaxed text-[var(--text)]/80 mb-3 max-w-3xl">
-          Express APIs, Redux / RTK, micro frontends (Module Federation), observability (Splunk), and CI with
-          Jenkins—aligned with what ships in client engagements and personal products.
+          Express APIs, Redux / RTK, PostgreSQL, micro frontends (Module Federation), LangChain and RAG patterns,
+          Splunk observability, and Jenkins CI—what ships in client work and side projects.
         </p>
         <div className="flex flex-wrap gap-2">
           {toolkitPreview.map((s: Skill) => (

@@ -12,6 +12,7 @@ import type { Project } from "../types/portfolio";
 import { ProjectModal } from "../components/ProjectModal";
 import { ScrollProgressBar } from "../components/shared/ScrollProgressBar";
 import CLIResume from "../components/CLIResume";
+import { FloatingResumeFile } from "../components/resume/FloatingResumeFile";
 import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
 import { AwardsList } from "../components/AwardsList";
@@ -53,6 +54,9 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
       />
       {/* CLI panel (docked / overlay) */}
       <CLIResume open={showCLI} onClose={() => setShowCLI(false)} />
+      <FloatingResumeFile
+        pdfHref={PORTFOLIO_INFO.meta?.pdf ?? "/PURVI_SEHGAL_RESUME.pdf"}
+      />
 
       <main className="max-w-6xl 2xl:max-w-9xl mx-auto px-6 py-10 relative">
         <section
@@ -123,7 +127,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
         <section id="skills" className="py-12">
           <SectionHeading
             title="Core Stack & Capabilities"
-            subtitle="How I ship full-stack work—React and Node in production, data stores, and the tooling around reliable releases"
+            subtitle="MERN production systems plus applied AI—LangChain, RAG, LLMs, vector stores—and the tooling that keeps releases reliable"
             glitch={isRetro}
           />
           <BentoSkills />
