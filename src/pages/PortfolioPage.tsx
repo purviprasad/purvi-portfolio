@@ -17,6 +17,7 @@ import { ExperienceTimeline } from "../components/ExperienceTimeline";
 import { EXPERIENCE } from "../config/experienceData";
 import { AwardsList } from "../components/AwardsList";
 import { BentoSkills } from "../components/BentoSkills";
+import { CalendarBookingButton } from "../components/CalendarBookingButton";
 
 
 interface PortfolioPageProps {
@@ -175,6 +176,12 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ isSnowEnabled, onToggleSn
                 </div>
                 <div className="text-sm text-[var(--muted)]">
                   Location: Remote
+                </div>
+              </div>
+              <div className="mt-2">
+                <div className="text-sm font-medium">Appointment booking</div>
+                <div className="mt-2">
+                  <CalendarBookingButton />
                 </div>
               </div>
               <div className="mt-auto">

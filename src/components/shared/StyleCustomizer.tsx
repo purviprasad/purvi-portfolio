@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const STORAGE_BRAND = "portfolio-ui-brand";
 const STORAGE_ACCENT = "portfolio-ui-accent";
+const BRAND_CHANGE_EVENT = "portfolio:brand-change";
 
 const BRAND_PRESETS = [
   { name: "Indigo", value: "#6366f1" },
@@ -82,6 +83,12 @@ export const StyleCustomizer: React.FC = () => {
   useLayoutEffect(() => {
     if (brandCustom) document.documentElement.style.setProperty("--brand", brandCustom);
     else document.documentElement.style.removeProperty("--brand");
+
+    window.dispatchEvent(
+      new CustomEvent(BRAND_CHANGE_EVENT, {
+        detail: { brand: brandCustom },
+      })
+    );
   }, [brandCustom]);
 
   useLayoutEffect(() => {
